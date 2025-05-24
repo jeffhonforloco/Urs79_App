@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from '@/contexts/AuthContext';
 import { MatchProvider } from '@/contexts/MatchContext';
 import LandingPage from '@/components/LandingPage';
@@ -51,9 +51,7 @@ const Index = () => {
   return (
     <AuthProvider>
       <MatchProvider>
-        <Router>
-          <AppContent />
-        </Router>
+        <AppContent />
       </MatchProvider>
     </AuthProvider>
   );
