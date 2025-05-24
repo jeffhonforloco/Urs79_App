@@ -1,13 +1,61 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider } from '@/contexts/AuthContext';
+import { MatchProvider } from '@/contexts/MatchContext';
+import LandingPage from '@/components/LandingPage';
+import AuthPage from '@/components/AuthPage';
+import Dashboard from '@/components/Dashboard';
+import SwipeScreen from '@/components/SwipeScreen';
+import ChatScreen from '@/components/ChatScreen';
+import ProfileScreen from '@/components/ProfileScreen';
+import PremiumScreen from '@/components/PremiumScreen';
+import Navigation from '@/components/Navigation';
+import { useAuth } from '@/contexts/AuthContext';
+
+const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+  const { user } = useAuth();
+  return user ? <>{children}</> : <Navigate to="/auth" />;
+};
+
+const AppContent = () => {
+  const { user } = useAuth();
+
+  if (!user) {
+    return (
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/auth" element={<AuthPage />} />
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-pink-50">
+      <Navigation />
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/swipe" element={<SwipeScreen />} />
+        <Route path="/chat" element={<ChatScreen />} />
+        <Route path="/chat/:matchId" element={<ChatScreen />} />
+        <Route path="/profile" element={<ProfileScreen />} />
+        <Route path="/premium" element={<PremiumScreen />} />
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+    </div>
+  );
+};
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
-      </div>
-    </div>
+    <AuthProvider>
+      <MatchProvider>
+        <Router>
+          <AppContent />
+        </Router>
+      </MatchProvider>
+    </AuthProvider>
   );
 };
 
