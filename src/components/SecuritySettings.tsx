@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -11,9 +10,9 @@ import { toast } from 'sonner';
 
 const SecuritySettings = () => {
   const { user, updateProfile } = useAuth();
-  const [twoFactorEnabled, setTwoFactorEnabled] = useState(user?.twoFactorEnabled || false);
-  const [incognitoMode, setIncognitoMode] = useState(user?.incognitoMode || false);
-  const [photoProtection, setPhotoProtection] = useState(user?.photoProtection || true);
+  const [twoFactorEnabled, setTwoFactorEnabled] = useState<boolean>(user?.twoFactorEnabled || false);
+  const [incognitoMode, setIncognitoMode] = useState<boolean>(user?.incognitoMode || false);
+  const [photoProtection, setPhotoProtection] = useState<boolean>(user?.photoProtection || true);
 
   const handleTwoFactorToggle = () => {
     const newValue = !twoFactorEnabled;
