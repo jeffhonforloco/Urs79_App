@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { toast } from 'sonner';
 
@@ -24,6 +23,8 @@ interface User {
   creatorMode?: boolean;
   subscriptionPrice?: number;
   verificationPending?: boolean;
+  // Relationship intent
+  relationshipIntent?: 'long-term' | 'short-term' | 'friends-with-benefits' | 'hookups' | 'exploring';
 }
 
 interface AuthContextType {

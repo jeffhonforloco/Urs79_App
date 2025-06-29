@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -12,6 +13,7 @@ import { toast } from 'sonner';
 import CasualModeSettings from './CasualModeSettings';
 import CreatorModeSettings from './CreatorModeSettings';
 import SecuritySettings from './SecuritySettings';
+import RelationshipIntent from './RelationshipIntent';
 
 const ProfileScreen = () => {
   const { user, updateProfile } = useAuth();
@@ -86,6 +88,9 @@ const ProfileScreen = () => {
         </TabsList>
 
         <TabsContent value="profile" className="space-y-6">
+          {/* Relationship Intent */}
+          <RelationshipIntent />
+
           {/* Profile Photos */}
           <Card>
             <CardHeader>
