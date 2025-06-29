@@ -23,9 +23,9 @@ const Navigation = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
             <img 
-              src="/lovable-uploads/e9a765be-fbd7-4cb2-9e68-e5d1575f4780.png" 
+              src="/lovable-uploads/41c0b1d3-ffef-40d9-855d-f7f3eb9e0882.png" 
               alt="URS79 Logo" 
-              className="w-8 h-8 object-contain"
+              className="w-10 h-10 object-contain"
             />
             <span className="text-xl font-bold bg-gradient-to-r from-orange-500 to-pink-500 bg-clip-text text-transparent">
               URS79

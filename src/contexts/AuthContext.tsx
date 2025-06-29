@@ -14,6 +14,16 @@ interface User {
   verified?: boolean;
   isPremium?: boolean;
   createdAt: Date;
+  // Enhanced security features
+  ageVerified?: boolean;
+  twoFactorEnabled?: boolean;
+  incognitoMode?: boolean;
+  photoProtection?: boolean;
+  // Optional mode features
+  casualMode?: boolean;
+  creatorMode?: boolean;
+  subscriptionPrice?: number;
+  verificationPending?: boolean;
 }
 
 interface AuthContextType {
