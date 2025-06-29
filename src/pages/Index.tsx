@@ -11,6 +11,7 @@ import ChatScreen from '@/components/ChatScreen';
 import ProfileScreen from '@/components/ProfileScreen';
 import PremiumScreen from '@/components/PremiumScreen';
 import CasualModeScreen from '@/components/CasualModeScreen';
+import CreatorDashboard from '@/components/CreatorDashboard';
 import Navigation from '@/components/Navigation';
 import { useAuth } from '@/contexts/AuthContext';
 
@@ -43,6 +44,7 @@ const AppContent = () => {
         <Route path="/profile" element={<ProfileScreen />} />
         <Route path="/premium" element={<PremiumScreen />} />
         <Route path="/casual" element={<CasualModeScreen />} />
+        <Route path="/creator-dashboard" element={<CreatorDashboard />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </div>

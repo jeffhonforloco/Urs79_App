@@ -29,6 +29,11 @@ interface User {
   creatorMode?: boolean;
   subscriptionPrice?: number;
   verificationPending?: boolean;
+  // Creator mode features
+  payToDmEnabled?: boolean;
+  payToDmPrice?: number;
+  tipEnabled?: boolean;
+  unlockMediaEnabled?: boolean;
   // Relationship intent
   relationshipIntent?: 'long-term' | 'short-term' | 'friends-with-benefits' | 'hookups' | 'exploring';
 }
