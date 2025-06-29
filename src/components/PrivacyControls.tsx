@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
@@ -11,10 +10,10 @@ import { toast } from 'sonner';
 
 const PrivacyControls = () => {
   const { user, updateProfile } = useAuth();
-  const [profileBlurred, setProfileBlurred] = useState(user?.profileBlurred || false);
-  const [messageApproval, setMessageApproval] = useState(user?.messageApproval || false);
-  const [screenshotBlocking, setScreenshotBlocking] = useState(user?.screenshotBlocking || true);
-  const [invisibleMode, setInvisibleMode] = useState(user?.invisibleMode || false);
+  const [profileBlurred, setProfileBlurred] = useState<boolean>(user?.profileBlurred || false);
+  const [messageApproval, setMessageApproval] = useState<boolean>(user?.messageApproval || false);
+  const [screenshotBlocking, setScreenshotBlocking] = useState<boolean>(user?.screenshotBlocking || true);
+  const [invisibleMode, setInvisibleMode] = useState<boolean>(user?.invisibleMode || false);
 
   const handleProfileBlurToggle = () => {
     const newValue = !profileBlurred;
