@@ -2,8 +2,9 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { useAuth } from '@/contexts/AuthContext';
-import { Home, Heart, MessageCircle, User, Flame } from 'lucide-react';
+import { Home, Heart, MessageCircle, User, Flame, AlertTriangle } from 'lucide-react';
 
 const Navigation = () => {
   const { user, logout } = useAuth();
@@ -37,23 +38,41 @@ const Navigation = () => {
             </span>
           </Link>
 
+          {/* Age Verification Warning */}
+          {!user?.ageVerified && (
+            <div className="hidden md:flex items-center">
+              <Badge className="bg-red-100 text-red-800 border-red-300">
+                <AlertTriangle className="w-3 h-3 mr-1" />
+                Age Verification Required
+              </Badge>
+            </div>
+          )}
+
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => {
               const Icon = item.icon;
               const isActive = location.pathname === item.path;
+              const isRestricted = (item.path === '/casual') && !user?.ageVerified;
+              
               return (
                 <Link
                   key={item.path}
-                  to={item.path}
+                  to={isRestricted ? '/profile' : item.path}
                   className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
                     isActive
                       ? 'text-orange-600 bg-orange-50'
+                      : isRestricted
+                      ? 'text-gray-400 cursor-not-allowed'
                       : 'text-gray-700 hover:text-orange-600 hover:bg-orange-50'
                   }`}
+                  onClick={isRestricted ? (e) => e.preventDefault() : undefined}
                 >
                   <Icon className="w-4 h-4" />
                   <span>{item.label}</span>
+                  {isRestricted && (
+                    <AlertTriangle className="w-3 h-3 text-red-500" />
+                  )}
                 </Link>
               );
             })}
@@ -79,17 +98,27 @@ const Navigation = () => {
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = location.pathname === item.path;
+            const isRestricted = (item.path === '/casual') && !user?.ageVerified;
+            
             return (
               <Link
                 key={item.path}
-                to={item.path}
+                to={isRestricted ? '/profile' : item.path}
                 className={`flex flex-col items-center justify-center py-3 px-2 ${
                   isActive
                     ? 'text-orange-600 bg-orange-50'
+                    : isRestricted
+                    ? 'text-gray-400'
                     : 'text-gray-600'
                 }`}
+                onClick={isRestricted ? (e) => e.preventDefault() : undefined}
               >
-                <Icon className="w-5 h-5 mb-1" />
+                <div className="relative">
+                  <Icon className="w-5 h-5 mb-1" />
+                  {isRestricted && (
+                    <AlertTriangle className="w-3 h-3 text-red-500 absolute -top-1 -right-1" />
+                  )}
+                </div>
                 <span className="text-xs">{item.label}</span>
               </Link>
             );

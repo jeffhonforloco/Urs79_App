@@ -1,3 +1,4 @@
+
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { toast } from 'sonner';
 
@@ -18,6 +19,11 @@ interface User {
   twoFactorEnabled?: boolean;
   incognitoMode?: boolean;
   photoProtection?: boolean;
+  // Privacy controls
+  profileBlurred?: boolean;
+  messageApproval?: boolean;
+  screenshotBlocking?: boolean;
+  invisibleMode?: boolean;
   // Optional mode features
   casualMode?: boolean;
   creatorMode?: boolean;
@@ -77,6 +83,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         verified: true,
         isPremium: false,
         createdAt: new Date(),
+        // Initialize security defaults
+        ageVerified: false,
+        twoFactorEnabled: false,
+        photoProtection: true,
+        screenshotBlocking: true,
+        profileBlurred: false,
+        messageApproval: false,
       };
       
       setUser(mockUser);
@@ -103,11 +116,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         verified: false,
         isPremium: false,
         createdAt: new Date(),
+        // Initialize security defaults for new users
+        ageVerified: false,
+        twoFactorEnabled: false,
+        photoProtection: true,
+        screenshotBlocking: true,
+        profileBlurred: false,
+        messageApproval: false,
       };
       
       setUser(mockUser);
       localStorage.setItem('urs79_user', JSON.stringify(mockUser));
-      toast.success('Welcome to URS79! Complete your profile to start matching.');
+      toast.success('Welcome to URS79! Please verify your age to access all features.');
     } catch (error) {
       toast.error('Registration failed. Please try again.');
       throw error;
