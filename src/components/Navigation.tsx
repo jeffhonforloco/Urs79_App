@@ -3,7 +3,7 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
-import { Home, Heart, MessageCircle, User, Settings } from 'lucide-react';
+import { Home, Heart, MessageCircle, User, Flame } from 'lucide-react';
 
 const Navigation = () => {
   const { user, logout } = useAuth();
@@ -15,6 +15,11 @@ const Navigation = () => {
     { path: '/chat', icon: MessageCircle, label: 'Chat' },
     { path: '/profile', icon: User, label: 'Profile' },
   ];
+
+  // Add Casual Mode for verified users who have it enabled
+  if (user?.casualMode && user?.ageVerified) {
+    navItems.splice(2, 0, { path: '/casual', icon: Flame, label: 'Casual' });
+  }
 
   return (
     <nav className="bg-white shadow-sm border-b">
@@ -70,7 +75,7 @@ const Navigation = () => {
 
       {/* Mobile Navigation */}
       <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t z-50">
-        <div className="grid grid-cols-4 gap-1">
+        <div className={`grid gap-1 ${navItems.length === 5 ? 'grid-cols-5' : 'grid-cols-4'}`}>
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = location.pathname === item.path;
