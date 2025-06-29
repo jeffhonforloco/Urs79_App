@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -13,7 +12,7 @@ import { toast } from 'sonner';
 const CreatorModeSettings = () => {
   const { user, updateProfile } = useAuth();
   const [creatorModeEnabled, setCreatorModeEnabled] = useState(user?.creatorMode || false);
-  const [subscriptionPrice, setSubscriptionPrice] = useState(user?.subscriptionPrice || '');
+  const [subscriptionPrice, setSubscriptionPrice] = useState(user?.subscriptionPrice?.toString() || '');
   const [showVerificationWarning, setShowVerificationWarning] = useState(false);
 
   const handleToggleCreatorMode = () => {
