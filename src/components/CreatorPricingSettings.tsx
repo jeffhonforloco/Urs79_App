@@ -12,7 +12,7 @@ import { toast } from 'sonner';
 const CreatorPricingSettings: React.FC = () => {
   const { user, updateProfile } = useAuth();
   const [subscriptionPrice, setSubscriptionPrice] = useState(user?.subscriptionPrice?.toString() || '');
-  const [tipEnabled, setTipEnabled] = useState(user?.tipEnabled || true);
+  const [tipEnabled, setTipEnabled] = useState<boolean>(user?.tipEnabled || true);
 
   const handlePriceUpdate = () => {
     const price = parseFloat(subscriptionPrice);
