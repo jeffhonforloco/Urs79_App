@@ -1,10 +1,14 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useAuth } from '@/contexts/AuthContext';
+import ContentScheduler from './ContentScheduler';
+import MediaVault from './MediaVault';
+import TippingHistory from './TippingHistory';
+import PayoutSettings from './PayoutSettings';
+import EnhancedChatSettings from './EnhancedChatSettings';
 import { 
   DollarSign, 
   Eye, 
@@ -14,7 +18,9 @@ import {
   Download,
   Star,
   MessageCircle,
-  Lock
+  Lock,
+  Upload,
+  Wallet
 } from 'lucide-react';
 
 const CreatorDashboard = () => {
@@ -139,11 +145,14 @@ const CreatorDashboard = () => {
       </div>
 
       <Tabs defaultValue="analytics" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid w-full grid-cols-7">
           <TabsTrigger value="analytics">Analytics</TabsTrigger>
-          <TabsTrigger value="earnings">Earnings</TabsTrigger>
           <TabsTrigger value="content">Content</TabsTrigger>
-          <TabsTrigger value="fans">Fans</TabsTrigger>
+          <TabsTrigger value="schedule">Schedule</TabsTrigger>
+          <TabsTrigger value="vault">Vault</TabsTrigger>
+          <TabsTrigger value="earnings">Earnings</TabsTrigger>
+          <TabsTrigger value="payouts">Payouts</TabsTrigger>
+          <TabsTrigger value="chat">Chat</TabsTrigger>
         </TabsList>
 
         <TabsContent value="analytics" className="space-y-6">
@@ -205,57 +214,6 @@ const CreatorDashboard = () => {
           </div>
         </TabsContent>
 
-        <TabsContent value="earnings" className="space-y-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between">
-                <CardTitle>Available Balance</CardTitle>
-                <Button onClick={handleWithdraw} className="bg-green-600 hover:bg-green-700">
-                  <Download className="w-4 h-4 mr-2" />
-                  Withdraw
-                </Button>
-              </CardHeader>
-              <CardContent>
-                <div className="text-center">
-                  <p className="text-3xl font-bold text-green-600 mb-2">
-                    ${dashboardData.monthlyEarnings}
-                  </p>
-                  <p className="text-sm text-gray-600">
-                    Next payout: Every Friday
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Recent Transactions</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  {dashboardData.recentTransactions.map((transaction) => (
-                    <div key={transaction.id} className="flex items-center justify-between">
-                      <div>
-                        <div className="flex items-center space-x-2">
-                          {transaction.type === 'subscription' && <Users className="w-4 h-4 text-purple-600" />}
-                          {transaction.type === 'tip' && <Star className="w-4 h-4 text-orange-600" />}
-                          {transaction.type === 'pay-per-view' && <Eye className="w-4 h-4 text-blue-600" />}
-                          {transaction.type === 'pay-to-dm' && <MessageCircle className="w-4 h-4 text-green-600" />}
-                          <span className="text-sm capitalize">{transaction.type.replace('-', ' ')}</span>
-                        </div>
-                        <p className="text-xs text-gray-500">{transaction.date}</p>
-                      </div>
-                      <span className="font-semibold text-green-600">
-                        +${transaction.amount}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </TabsContent>
-
         <TabsContent value="content" className="space-y-6">
           <Card>
             <CardHeader>
@@ -263,7 +221,7 @@ const CreatorDashboard = () => {
             </CardHeader>
             <CardContent>
               <div className="text-center py-8">
-                <Lock className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+                <Upload className="w-16 h-16 text-gray-400 mx-auto mb-4" />
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">Content Management</h3>
                 <p className="text-gray-600 mb-4">
                   Create and manage your free, subscriber-only, and pay-per-view content
@@ -276,24 +234,24 @@ const CreatorDashboard = () => {
           </Card>
         </TabsContent>
 
-        <TabsContent value="fans" className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Fan Management</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-center py-8">
-                <Users className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Fan Analytics</h3>
-                <p className="text-gray-600 mb-4">
-                  View detailed analytics about your subscribers and fans
-                </p>
-                <Button variant="outline">
-                  View Fan Details
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+        <TabsContent value="schedule" className="space-y-6">
+          <ContentScheduler />
+        </TabsContent>
+
+        <TabsContent value="vault" className="space-y-6">
+          <MediaVault />
+        </TabsContent>
+
+        <TabsContent value="earnings" className="space-y-6">
+          <TippingHistory />
+        </TabsContent>
+
+        <TabsContent value="payouts" className="space-y-6">
+          <PayoutSettings />
+        </TabsContent>
+
+        <TabsContent value="chat" className="space-y-6">
+          <EnhancedChatSettings />
         </TabsContent>
       </Tabs>
     </div>

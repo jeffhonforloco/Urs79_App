@@ -6,12 +6,17 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useMatch } from '@/contexts/MatchContext';
-import { Send, Timer, ArrowLeft, Heart } from 'lucide-react';
+import { useAuth } from '@/contexts/AuthContext';
+import { Send, Timer, ArrowLeft, Heart, Lock, DollarSign, Shield } from 'lucide-react';
+import { toast } from 'sonner';
 
 const ChatScreen = () => {
   const { matchId } = useParams();
   const { matches, messages, sendMessage } = useMatch();
+  const { user } = useAuth();
   const [newMessage, setNewMessage] = useState('');
+  const [isUnlockMessage, setIsUnlockMessage] = useState(false);
+  const [unlockPrice, setUnlockPrice] = useState('2.99');
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -21,6 +26,26 @@ const ChatScreen = () => {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  const handleUnlockMessage = (messageId: string) => {
+    // Simulate unlocking a message
+    toast.success('Message unlocked!');
+    console.log('Unlocking message:', messageId);
+  };
+
+  const handleSendMessage = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (newMessage.trim()) {
+      if (isUnlockMessage) {
+        // Send as locked message
+        console.log('Sending locked message with unlock price:', unlockPrice);
+        toast.success('Locked message sent! Fans can tip to unlock.');
+      }
+      sendMessage(matchId!, newMessage.trim());
+      setNewMessage('');
+      setIsUnlockMessage(false);
+    }
+  };
 
   // If no specific match is selected, show match list
   if (!matchId) {
@@ -126,14 +151,6 @@ const ChatScreen = () => {
   const isQuickMatch = match.isQuickMatch && match.quickMatchEndsAt && new Date(match.quickMatchEndsAt) > new Date();
   const timeLeft = isQuickMatch ? Math.max(0, Math.floor((new Date(match.quickMatchEndsAt!).getTime() - new Date().getTime()) / 1000)) : 0;
 
-  const handleSendMessage = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (newMessage.trim()) {
-      sendMessage(matchId, newMessage.trim());
-      setNewMessage('');
-    }
-  };
-
   return (
     <div className="max-w-2xl mx-auto px-4 py-4 pb-20 md:pb-8">
       {/* Chat Header */}
@@ -161,6 +178,12 @@ const ChatScreen = () => {
                 )}
               </div>
             </div>
+            {user?.creatorMode && (
+              <Badge className="bg-purple-100 text-purple-800">
+                <Shield className="w-3 h-3 mr-1" />
+                Creator
+              </Badge>
+            )}
           </div>
         </CardHeader>
       </Card>
@@ -197,7 +220,26 @@ const ChatScreen = () => {
                       : 'bg-gray-200 text-gray-900'
                   }`}
                 >
-                  <p>{message.content}</p>
+                  {/* Simulate locked message */}
+                  {message.content.includes('🔒') ? (
+                    <div className="space-y-2">
+                      <div className="flex items-center space-x-2">
+                        <Lock className="w-4 h-4" />
+                        <span className="text-sm">Locked Message</span>
+                      </div>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => handleUnlockMessage(message.id)}
+                        className="w-full"
+                      >
+                        <DollarSign className="w-3 h-3 mr-1" />
+                        Unlock for $2.99
+                      </Button>
+                    </div>
+                  ) : (
+                    <p>{message.content}</p>
+                  )}
                   <p className={`text-xs mt-1 ${
                     message.senderId === 'current-user' ? 'text-white/70' : 'text-gray-500'
                   }`}>
@@ -211,7 +253,34 @@ const ChatScreen = () => {
         </CardContent>
 
         {/* Message Input */}
-        <div className="border-t p-4">
+        <div className="border-t p-4 space-y-3">
+          {user?.creatorMode && (
+            <div className="flex items-center space-x-2">
+              <input
+                type="checkbox"
+                id="unlock-message"
+                checked={isUnlockMessage}
+                onChange={(e) => setIsUnlockMessage(e.target.checked)}
+                className="rounded"
+              />
+              <label htmlFor="unlock-message" className="text-sm text-gray-600 flex items-center">
+                <Lock className="w-3 h-3 mr-1" />
+                Send as locked message
+              </label>
+              {isUnlockMessage && (
+                <Input
+                  type="number"
+                  min="0.99"
+                  step="0.01"
+                  value={unlockPrice}
+                  onChange={(e) => setUnlockPrice(e.target.value)}
+                  className="w-20 h-8 text-sm"
+                  placeholder="2.99"
+                />
+              )}
+            </div>
+          )}
+          
           <form onSubmit={handleSendMessage} className="flex space-x-2">
             <Input
               value={newMessage}
