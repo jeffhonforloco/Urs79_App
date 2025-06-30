@@ -36,6 +36,10 @@ interface User {
   unlockMediaEnabled?: boolean;
   // Relationship intent
   relationshipIntent?: 'long-term' | 'short-term' | 'friends-with-benefits' | 'hookups' | 'exploring';
+  // Onboarding
+  onboardingCompleted?: boolean;
+  creatorModeInterested?: boolean;
+  casualModeInterested?: boolean;
 }
 
 interface AuthContextType {
@@ -95,6 +99,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         screenshotBlocking: true,
         profileBlurred: false,
         messageApproval: false,
+        // Onboarding defaults
+        onboardingCompleted: false,
       };
       
       setUser(mockUser);
@@ -128,11 +134,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         screenshotBlocking: true,
         profileBlurred: false,
         messageApproval: false,
+        // Onboarding defaults
+        onboardingCompleted: false,
       };
       
       setUser(mockUser);
       localStorage.setItem('urs79_user', JSON.stringify(mockUser));
-      toast.success('Welcome to URS79! Please verify your age to access all features.');
+      toast.success('Welcome to URS79! Let\'s set up your profile.');
     } catch (error) {
       toast.error('Registration failed. Please try again.');
       throw error;

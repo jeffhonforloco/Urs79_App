@@ -5,6 +5,7 @@ import { AuthProvider } from '@/contexts/AuthContext';
 import { MatchProvider } from '@/contexts/MatchContext';
 import LandingPage from '@/components/LandingPage';
 import AuthPage from '@/components/AuthPage';
+import OnboardingFlow from '@/components/OnboardingFlow';
 import Dashboard from '@/components/Dashboard';
 import SwipeScreen from '@/components/SwipeScreen';
 import ChatScreen from '@/components/ChatScreen';
@@ -31,6 +32,11 @@ const AppContent = () => {
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     );
+  }
+
+  // Show onboarding for new users without relationship intent
+  if (!user.relationshipIntent || !user.onboardingCompleted) {
+    return <OnboardingFlow />;
   }
 
   return (

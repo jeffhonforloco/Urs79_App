@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useAuth } from '@/contexts/AuthContext';
-import { Camera, Plus, X, Check, Settings, Shield, Heart, Star } from 'lucide-react';
+import { Camera, Plus, X, Check, Settings, Shield, Heart, Star, User, Flame } from 'lucide-react';
 import { toast } from 'sonner';
 import CasualModeSettings from './CasualModeSettings';
 import CreatorModeSettings from './CreatorModeSettings';
@@ -60,31 +60,83 @@ const ProfileScreen = () => {
     toast.success('Profile verification submitted! We\'ll review it within 24 hours.');
   };
 
+  const getTabCount = () => {
+    let count = 2; // Profile and Security are always available
+    if (user?.ageVerified) count++; // Casual mode
+    if (user?.ageVerified && user?.verified) count++; // Creator mode
+    return count;
+  };
+
+  const getTabClassName = (context: string) => {
+    const baseClass = "flex items-center space-x-2 relative";
+    switch (context) {
+      case 'dating':
+        return `${baseClass} data-[state=active]:border-b-2 data-[state=active]:border-blue-500`;
+      case 'casual':
+        return `${baseClass} data-[state=active]:border-b-2 data-[state=active]:border-orange-500`;
+      case 'creator':
+        return `${baseClass} data-[state=active]:border-b-2 data-[state=active]:border-purple-500`;
+      default:
+        return baseClass;
+    }
+  };
+
   return (
     <div className="max-w-4xl mx-auto px-4 py-8 pb-20 md:pb-8">
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-gray-900 mb-2">My Profile</h1>
         <p className="text-gray-600">Manage your profile, security, and optional features</p>
+        
+        {/* User Status Badges */}
+        <div className="flex flex-wrap gap-2 mt-4">
+          {user?.verified && (
+            <Badge className="bg-blue-100 text-blue-800">
+              <Shield className="w-3 h-3 mr-1" />
+              Verified
+            </Badge>
+          )}
+          {user?.ageVerified && (
+            <Badge className="bg-green-100 text-green-800">
+              18+ Verified
+            </Badge>
+          )}
+          {user?.casualMode && (
+            <Badge className="bg-orange-100 text-orange-800">
+              <Flame className="w-3 h-3 mr-1" />
+              Casual Mode
+            </Badge>
+          )}
+          {user?.creatorMode && (
+            <Badge className="bg-purple-100 text-purple-800">
+              <Star className="w-3 h-3 mr-1" />
+              Creator Mode
+            </Badge>
+          )}
+        </div>
       </div>
 
       <Tabs defaultValue="profile" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-4">
-          <TabsTrigger value="profile" className="flex items-center space-x-2">
-            <Check className="w-4 h-4" />
+        <TabsList className={`grid w-full grid-cols-${getTabCount()}`}>
+          <TabsTrigger value="profile" className={getTabClassName('dating')}>
+            <User className="w-4 h-4 text-blue-600" />
             <span>Profile</span>
           </TabsTrigger>
-          <TabsTrigger value="security" className="flex items-center space-x-2">
-            <Shield className="w-4 h-4" />
+          <TabsTrigger value="security" className={getTabClassName('dating')}>
+            <Shield className="w-4 h-4 text-gray-600" />
             <span>Security</span>
           </TabsTrigger>
-          <TabsTrigger value="casual" className="flex items-center space-x-2">
-            <Heart className="w-4 h-4" />
-            <span>Casual</span>
-          </TabsTrigger>
-          <TabsTrigger value="creator" className="flex items-center space-x-2">
-            <Star className="w-4 h-4" />
-            <span>Creator</span>
-          </TabsTrigger>
+          {user?.ageVerified && (
+            <TabsTrigger value="casual" className={getTabClassName('casual')}>
+              <Heart className="w-4 h-4 text-orange-600" />
+              <span>Casual</span>
+            </TabsTrigger>
+          )}
+          {user?.ageVerified && user?.verified && (
+            <TabsTrigger value="creator" className={getTabClassName('creator')}>
+              <Star className="w-4 h-4 text-purple-600" />
+              <span>Creator</span>
+            </TabsTrigger>
+          )}
         </TabsList>
 
         <TabsContent value="profile" className="space-y-6">
@@ -92,9 +144,12 @@ const ProfileScreen = () => {
           <RelationshipIntent />
 
           {/* Profile Photos */}
-          <Card>
+          <Card className="border-l-4 border-l-blue-500">
             <CardHeader>
-              <CardTitle>Photos</CardTitle>
+              <CardTitle className="flex items-center">
+                <Camera className="w-5 h-5 mr-2 text-blue-600" />
+                Photos
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-3 gap-4 mb-4">
@@ -128,7 +183,7 @@ const ProfileScreen = () => {
           </Card>
 
           {/* Basic Information */}
-          <Card>
+          <Card className="border-l-4 border-l-blue-500">
             <CardHeader>
               <div className="flex items-center justify-between">
                 <CardTitle>Basic Information</CardTitle>
@@ -198,7 +253,7 @@ const ProfileScreen = () => {
           </Card>
 
           {/* Interests */}
-          <Card>
+          <Card className="border-l-4 border-l-blue-500">
             <CardHeader>
               <CardTitle>Interests</CardTitle>
             </CardHeader>
@@ -240,7 +295,7 @@ const ProfileScreen = () => {
           </Card>
 
           {/* Verification */}
-          <Card>
+          <Card className="border-l-4 border-l-green-500">
             <CardHeader>
               <CardTitle>Profile Verification</CardTitle>
             </CardHeader>
@@ -269,16 +324,26 @@ const ProfileScreen = () => {
         </TabsContent>
 
         <TabsContent value="security">
-          <SecuritySettings />
+          <div className="border-l-4 border-l-gray-500 pl-1">
+            <SecuritySettings />
+          </div>
         </TabsContent>
 
-        <TabsContent value="casual">
-          <CasualModeSettings />
-        </TabsContent>
+        {user?.ageVerified && (
+          <TabsContent value="casual">
+            <div className="border-l-4 border-l-orange-500 pl-1">
+              <CasualModeSettings />
+            </div>
+          </TabsContent>
+        )}
 
-        <TabsContent value="creator">
-          <CreatorModeSettings />
-        </TabsContent>
+        {user?.ageVerified && user?.verified && (
+          <TabsContent value="creator">
+            <div className="border-l-4 border-l-purple-500 pl-1">
+              <CreatorModeSettings />
+            </div>
+          </TabsContent>
+        )}
       </Tabs>
     </div>
   );
