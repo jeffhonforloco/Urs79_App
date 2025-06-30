@@ -12,13 +12,13 @@ import {
   Star, 
   Menu, 
   X, 
-  LogOut, 
-  Settings,
+  LogOut,
   Flame,
   TrendingUp,
   AlertTriangle,
   Shield,
-  Crown
+  Crown,
+  Bell
 } from 'lucide-react';
 
 const Navigation = () => {
@@ -37,35 +37,40 @@ const Navigation = () => {
       path: '/', 
       icon: Home, 
       label: 'Home',
-      color: 'text-blue-600',
+      color: 'text-white',
+      bgColor: 'bg-blue-500/20',
       context: 'dating'
     },
     { 
       path: '/swipe', 
       icon: Heart, 
       label: 'Discover',
-      color: 'text-pink-600',
+      color: 'text-white',
+      bgColor: 'bg-pink-500/20',
       context: 'dating'
     },
     { 
       path: '/chat', 
       icon: MessageCircle, 
       label: 'Chat',
-      color: 'text-green-600',
+      color: 'text-white',
+      bgColor: 'bg-green-500/20',
       context: 'dating'
     },
     { 
       path: '/profile', 
       icon: User, 
       label: 'Profile',
-      color: 'text-gray-600',
+      color: 'text-white',
+      bgColor: 'bg-gray-500/20',
       context: 'dating'
     },
     { 
       path: '/premium', 
       icon: Star, 
       label: 'Premium',
-      color: 'text-yellow-600',
+      color: 'text-white',
+      bgColor: 'bg-yellow-500/20',
       context: 'dating'
     },
   ];
@@ -76,7 +81,8 @@ const Navigation = () => {
       path: '/casual', 
       icon: Flame, 
       label: 'Casual',
-      color: 'text-orange-600',
+      color: 'text-white',
+      bgColor: 'bg-orange-500/20',
       context: 'casual'
     });
   }
@@ -86,17 +92,18 @@ const Navigation = () => {
       path: '/creator-dashboard', 
       icon: TrendingUp, 
       label: 'Creator',
-      color: 'text-purple-600',
+      color: 'text-white',
+      bgColor: 'bg-purple-500/20',
       context: 'creator'
     });
   }
 
-  const getContextColor = (context: string) => {
+  const getContextGradient = (context: string) => {
     switch (context) {
-      case 'dating': return 'border-l-blue-500';
-      case 'casual': return 'border-l-orange-500';
-      case 'creator': return 'border-l-purple-500';
-      default: return 'border-l-gray-500';
+      case 'dating': return 'from-blue-500 to-pink-500';
+      case 'casual': return 'from-orange-500 to-red-500';
+      case 'creator': return 'from-purple-500 to-blue-500';
+      default: return 'from-gray-500 to-gray-600';
     }
   };
 
@@ -105,27 +112,27 @@ const Navigation = () => {
     
     if (user?.isPremium) {
       badges.push(
-        <Badge key="premium" className="bg-yellow-100 text-yellow-800 flex items-center space-x-1">
-          <Crown className="w-3 h-3" />
-          <span>Premium</span>
+        <Badge key="premium" className="bg-gradient-to-r from-yellow-400 to-orange-400 text-black font-semibold border-0">
+          <Crown className="w-3 h-3 mr-1" />
+          Premium
         </Badge>
       );
     }
     
     if (user?.verified) {
       badges.push(
-        <Badge key="verified" className="bg-blue-100 text-blue-800 flex items-center space-x-1">
-          <Shield className="w-3 h-3" />
-          <span>Verified</span>
+        <Badge key="verified" className="bg-gradient-to-r from-blue-400 to-cyan-400 text-white font-semibold border-0">
+          <Shield className="w-3 h-3 mr-1" />
+          Verified
         </Badge>
       );
     }
     
     if (user?.creatorMode) {
       badges.push(
-        <Badge key="creator" className="bg-purple-100 text-purple-800 flex items-center space-x-1">
-          <Star className="w-3 h-3" />
-          <span>Creator</span>
+        <Badge key="creator" className="bg-gradient-to-r from-purple-400 to-pink-400 text-white font-semibold border-0">
+          <Star className="w-3 h-3 mr-1" />
+          Creator
         </Badge>
       );
     }
@@ -134,86 +141,168 @@ const Navigation = () => {
   };
 
   return (
-    <nav className="bg-white border-b shadow-sm">
-      <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-        <Link to="/" className="text-xl font-semibold text-gray-900">
-          URS79
-        </Link>
-
-        {/* Mobile Menu Button */}
-        <div className="md:hidden">
-          <Button variant="ghost" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </Button>
-        </div>
-
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center space-x-6">
-          <div className="flex items-center space-x-4">
-            {navItems.map((item) => (
-              <Link
-                key={item.label}
-                to={item.path}
-                className={`flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-gray-100 border-l-2 ${getContextColor(item.context)} ${location.pathname === item.path ? 'bg-gray-100 font-medium' : ''}`}
-              >
-                <item.icon className={`w-5 h-5 ${item.color}`} />
-                <span className="text-gray-700">{item.label}</span>
-              </Link>
-            ))}
-          </div>
-          
-          <div className="flex items-center space-x-3">
-            {getUserBadges()}
-            
-            {user?.verificationPending && (
-              <Badge className="bg-orange-100 text-orange-800 flex items-center space-x-1">
-                <AlertTriangle className="w-3 h-3" />
-                <span>Verification Pending</span>
-              </Badge>
-            )}
-            
-            <Button variant="outline" onClick={handleLogout} size="sm">
-              <LogOut className="w-4 h-4 mr-2" />
-              Logout
-            </Button>
+    <>
+      {/* Mobile Bottom Navigation */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 safe-bottom">
+        <div className="glass-dark rounded-t-3xl border-t border-white/10 px-6 py-4">
+          <div className="flex justify-around items-center">
+            {navItems.slice(0, 5).map((item) => {
+              const isActive = location.pathname === item.path;
+              const Icon = item.icon;
+              return (
+                <Link
+                  key={item.label}
+                  to={item.path}
+                  className={`flex flex-col items-center space-y-1 p-2 rounded-2xl transition-all duration-300 ${
+                    isActive 
+                      ? `bg-gradient-to-r ${getContextGradient(item.context)} shadow-lg scale-110` 
+                      : 'hover:bg-white/10'
+                  }`}
+                >
+                  <Icon className={`w-5 h-5 ${isActive ? 'text-white' : 'text-white/70'}`} />
+                  <span className={`text-xs font-medium ${isActive ? 'text-white' : 'text-white/70'}`}>
+                    {item.label}
+                  </span>
+                </Link>
+              );
+            })}
           </div>
         </div>
-      </div>
+      </nav>
 
-      {/* Mobile Menu */}
-      {isMenuOpen && (
-        <div className="md:hidden bg-gray-50 border-t">
-          <div className="flex flex-col space-y-2 px-4 py-4">
-            {navItems.map((item) => (
-              <Link
-                key={item.label}
-                to={item.path}
-                className={`flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-gray-100 border-l-2 ${getContextColor(item.context)} ${location.pathname === item.path ? 'bg-gray-100 font-medium' : ''}`}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                <item.icon className={`w-5 h-5 ${item.color}`} />
-                <span className="text-gray-700">{item.label}</span>
-              </Link>
-            ))}
-            
-            <div className="flex flex-wrap gap-2 mt-4">
-              {getUserBadges()}
-              {user?.verificationPending && (
-                <Badge className="bg-orange-100 text-orange-800 flex items-center space-x-1">
-                  <AlertTriangle className="w-3 h-3" />
-                  <span>Verification Pending</span>
-                </Badge>
-              )}
+      {/* Desktop Header */}
+      <nav className="hidden md:block sticky top-0 z-40 glass-dark border-b border-white/10">
+        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+          <Link to="/" className="flex items-center space-x-3">
+            <img 
+              src="/lovable-uploads/e9a765be-fbd7-4cb2-9e68-e5d1575f4780.png" 
+              alt="URS79" 
+              className="w-8 h-8 object-contain"
+            />
+            <span className="text-2xl font-bold bg-gradient-to-r from-white to-pink-200 bg-clip-text text-transparent">
+              URS79
+            </span>
+          </Link>
+
+          <div className="flex items-center space-x-6">
+            <div className="flex items-center space-x-4">
+              {navItems.map((item) => {
+                const isActive = location.pathname === item.path;
+                const Icon = item.icon;
+                return (
+                  <Link
+                    key={item.label}
+                    to={item.path}
+                    className={`flex items-center space-x-2 px-4 py-2 rounded-2xl transition-all duration-300 ${
+                      isActive 
+                        ? `bg-gradient-to-r ${getContextGradient(item.context)} text-white shadow-lg` 
+                        : 'text-white/70 hover:text-white hover:bg-white/10'
+                    }`}
+                  >
+                    <Icon className="w-5 h-5" />
+                    <span className="font-medium">{item.label}</span>
+                  </Link>
+                );
+              })}
             </div>
             
-            <Button variant="outline" onClick={handleLogout} className="w-full justify-center mt-4">
-              <LogOut className="w-4 h-4 mr-2" />
-              Logout
-            </Button>
+            <div className="flex items-center space-x-3">
+              <Button variant="ghost" size="sm" className="text-white/70 hover:text-white hover:bg-white/10 p-2">
+                <Bell className="w-5 h-5" />
+              </Button>
+              
+              {getUserBadges()}
+              
+              {user?.verificationPending && (
+                <Badge className="bg-gradient-to-r from-orange-400 to-red-400 text-white font-semibold border-0">
+                  <AlertTriangle className="w-3 h-3 mr-1" />
+                  Pending
+                </Badge>
+              )}
+              
+              <Button 
+                onClick={handleLogout} 
+                className="btn-secondary text-sm"
+              >
+                <LogOut className="w-4 h-4 mr-2" />
+                Logout
+              </Button>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      {/* Mobile Menu Button */}
+      <div className="md:hidden fixed top-6 right-6 z-50 safe-top">
+        <Button 
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white/20"
+        >
+          {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+        </Button>
+      </div>
+
+      {/* Mobile Side Menu */}
+      {isMenuOpen && (
+        <div className="md:hidden fixed inset-0 z-40">
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setIsMenuOpen(false)} />
+          <div className="absolute top-0 right-0 w-80 h-full glass-dark border-l border-white/10 p-6 safe-top">
+            <div className="flex items-center justify-between mb-8 mt-16">
+              <div className="flex items-center space-x-3">
+                <img 
+                  src="/lovable-uploads/e9a765be-fbd7-4cb2-9e68-e5d1575f4780.png" 
+                  alt="URS79" 
+                  className="w-8 h-8 object-contain"
+                />
+                <span className="text-xl font-bold text-white">URS79</span>
+              </div>
+            </div>
+            
+            <div className="space-y-3 mb-8">
+              {navItems.map((item) => {
+                const isActive = location.pathname === item.path;
+                const Icon = item.icon;
+                return (
+                  <Link
+                    key={item.label}
+                    to={item.path}
+                    onClick={() => setIsMenuOpen(false)}
+                    className={`flex items-center space-x-3 p-4 rounded-2xl transition-all duration-300 ${
+                      isActive 
+                        ? `bg-gradient-to-r ${getContextGradient(item.context)} text-white` 
+                        : 'text-white/70 hover:text-white hover:bg-white/10'
+                    }`}
+                  >
+                    <Icon className="w-5 h-5" />
+                    <span className="font-medium">{item.label}</span>
+                  </Link>
+                );
+              })}
+            </div>
+            
+            <div className="space-y-4">
+              <div className="flex flex-wrap gap-2">
+                {getUserBadges()}
+                {user?.verificationPending && (
+                  <Badge className="bg-gradient-to-r from-orange-400 to-red-400 text-white font-semibold border-0">
+                    <AlertTriangle className="w-3 h-3 mr-1" />
+                    Pending
+                  </Badge>
+                )}
+              </div>
+              
+              <Button 
+                onClick={handleLogout} 
+                className="w-full btn-secondary justify-center"
+              >
+                <LogOut className="w-4 h-4 mr-2" />
+                Logout
+              </Button>
+            </div>
           </div>
         </div>
       )}
-    </nav>
+    </>
   );
 };
 

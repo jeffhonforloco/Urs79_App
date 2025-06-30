@@ -40,19 +40,28 @@ const AppContent = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-pink-50">
-      <Navigation />
-      <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/swipe" element={<SwipeScreen />} />
-        <Route path="/chat" element={<ChatScreen />} />
-        <Route path="/chat/:matchId" element={<ChatScreen />} />
-        <Route path="/profile" element={<ProfileScreen />} />
-        <Route path="/premium" element={<PremiumScreen />} />
-        <Route path="/casual" element={<CasualModeScreen />} />
-        <Route path="/creator-dashboard" element={<CreatorDashboard />} />
-        <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
+    <div className="min-h-screen bg-black text-white">
+      {/* Background gradient */}
+      <div className="fixed inset-0 gradient-primary opacity-20"></div>
+      <div className="fixed inset-0 bg-black/80"></div>
+      
+      {/* Content */}
+      <div className="relative z-10">
+        <Navigation />
+        <main className="pb-24 md:pb-8">
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/swipe" element={<SwipeScreen />} />
+            <Route path="/chat" element={<ChatScreen />} />
+            <Route path="/chat/:matchId" element={<ChatScreen />} />
+            <Route path="/profile" element={<ProfileScreen />} />
+            <Route path="/premium" element={<PremiumScreen />} />
+            <Route path="/casual" element={<CasualModeScreen />} />
+            <Route path="/creator-dashboard" element={<CreatorDashboard />} />
+            <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
+        </main>
+      </div>
     </div>
   );
 };
