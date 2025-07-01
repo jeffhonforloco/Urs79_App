@@ -1,117 +1,159 @@
-import React from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
-import { useMatch } from '@/contexts/MatchContext';
-import { cn } from '@/lib/utils';
-import { 
-  Heart, 
-  User, 
-  MessageCircle, 
-  Timer, 
-  Zap, 
-  Crown,
-  Settings
-} from 'lucide-react';
+import { Home, Users, Settings, Shield } from 'lucide-react';
+
+interface NavItem {
+  path: string;
+  label: string;
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  adminOnly?: boolean;
+}
 
 const Navigation = () => {
   const { user } = useAuth();
-  const location = useLocation();
-  const { matches } = useMatch();
-  
-  const unreadCount = matches.reduce((total, match) => total + (match.unreadCount || 0), 0);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const navigationItems = [
-    { 
-      path: '/', 
-      icon: Heart, 
-      label: 'Discover', 
-      color: 'from-pink-500 to-red-500',
-      context: 'dating'
+  const isAdmin = user?.email === 'admin@example.com';
+
+  const navItems: NavItem[] = [
+    {
+      path: '/',
+      label: 'Home',
+      icon: Home,
     },
-    { 
-      path: '/swipe', 
-      icon: Timer, 
-      label: 'Quick Match', 
-      color: 'from-orange-500 to-pink-500',
-      context: 'dating'
+    {
+      path: '/members',
+      label: 'Members',
+      icon: Users,
     },
-    { 
-      path: '/chat', 
-      icon: MessageCircle, 
-      label: 'Chat', 
-      badge: unreadCount,
-      color: 'from-blue-500 to-purple-500',
-      context: 'dating'
-    },
-    { 
-      path: '/casual', 
-      icon: Zap, 
-      label: 'Casual', 
-      color: 'from-purple-500 to-pink-500',
-      context: 'casual'
-    },
-    { 
-      path: '/creator-dashboard', 
-      icon: Crown, 
-      label: 'Creator', 
-      color: 'from-cyan-500 to-blue-500',
-      context: 'creator'
-    },
-    { 
-      path: '/phase3', 
-      icon: Settings, 
-      label: 'Phase 3', 
-      color: 'from-green-500 to-blue-500',
-      context: 'creator'
-    },
-    { 
-      path: '/profile', 
-      icon: User, 
-      label: 'Profile', 
-      color: 'from-gray-500 to-gray-600',
-      context: 'dating'
+    {
+      path: '/settings',
+      label: 'Settings',
+      icon: Settings,
     },
   ];
 
-  const filteredNavigation = navigationItems.filter(item => {
-    if (!user) return item.path === '/';
-    return true;
-  });
+  // Add admin navigation item
+  const adminNavItem = {
+    path: '/admin',
+    label: 'Admin',
+    icon: Shield,
+    adminOnly: true
+  };
+
+  // Add admin item to navigation if user is admin
+  const allNavItems = isAdmin ? [...navItems, adminNavItem] : navItems;
 
   return (
-    <nav className="fixed bottom-0 left-0 w-full bg-black/70 backdrop-blur-md z-20 safe-bottom">
-      <ul className="flex justify-around items-center py-3">
-        {filteredNavigation.map((item) => (
-          <li key={item.label}>
+    <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between h-16">
+          <div className="flex items-center">
+            <div className="flex-shrink-0">
+              <img
+                className="h-8 w-auto"
+                src="/lovable-uploads/41c0b1d3-ffef-40d9-855d-f7f3eb9e0882.png"
+                alt="URS79"
+              />
+            </div>
+            <div className="hidden md:ml-6 md:flex md:space-x-8">
+              {allNavItems.map((item) => (
+                <NavLink
+                  key={item.path}
+                  to={item.path}
+                  className={({ isActive }) =>
+                    `inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition-colors ${
+                      isActive
+                        ? 'border-orange-500 text-gray-900'
+                        : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
+                    }`
+                  }
+                >
+                  <item.icon className="w-4 h-4 mr-2" />
+                  {item.label}
+                </NavLink>
+              ))}
+            </div>
+          </div>
+
+          <div className="flex items-center">
+            <div className="mr-4">
+              {user ? (
+                <span className="text-gray-700">{user.name}</span>
+              ) : (
+                <NavLink to="/auth" className="text-gray-700">
+                  Login
+                </NavLink>
+              )}
+            </div>
+            <div className="-mr-2 flex md:hidden">
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                type="button"
+                className="bg-white inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
+                aria-controls="mobile-menu"
+                aria-expanded="false"
+              >
+                <span className="sr-only">Open main menu</span>
+                <svg
+                  className={`${isMobileMenuOpen ? 'hidden' : 'block'} h-6 w-6`}
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                </svg>
+                <svg
+                  className={`${isMobileMenuOpen ? 'block' : 'hidden'} h-6 w-6`}
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="md:hidden" id="mobile-menu" style={{ display: isMobileMenuOpen ? 'block' : 'none' }}>
+        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+          {allNavItems.map((item) => (
             <NavLink
+              key={item.path}
               to={item.path}
-              className={({ isActive }) =>
-                cn(
-                  "group flex flex-col items-center justify-center px-3 py-2 rounded-lg",
-                  isActive ? `bg-gradient-to-br ${item.color}` : "hover:bg-white/5"
-                )
-              }
+              className="text-gray-600 hover:bg-gray-100 hover:text-gray-800 block px-3 py-2 rounded-md text-base font-medium"
             >
-              <div className="relative">
-                <item.icon 
-                  className={cn(
-                    "w-6 h-6 mb-1 transition-colors duration-300",
-                    location.pathname === item.path ? "text-white" : "text-gray-400 group-hover:text-gray-300"
-                  )}
-                />
-                {item.badge && item.badge > 0 && (
-                  <div className="absolute -top-1 -right-1 bg-pink-500 text-white text-xs rounded-full px-1 flex items-center justify-center">
-                    {item.badge}
-                  </div>
-                )}
-              </div>
-              <span className="text-sm text-gray-400 group-hover:text-gray-300 transition-colors duration-200">
-                {item.label}
-              </span>
+              <item.icon className="w-4 h-4 mr-2 inline-block" />
+              {item.label}
             </NavLink>
-          </li>
-        ))}
-      </ul>
+          ))}
+        </div>
+        {user && (
+          <div className="pt-4 pb-3 border-t border-gray-200">
+            <div className="px-4">
+              <div className="text-base font-medium text-gray-800">{user.name}</div>
+              <div className="text-sm font-medium text-gray-500">{user.email}</div>
+            </div>
+          </div>
+        )}
+      </div>
     </nav>
   );
 };
