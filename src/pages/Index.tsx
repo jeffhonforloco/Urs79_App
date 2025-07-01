@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from '@/contexts/AuthContext';
@@ -15,6 +14,7 @@ import CasualModeScreen from '@/components/CasualModeScreen';
 import CreatorDashboard from '@/components/CreatorDashboard';
 import Navigation from '@/components/Navigation';
 import { useAuth } from '@/contexts/AuthContext';
+import Phase3Features from '@/components/Phase3Features';
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { user } = useAuth();
@@ -58,6 +58,7 @@ const AppContent = () => {
             <Route path="/premium" element={<PremiumScreen />} />
             <Route path="/casual" element={<CasualModeScreen />} />
             <Route path="/creator-dashboard" element={<CreatorDashboard />} />
+            <Route path="/phase3" element={<Phase3Features />} />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </main>
