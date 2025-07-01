@@ -13,7 +13,7 @@ import CreatorModeSettings from "../components/CreatorModeSettings";
 import AdminPanel from "../components/AdminPanel";
 import NotFound from "./NotFound";
 
-const Index = () => {
+const AppContent = () => {
   const { user, loading } = useAuth();
 
   if (loading) {
@@ -24,31 +24,37 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50">
-      <AuthProvider>
-        <MatchProvider>
-          {user ? (
-            <>
-              <Navigation />
-              <Routes>
-                <Route path="/" element={<ProfileScreen />} />
-                <Route path="/profile" element={<ProfileScreen />} />
-                <Route path="/security" element={<SecuritySettings />} />
-                <Route path="/casual" element={<CasualModeSettings />} />
-                <Route path="/creator" element={<CreatorModeSettings />} />
-                <Route path="/admin" element={<AdminPanel />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </>
-          ) : (
+      <MatchProvider>
+        {user ? (
+          <>
+            <Navigation />
             <Routes>
-              <Route path="/" element={<LandingPage />} />
-              <Route path="/auth" element={<AuthPage />} />
-              <Route path="*" element={<Navigate to="/" replace />} />
+              <Route path="/" element={<ProfileScreen />} />
+              <Route path="/profile" element={<ProfileScreen />} />
+              <Route path="/security" element={<SecuritySettings />} />
+              <Route path="/casual" element={<CasualModeSettings />} />
+              <Route path="/creator" element={<CreatorModeSettings />} />
+              <Route path="/admin" element={<AdminPanel />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
-          )}
-        </MatchProvider>
-      </AuthProvider>
+          </>
+        ) : (
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/auth" element={<AuthPage />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        )}
+      </MatchProvider>
     </div>
+  );
+};
+
+const Index = () => {
+  return (
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
   );
 };
 
