@@ -1,8 +1,10 @@
+
 import React from "react";
 import { AuthProvider, useAuth } from "../contexts/AuthContext";
 import { MatchProvider } from "../contexts/MatchContext";
-import LandingPage from "./LandingPage";
-import AuthPage from "./AuthPage";
+import LandingPage from "../components/LandingPage";
+import AuthPage from "../components/AuthPage";
+import Navigation from "../components/Navigation";
 import { Routes, Route, Navigate } from "react-router-dom";
 import ProfileScreen from "../components/ProfileScreen";
 import SecuritySettings from "../components/SecuritySettings";
