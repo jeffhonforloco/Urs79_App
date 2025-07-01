@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -46,7 +45,6 @@ const MonetizationFeatures: React.FC = () => {
 
   const handleSaveSettings = () => {
     updateProfile({
-      ...user,
       monetizationSettings: settings
     });
     toast.success('Settings saved successfully!');

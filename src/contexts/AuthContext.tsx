@@ -1,6 +1,17 @@
-
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { toast } from 'sonner';
+
+interface MonetizationSettings {
+  tipEnabled: boolean;
+  tipAmounts: number[];
+  customTipEnabled: boolean;
+  payToDmEnabled: boolean;
+  payToDmPrice: number;
+  exclusiveContentEnabled: boolean;
+  exclusiveContentPrice: number;
+  subscriptionEnabled: boolean;
+  subscriptionPrice: number;
+}
 
 interface User {
   id: string;
@@ -40,6 +51,9 @@ interface User {
   onboardingCompleted?: boolean;
   creatorModeInterested?: boolean;
   casualModeInterested?: boolean;
+  // Phase 3 features
+  nsfwEnabled?: boolean;
+  monetizationSettings?: MonetizationSettings;
 }
 
 interface AuthContextType {
