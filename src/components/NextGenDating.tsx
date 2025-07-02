@@ -112,7 +112,8 @@ const NextGenDating = () => {
             <Button 
               size="lg"
               onClick={() => navigate(user ? '/discovery' : '/auth')}
-              className="bg-white text-gray-900 hover:bg-gray-100 shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-200 px-8 py-3"
+              className="relative z-10 bg-white text-gray-900 hover:bg-gray-100 shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-200 px-8 py-3 cursor-pointer"
+              style={{ pointerEvents: 'auto' }}
             >
               {user ? 'Start Discovering' : 'Sign Up Now'}
               <ArrowRight className="w-5 h-5 ml-2" />
