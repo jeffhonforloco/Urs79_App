@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Heart, Timer, Users, Bell, ArrowRight, Star, Shield } from 'lucide-react';
+import NextGenDating from './NextGenDating';
 
 const LandingPage = () => {
   const features = [
@@ -118,35 +119,8 @@ const LandingPage = () => {
         </div>
       </div>
 
-      {/* Features Section */}
-      <div className="relative z-10 py-20">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-5xl font-bold mb-6 bg-gradient-to-r from-white to-pink-200 bg-clip-text text-transparent">
-              Next-Gen Dating
-            </h2>
-            <p className="text-xl text-white/70 max-w-2xl mx-auto">
-              Revolutionary features that redefine how you connect, chat, and create meaningful relationships.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {features.map((feature, index) => (
-              <Card key={index} className="glass rounded-3xl p-8 card-hover border-white/10">
-                <div className={`w-12 h-12 rounded-2xl bg-gradient-to-r ${feature.gradient} flex items-center justify-center mb-6 text-white`}>
-                  {feature.icon}
-                </div>
-                <h3 className="text-2xl font-bold text-white mb-4">
-                  {feature.title}
-                </h3>
-                <p className="text-white/70 text-lg leading-relaxed">
-                  {feature.description}
-                </p>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </div>
+      {/* Replace the old Features Section with NextGenDating component */}
+      <NextGenDating />
 
       {/* CTA Section */}
       <div className="relative z-10 py-20">
