@@ -45,7 +45,7 @@ const NextGenDating = () => {
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-br from-orange-100 via-pink-100 to-purple-100">
+    <div className="relative z-10 py-20">
       <div className="max-w-6xl mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-16">
@@ -120,7 +120,7 @@ const NextGenDating = () => {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 
