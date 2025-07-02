@@ -11,6 +11,7 @@ import SecuritySettings from "../components/SecuritySettings";
 import CasualModeSettings from "../components/CasualModeSettings";
 import CreatorModeSettings from "../components/CreatorModeSettings";
 import AdminPanel from "../components/AdminPanel";
+import DiscoveryFeed from "../components/DiscoveryFeed";
 import NotFound from "./NotFound";
 
 const AppContent = () => {
@@ -31,6 +32,7 @@ const AppContent = () => {
             <Routes>
               <Route path="/" element={<ProfileScreen />} />
               <Route path="/profile" element={<ProfileScreen />} />
+              <Route path="/discovery" element={<DiscoveryFeed />} />
               <Route path="/security" element={<SecuritySettings />} />
               <Route path="/casual" element={<CasualModeSettings />} />
               <Route path="/creator" element={<CreatorModeSettings />} />

@@ -23,8 +23,8 @@ const Navigation = () => {
       icon: Home,
     },
     {
-      path: '/members',
-      label: 'Members',
+      path: '/discovery',
+      label: 'Discovery',
       icon: Users,
     },
     {
