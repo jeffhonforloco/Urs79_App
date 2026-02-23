@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, MapPin, Send } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Mail, MapPin, Send, ArrowUpRight } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.1, duration: 0.7 } }),
+  hidden: { opacity: 0, y: 30 },
+  visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] as const } }),
 };
 
 const ContactPage = () => {
@@ -21,88 +20,94 @@ const ContactPage = () => {
   };
 
   return (
-    <div className="pt-28">
-      <section className="section-padding">
-        <div className="max-w-5xl mx-auto">
+    <div>
+      {/* Hero */}
+      <section className="relative pt-40 pb-20 px-6 md:px-10 grain-overlay">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[200px]" />
+        <div className="max-w-[1400px] mx-auto relative z-10">
           <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={0}>
-            <p className="text-xs tracking-[0.3em] uppercase text-primary mb-4 font-medium">Get In Touch</p>
-            <h1 className="text-5xl md:text-7xl font-black mb-8">
-              Contact <span className="text-gradient-gold">URS79</span>
+            <p className="text-[10px] tracking-[0.4em] uppercase text-primary mb-4 font-semibold">Get In Touch</p>
+            <h1 className="font-display text-6xl md:text-8xl lg:text-9xl tracking-[0.02em] mb-6">
+              CONTACT <span className="text-gradient-gold">URS79</span>
             </h1>
-            <div className="divider-gold mb-8" />
+            <div className="divider-gold" />
           </motion.div>
         </div>
       </section>
 
-      <section className="pb-24 px-6 md:px-12 lg:px-20">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-12">
+      <section className="pb-28 px-6 md:px-10">
+        <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Info */}
-          <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={1} className="space-y-8">
-            <div className="glass-card rounded-lg p-8">
-              <Mail className="w-8 h-8 text-primary mb-4" />
-              <h3 className="font-semibold mb-2">Email</h3>
-              <a href="mailto:info@urs79.com" className="text-muted-foreground hover:text-primary transition-colors">info@urs79.com</a>
+          <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={1} className="lg:col-span-4 space-y-4">
+            <div className="glass-card p-8">
+              <div className="w-10 h-10 rounded-full border border-border flex items-center justify-center mb-4">
+                <Mail className="w-4 h-4 text-primary" />
+              </div>
+              <h3 className="font-semibold mb-2 text-sm">Email</h3>
+              <a href="mailto:info@urs79.com" className="text-muted-foreground text-sm hover:text-primary transition-colors">info@urs79.com</a>
             </div>
-            <div className="glass-card rounded-lg p-8">
-              <MapPin className="w-8 h-8 text-primary mb-4" />
-              <h3 className="font-semibold mb-2">Location</h3>
-              <p className="text-muted-foreground">Los Angeles, CA</p>
+            <div className="glass-card p-8">
+              <div className="w-10 h-10 rounded-full border border-border flex items-center justify-center mb-4">
+                <MapPin className="w-4 h-4 text-primary" />
+              </div>
+              <h3 className="font-semibold mb-2 text-sm">Location</h3>
+              <p className="text-muted-foreground text-sm">Los Angeles, CA</p>
             </div>
-            <div className="glass-card rounded-lg p-8">
-              <h3 className="font-semibold mb-4">Inquiry Types</h3>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li>• Business Inquiries</li>
-                <li>• Artist Submissions</li>
-                <li>• Production Bookings</li>
-                <li>• Distribution Partnerships</li>
-                <li>• Press & Media</li>
+            <div className="glass-card p-8">
+              <h3 className="font-semibold mb-4 text-sm">Inquiry Types</h3>
+              <ul className="space-y-2 text-xs text-muted-foreground">
+                <li className="flex items-center gap-2"><span className="w-1 h-1 bg-primary rounded-full" /> Business Inquiries</li>
+                <li className="flex items-center gap-2"><span className="w-1 h-1 bg-primary rounded-full" /> Artist Submissions</li>
+                <li className="flex items-center gap-2"><span className="w-1 h-1 bg-primary rounded-full" /> Production Bookings</li>
+                <li className="flex items-center gap-2"><span className="w-1 h-1 bg-primary rounded-full" /> Distribution Partnerships</li>
+                <li className="flex items-center gap-2"><span className="w-1 h-1 bg-primary rounded-full" /> Press & Media</li>
               </ul>
             </div>
           </motion.div>
 
           {/* Form */}
-          <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={2} className="lg:col-span-2">
-            <form onSubmit={handleSubmit} className="glass-card rounded-lg p-8 md:p-12 space-y-6">
+          <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={2} className="lg:col-span-8">
+            <form onSubmit={handleSubmit} className="glass-card p-8 md:p-12 space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="text-xs tracking-[0.15em] uppercase text-muted-foreground mb-2 block">Name</label>
+                  <label className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground mb-2 block font-medium">Name</label>
                   <Input
                     value={formData.name}
                     onChange={e => setFormData({ ...formData, name: e.target.value })}
                     required
-                    className="bg-secondary border-border text-foreground"
+                    className="bg-secondary border-border text-foreground h-12"
                     placeholder="Your name"
                   />
                 </div>
                 <div>
-                  <label className="text-xs tracking-[0.15em] uppercase text-muted-foreground mb-2 block">Email</label>
+                  <label className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground mb-2 block font-medium">Email</label>
                   <Input
                     type="email"
                     value={formData.email}
                     onChange={e => setFormData({ ...formData, email: e.target.value })}
                     required
-                    className="bg-secondary border-border text-foreground"
+                    className="bg-secondary border-border text-foreground h-12"
                     placeholder="your@email.com"
                   />
                 </div>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="text-xs tracking-[0.15em] uppercase text-muted-foreground mb-2 block">Subject</label>
+                  <label className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground mb-2 block font-medium">Subject</label>
                   <Input
                     value={formData.subject}
                     onChange={e => setFormData({ ...formData, subject: e.target.value })}
                     required
-                    className="bg-secondary border-border text-foreground"
+                    className="bg-secondary border-border text-foreground h-12"
                     placeholder="Subject"
                   />
                 </div>
                 <div>
-                  <label className="text-xs tracking-[0.15em] uppercase text-muted-foreground mb-2 block">Inquiry Type</label>
+                  <label className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground mb-2 block font-medium">Inquiry Type</label>
                   <select
                     value={formData.type}
                     onChange={e => setFormData({ ...formData, type: e.target.value })}
-                    className="w-full h-10 px-3 rounded-md bg-secondary border border-border text-foreground text-sm"
+                    className="w-full h-12 px-3 bg-secondary border border-border text-foreground text-sm"
                   >
                     <option value="general">General Inquiry</option>
                     <option value="artist">Artist Submission</option>
@@ -113,7 +118,7 @@ const ContactPage = () => {
                 </div>
               </div>
               <div>
-                <label className="text-xs tracking-[0.15em] uppercase text-muted-foreground mb-2 block">Message</label>
+                <label className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground mb-2 block font-medium">Message</label>
                 <Textarea
                   value={formData.message}
                   onChange={e => setFormData({ ...formData, message: e.target.value })}
@@ -123,9 +128,9 @@ const ContactPage = () => {
                   placeholder="Tell us about your project..."
                 />
               </div>
-              <Button type="submit" className="btn-primary w-full md:w-auto">
-                Send Message <Send className="ml-2 w-4 h-4" />
-              </Button>
+              <button type="submit" className="btn-primary inline-flex items-center gap-3">
+                Send Message <Send className="w-4 h-4" />
+              </button>
             </form>
           </motion.div>
         </div>
