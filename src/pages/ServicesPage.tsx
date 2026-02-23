@@ -1,35 +1,40 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Film, Tv, Palette, Music, Users, Globe, BookOpen, Disc3, ArrowRight } from 'lucide-react';
+import { Film, Tv, Palette, Music, Users, Globe, BookOpen, Disc3, ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import Marquee from '@/components/urs79/Marquee';
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.1, duration: 0.7 } }),
+  hidden: { opacity: 0, y: 30 },
+  visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.08, duration: 0.8, ease: [0.16, 1, 0.3, 1] as const } }),
 };
 
 const allServices = [
-  { icon: Film, title: 'Film Production', desc: 'From concept to final cut, we produce feature films, documentaries, and short films with cinematic mastery.', forWho: 'Filmmakers, studios, production partners', deliverables: 'Full production pipeline, post-production, color grading, sound design' },
-  { icon: Tv, title: 'Music Video Production', desc: 'Visual storytelling that transforms songs into immersive cinematic experiences.', forWho: 'Recording artists, labels, managers', deliverables: 'Creative direction, filming, editing, VFX, delivery' },
-  { icon: Palette, title: 'Commercial Production', desc: 'High-impact commercial and branded content that captures attention and drives results.', forWho: 'Brands, agencies, corporate clients', deliverables: 'Concept, production, post, multi-platform delivery' },
-  { icon: Music, title: 'Recording & Music Production', desc: 'World-class recording, mixing, and mastering in state-of-the-art studio environments.', forWho: 'Artists, songwriters, producers', deliverables: 'Recording sessions, mixing, mastering, production' },
-  { icon: Users, title: 'Artist Development', desc: 'Comprehensive artist development programs that transform raw talent into global acts.', forWho: 'Emerging artists, independent musicians', deliverables: 'Branding, image consulting, release strategy, career planning' },
-  { icon: Globe, title: 'Distribution Services', desc: 'Global digital and physical distribution across 200+ platforms worldwide.', forWho: 'Artists, labels, distributors', deliverables: 'Platform delivery, metadata management, analytics, royalty tracking' },
-  { icon: BookOpen, title: 'Publishing & Rights Management', desc: 'Full-service music publishing including sync licensing, royalty collection, and catalog administration.', forWho: 'Songwriters, composers, publishers', deliverables: 'Rights registration, royalty collection, sync placement, administration' },
-  { icon: Disc3, title: 'Creative Multimedia Solutions', desc: 'Branding, design, and multimedia content creation for artists and brands.', forWho: 'Artists, brands, creative agencies', deliverables: 'Visual identity, social content, websites, merch design' },
+  { icon: Film, title: 'Film Production', desc: 'From concept to final cut — feature films, documentaries, and short films with cinematic mastery.', deliverables: 'Full production pipeline, post-production, color grading, sound design', forWho: 'Filmmakers, studios, production partners' },
+  { icon: Tv, title: 'Music Video Production', desc: 'Visual storytelling that transforms songs into immersive cinematic experiences.', deliverables: 'Creative direction, filming, editing, VFX, delivery', forWho: 'Recording artists, labels, managers' },
+  { icon: Palette, title: 'Commercial Production', desc: 'High-impact commercial and branded content that captures attention.', deliverables: 'Concept, production, post, multi-platform delivery', forWho: 'Brands, agencies, corporate clients' },
+  { icon: Music, title: 'Recording & Music Production', desc: 'World-class recording, mixing, and mastering.', deliverables: 'Recording sessions, mixing, mastering, production', forWho: 'Artists, songwriters, producers' },
+  { icon: Users, title: 'Artist Development', desc: 'Programs that transform raw talent into global acts.', deliverables: 'Branding, image consulting, release strategy, career planning', forWho: 'Emerging artists, independent musicians' },
+  { icon: Globe, title: 'Distribution Services', desc: 'Global digital and physical distribution across 200+ platforms.', deliverables: 'Platform delivery, metadata, analytics, royalty tracking', forWho: 'Artists, labels, distributors' },
+  { icon: BookOpen, title: 'Publishing & Rights', desc: 'Full-service music publishing including sync licensing and royalty collection.', deliverables: 'Rights registration, royalty collection, sync placement', forWho: 'Songwriters, composers, publishers' },
+  { icon: Disc3, title: 'Creative Multimedia', desc: 'Branding, design, and multimedia content creation.', deliverables: 'Visual identity, social content, websites, merch design', forWho: 'Artists, brands, creative agencies' },
 ];
 
 const ServicesPage = () => (
-  <div className="pt-28">
-    <section className="section-padding">
-      <div className="max-w-5xl mx-auto">
+  <div>
+    {/* Hero */}
+    <section className="relative pt-40 pb-20 px-6 md:px-10 overflow-hidden grain-overlay">
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[200px]" />
+      <div className="max-w-[1400px] mx-auto relative z-10">
         <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={0}>
-          <p className="text-xs tracking-[0.3em] uppercase text-primary mb-4 font-medium">Our Services</p>
-          <h1 className="text-5xl md:text-7xl font-black mb-8">
-            Full-Spectrum<br /><span className="text-gradient-gold">Creative Power</span>
+          <p className="text-[10px] tracking-[0.4em] uppercase text-primary mb-4 font-semibold">Our Services</p>
+          <h1 className="font-display text-6xl md:text-8xl lg:text-9xl tracking-[0.02em] mb-6">
+            FULL-SPECTRUM
+            <br />
+            <span className="text-gradient-gold">CREATIVE POWER</span>
           </h1>
           <div className="divider-gold mb-8" />
-          <p className="text-xl text-muted-foreground max-w-3xl leading-relaxed">
+          <p className="text-muted-foreground text-lg max-w-2xl leading-relaxed">
             From the first spark of an idea to global distribution — URS79 provides the complete creative 
             infrastructure for artists, brands, and visionaries.
           </p>
@@ -37,30 +42,41 @@ const ServicesPage = () => (
       </div>
     </section>
 
-    <section className="pb-24 px-6 md:px-12 lg:px-20">
-      <div className="max-w-7xl mx-auto space-y-8">
+    <div className="py-5 border-y border-border">
+      <Marquee items={allServices.map(s => s.title)} className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground/40 font-medium" />
+    </div>
+
+    {/* Services */}
+    <section className="py-20 px-6 md:px-10">
+      <div className="max-w-[1400px] mx-auto space-y-4">
         {allServices.map((s, i) => {
           const Icon = s.icon;
           return (
             <motion.div
               key={i}
               initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
-              className="glass-card rounded-lg p-8 md:p-12 grid grid-cols-1 md:grid-cols-3 gap-8"
+              className="glass-card p-6 md:p-10 grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-center group"
             >
-              <div>
-                <Icon className="w-10 h-10 text-primary mb-4" />
-                <h3 className="text-2xl font-bold mb-3">{s.title}</h3>
-                <p className="text-muted-foreground leading-relaxed">{s.desc}</p>
+              <div className="md:col-span-1 flex items-center">
+                <div className="w-12 h-12 rounded-full border border-border flex items-center justify-center group-hover:border-primary/40 group-hover:bg-primary/5 transition-all">
+                  <Icon className="w-5 h-5 text-primary" />
+                </div>
               </div>
-              <div>
-                <h4 className="text-xs tracking-[0.2em] uppercase text-primary mb-3 font-medium">Deliverables</h4>
-                <p className="text-sm text-muted-foreground leading-relaxed">{s.deliverables}</p>
+              <div className="md:col-span-4">
+                <h3 className="text-xl md:text-2xl font-bold group-hover:text-primary transition-colors">{s.title}</h3>
+                <p className="text-sm text-muted-foreground mt-2">{s.desc}</p>
               </div>
-              <div>
-                <h4 className="text-xs tracking-[0.2em] uppercase text-primary mb-3 font-medium">Who It's For</h4>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-6">{s.forWho}</p>
-                <Link to="/contact" className="text-primary text-sm tracking-[0.15em] uppercase font-medium inline-flex items-center gap-2 hover:brightness-110 transition-all">
-                  Get Started <ArrowRight className="w-4 h-4" />
+              <div className="md:col-span-3">
+                <p className="text-[10px] tracking-[0.2em] uppercase text-primary mb-2 font-semibold">Deliverables</p>
+                <p className="text-xs text-muted-foreground">{s.deliverables}</p>
+              </div>
+              <div className="md:col-span-3">
+                <p className="text-[10px] tracking-[0.2em] uppercase text-primary mb-2 font-semibold">For</p>
+                <p className="text-xs text-muted-foreground">{s.forWho}</p>
+              </div>
+              <div className="md:col-span-1 flex justify-end">
+                <Link to="/contact" className="text-muted-foreground/20 group-hover:text-primary transition-all">
+                  <ArrowUpRight className="w-5 h-5" />
                 </Link>
               </div>
             </motion.div>

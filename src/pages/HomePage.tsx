@@ -1,235 +1,296 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { ArrowRight, Film, Music, Tv, Disc3, Users, Globe, BookOpen, Palette } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { ArrowRight, ArrowUpRight, Film, Music, Tv, Disc3, Users, Globe, BookOpen, Palette } from 'lucide-react';
+import Marquee from '@/components/urs79/Marquee';
+import SectionHeader from '@/components/urs79/SectionHeader';
+import heroBg from '@/assets/hero-bg.jpg';
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.1, duration: 0.7, ease: "easeOut" as const } }),
+  hidden: { opacity: 0, y: 50 },
+  visible: (i: number) => ({
+    opacity: 1, y: 0,
+    transition: { delay: i * 0.12, duration: 0.9, ease: [0.16, 1, 0.3, 1] as const }
+  }),
 };
 
 const services = [
-  { icon: Film, title: 'Film Production', desc: 'Feature films, documentaries, and short films crafted with cinematic excellence.' },
-  { icon: Tv, title: 'Music Videos', desc: 'Visual storytelling that brings music to life with stunning imagery.' },
-  { icon: Palette, title: 'Commercials', desc: 'High-impact commercial content for brands that demand attention.' },
-  { icon: Music, title: 'Recording', desc: 'State-of-the-art recording and production for artists and labels.' },
-  { icon: Users, title: 'Artist Development', desc: 'Comprehensive artist development from concept to global recognition.' },
-  { icon: Globe, title: 'Distribution', desc: 'Worldwide digital and physical distribution across all platforms.' },
-  { icon: BookOpen, title: 'Publishing', desc: 'Full-service music publishing and rights management.' },
-  { icon: Disc3, title: 'Creative Services', desc: 'Branding, design, and multimedia solutions for the creative industry.' },
+  { icon: Film, title: 'Film Production' },
+  { icon: Tv, title: 'Music Videos' },
+  { icon: Palette, title: 'Commercials' },
+  { icon: Music, title: 'Recording' },
+  { icon: Users, title: 'Artist Development' },
+  { icon: Globe, title: 'Distribution' },
+  { icon: BookOpen, title: 'Publishing' },
+  { icon: Disc3, title: 'Creative Services' },
 ];
 
-const productions = [
-  { title: 'The Last Frame', category: 'Film', year: '2025' },
-  { title: 'Echoes of Tomorrow', category: 'Music Video', year: '2025' },
-  { title: 'Brand Elevation', category: 'Commercial', year: '2024' },
-  { title: 'Nightfall Sessions', category: 'Recording', year: '2024' },
-  { title: 'Urban Pulse', category: 'Music Video', year: '2024' },
-  { title: 'Vision Forward', category: 'Commercial', year: '2025' },
+const divisions = [
+  { label: 'Production House', desc: 'Film, music video, and commercial production with cinematic excellence.' },
+  { label: 'Record Label', desc: 'Artist signings, development, and releases across all genres.' },
+  { label: 'Distribution', desc: 'Global digital and physical distribution to 200+ platforms.' },
+  { label: 'Publishing', desc: 'Rights management, sync licensing, and royalty administration.' },
 ];
 
 const HomePage = () => {
+  const { scrollYProgress } = useScroll();
+  const heroY = useTransform(scrollYProgress, [0, 0.3], [0, 150]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.25], [1, 0]);
+
   return (
     <>
-      {/* Hero */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-background">
-          <div className="absolute inset-0 bg-gradient-to-b from-background via-background/50 to-background" />
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-primary/5 blur-[120px]" />
-          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full bg-primary/3 blur-[100px]" />
-        </div>
+      {/* ─── HERO ─── */}
+      <section className="relative h-screen flex items-center justify-center overflow-hidden grain-overlay">
+        <motion.div style={{ y: heroY }} className="absolute inset-0">
+          <img src={heroBg} alt="" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/70 to-background" />
+        </motion.div>
 
-        <div className="relative z-10 max-w-6xl mx-auto px-6 text-center pt-32">
-          <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={0}>
-            <p className="text-xs tracking-[0.4em] uppercase text-primary mb-8 font-medium">
-              Multimedia · Record Label · Distribution · Publishing
-            </p>
-          </motion.div>
+        <motion.div style={{ opacity: heroOpacity }} className="relative z-10 max-w-[1400px] mx-auto px-6 md:px-10 w-full">
+          <div className="flex flex-col items-center text-center">
+            <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={0}>
+              <img
+                src="/images/urs79-logo-color.png"
+                alt="URS79"
+                className="h-28 md:h-40 lg:h-52 mb-10 drop-shadow-[0_0_60px_hsla(43,96%,56%,0.2)]"
+              />
+            </motion.div>
 
-          <motion.h1
-            initial="hidden" animate="visible" variants={fadeUp} custom={1}
-            className="text-5xl md:text-7xl lg:text-8xl font-black leading-[0.95] mb-8"
-          >
-            <span className="text-foreground">Creating</span>
-            <br />
-            <span className="text-gradient-gold">Sound. Vision.</span>
-            <br />
-            <span className="text-foreground">Culture.</span>
-          </motion.h1>
+            <motion.h1
+              initial="hidden" animate="visible" variants={fadeUp} custom={1}
+              className="font-display text-6xl md:text-8xl lg:text-[10rem] leading-[0.85] tracking-[0.04em] mb-6"
+            >
+              <span className="text-gradient-white">CREATING</span>
+              <br />
+              <span className="text-gradient-gold">SOUND. VISION.</span>
+              <br />
+              <span className="text-gradient-white">CULTURE.</span>
+            </motion.h1>
 
-          <motion.p
-            initial="hidden" animate="visible" variants={fadeUp} custom={2}
-            className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-12 leading-relaxed"
-          >
-            URS79 is a premier multimedia production company, record label, distributor, and publishing house — 
-            shaping the future of entertainment.
-          </motion.p>
+            <motion.p
+              initial="hidden" animate="visible" variants={fadeUp} custom={2}
+              className="text-muted-foreground text-sm md:text-base tracking-[0.15em] uppercase max-w-xl mb-12"
+            >
+              Multimedia Production · Record Label · Distribution · Publishing
+            </motion.p>
 
-          <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={3} className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/contact">
-              <Button className="btn-primary px-10 py-4">
-                Start a Project <ArrowRight className="ml-2 w-4 h-4" />
-              </Button>
-            </Link>
-            <Link to="/portfolio">
-              <Button variant="outline" className="btn-secondary px-10 py-4">
+            <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={3} className="flex flex-col sm:flex-row gap-4">
+              <Link to="/contact" className="btn-primary inline-flex items-center gap-3">
+                Start a Project <ArrowUpRight className="w-4 h-4" />
+              </Link>
+              <Link to="/portfolio" className="btn-secondary inline-flex items-center gap-3">
                 View Portfolio
-              </Button>
-            </Link>
-          </motion.div>
-        </div>
-
-        {/* Scroll indicator */}
-        <motion.div
-          animate={{ y: [0, 12, 0] }}
-          transition={{ repeat: Infinity, duration: 2 }}
-          className="absolute bottom-12 left-1/2 -translate-x-1/2"
-        >
-          <div className="w-5 h-8 border border-muted-foreground/30 rounded-full flex items-start justify-center p-1">
-            <div className="w-1 h-2 bg-primary rounded-full" />
+              </Link>
+            </motion.div>
           </div>
+        </motion.div>
+
+        {/* Scroll line */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5 }}
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 z-10"
+        >
+          <span className="text-[9px] tracking-[0.3em] uppercase text-muted-foreground">Scroll</span>
+          <motion.div
+            animate={{ height: [16, 32, 16] }}
+            transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
+            className="w-px bg-primary/50"
+          />
         </motion.div>
       </section>
 
-      {/* About Preview */}
+      {/* ─── MARQUEE ─── */}
+      <div className="py-6 border-y border-border bg-card/50">
+        <Marquee
+          items={['Film Production', 'Music Videos', 'Commercials', 'Recording', 'Artist Development', 'Distribution', 'Publishing', 'Creative Services']}
+          className="text-[11px] tracking-[0.3em] uppercase text-muted-foreground font-medium"
+        />
+      </div>
+
+      {/* ─── ABOUT PREVIEW ─── */}
       <section className="section-padding">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}>
-            <p className="text-xs tracking-[0.3em] uppercase text-primary mb-4 font-medium">About URS79</p>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
-              Where Creativity<br />
-              <span className="text-gradient-gold">Meets Industry</span>
-            </h2>
-            <div className="divider-gold mb-8" />
-            <p className="text-muted-foreground leading-relaxed mb-6">
+        <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+          <div>
+            <SectionHeader label="About URS79" title="Where Creativity" titleAccent="Meets Industry" />
+            <div className="divider-gold mt-8 mb-8" />
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2, duration: 0.7 }}
+              className="text-muted-foreground leading-relaxed mb-8"
+            >
               URS79 stands at the intersection of artistry and commerce. We are a full-service multimedia 
               production company, record label, distribution platform, and publishing house — built to elevate 
               creators and deliver world-class content across film, music, and media.
-            </p>
-            <p className="text-muted-foreground leading-relaxed mb-8">
-              From concept to distribution, we provide the vision, infrastructure, and global reach that 
-              artists and brands need to make an impact.
-            </p>
-            <Link to="/about" className="text-primary text-sm tracking-[0.15em] uppercase font-medium hover:brightness-110 transition-all inline-flex items-center gap-2">
-              Learn More <ArrowRight className="w-4 h-4" />
-            </Link>
-          </motion.div>
-          <motion.div
-            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
-            className="glass-card rounded-lg p-12 flex flex-col gap-8"
-          >
-            {[
-              { num: '100+', label: 'Productions Completed' },
-              { num: '50+', label: 'Artists & Creators' },
-              { num: '25+', label: 'Countries Reached' },
-              { num: '10M+', label: 'Global Streams' },
-            ].map((s, i) => (
-              <div key={i} className="flex items-center gap-6">
-                <span className="text-3xl md:text-4xl font-black text-gradient-gold min-w-[120px]">{s.num}</span>
-                <span className="text-muted-foreground text-sm tracking-wide">{s.label}</span>
-              </div>
+            </motion.p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3, duration: 0.7 }}
+            >
+              <Link to="/about" className="text-primary text-[11px] tracking-[0.25em] uppercase font-semibold inline-flex items-center gap-3 group">
+                Learn More
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </motion.div>
+          </div>
+
+          <div className="space-y-4">
+            {divisions.map((d, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1, duration: 0.7 }}
+                className="glass-card p-6 md:p-8 group cursor-pointer"
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <h3 className="text-lg font-semibold mb-1 group-hover:text-primary transition-colors">{d.label}</h3>
+                    <p className="text-sm text-muted-foreground">{d.desc}</p>
+                  </div>
+                  <ArrowUpRight className="w-5 h-5 text-muted-foreground/30 group-hover:text-primary transition-all flex-shrink-0 mt-1" />
+                </div>
+              </motion.div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
 
-      {/* Services Grid */}
-      <section className="section-padding bg-card">
-        <div className="max-w-7xl mx-auto">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0} className="text-center mb-16">
-            <p className="text-xs tracking-[0.3em] uppercase text-primary mb-4 font-medium">What We Do</p>
-            <h2 className="text-4xl md:text-5xl font-bold">
-              Full-Spectrum <span className="text-gradient-gold">Creative Services</span>
-            </h2>
-          </motion.div>
+      {/* ─── SERVICES ─── */}
+      <section className="section-padding bg-card relative grain-overlay">
+        <div className="max-w-[1400px] mx-auto relative z-10">
+          <SectionHeader label="What We Do" title="Full-Spectrum" titleAccent="Creative Services" align="center" />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mt-16">
             {services.map((s, i) => {
               const Icon = s.icon;
               return (
                 <motion.div
                   key={i}
-                  initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i * 0.5}
-                  className="glass-card rounded-lg p-8 group hover:border-primary/20 transition-all duration-500"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.06, duration: 0.6 }}
                 >
-                  <Icon className="w-8 h-8 text-primary mb-6 group-hover:scale-110 transition-transform duration-300" />
-                  <h3 className="text-lg font-semibold mb-3">{s.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
+                  <Link
+                    to="/services"
+                    className="glass-card p-6 md:p-8 flex flex-col items-center text-center gap-4 group block h-full"
+                  >
+                    <div className="w-14 h-14 rounded-full border border-border flex items-center justify-center group-hover:border-primary/40 group-hover:bg-primary/5 transition-all duration-500">
+                      <Icon className="w-6 h-6 text-primary" />
+                    </div>
+                    <h3 className="text-sm font-semibold tracking-wide">{s.title}</h3>
+                  </Link>
                 </motion.div>
               );
             })}
           </div>
 
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2} className="text-center mt-12">
-            <Link to="/services" className="text-primary text-sm tracking-[0.15em] uppercase font-medium hover:brightness-110 transition-all inline-flex items-center gap-2">
-              Explore All Services <ArrowRight className="w-4 h-4" />
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-center mt-14"
+          >
+            <Link to="/services" className="text-primary text-[11px] tracking-[0.25em] uppercase font-semibold inline-flex items-center gap-3 group">
+              Explore All Services <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </motion.div>
         </div>
       </section>
 
-      {/* Featured Productions */}
+      {/* ─── PORTFOLIO TEASER ─── */}
       <section className="section-padding">
-        <div className="max-w-7xl mx-auto">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0} className="text-center mb-16">
-            <p className="text-xs tracking-[0.3em] uppercase text-primary mb-4 font-medium">Our Work</p>
-            <h2 className="text-4xl md:text-5xl font-bold">
-              Featured <span className="text-gradient-gold">Productions</span>
-            </h2>
-          </motion.div>
+        <div className="max-w-[1400px] mx-auto">
+          <SectionHeader label="Portfolio" title="Featured" titleAccent="Productions" align="center" />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {productions.map((p, i) => (
+          <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-4">
+            {['Films', 'Music Videos', 'Commercials'].map((cat, i) => (
               <motion.div
                 key={i}
-                initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i * 0.5}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1, duration: 0.7 }}
               >
-                <Link to="/portfolio" className="block glass-card rounded-lg overflow-hidden group">
-                  <div className="aspect-video bg-secondary flex items-center justify-center relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    <Film className="w-12 h-12 text-muted-foreground/30" />
-                  </div>
-                  <div className="p-6">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-xs tracking-[0.2em] uppercase text-primary font-medium">{p.category}</span>
-                      <span className="text-xs text-muted-foreground">{p.year}</span>
+                <Link to="/portfolio" className="block glass-card overflow-hidden group">
+                  <div className="aspect-[4/3] bg-secondary relative flex items-center justify-center">
+                    <Film className="w-12 h-12 text-muted-foreground/10" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 p-6">
+                      <span className="text-[10px] tracking-[0.3em] uppercase text-primary font-semibold">{cat}</span>
+                      <h3 className="text-xl font-bold mt-1 group-hover:text-primary transition-colors">Coming Soon</h3>
+                      <p className="text-xs text-muted-foreground mt-1">Projects in development</p>
                     </div>
-                    <h3 className="text-lg font-semibold group-hover:text-primary transition-colors">{p.title}</h3>
+                    <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <ArrowUpRight className="w-5 h-5 text-primary" />
+                    </div>
                   </div>
                 </Link>
               </motion.div>
             ))}
           </div>
 
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2} className="text-center mt-12">
-            <Link to="/portfolio">
-              <Button className="btn-primary">View Full Portfolio <ArrowRight className="ml-2 w-4 h-4" /></Button>
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-center mt-14"
+          >
+            <Link to="/portfolio" className="btn-primary inline-flex items-center gap-3">
+              View Full Portfolio <ArrowRight className="w-4 h-4" />
             </Link>
           </motion.div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="section-padding bg-card">
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}>
-            <p className="text-xs tracking-[0.3em] uppercase text-primary mb-4 font-medium">Let's Create</p>
-            <h2 className="text-4xl md:text-6xl font-black mb-6">
-              Ready to Build<br />
-              <span className="text-gradient-gold">Something Extraordinary?</span>
+      {/* ─── CTA ─── */}
+      <section className="relative overflow-hidden grain-overlay">
+        <div className="absolute inset-0 bg-card" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-primary/5 blur-[200px]" />
+
+        <div className="relative z-10 max-w-4xl mx-auto text-center section-padding">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.9 }}
+          >
+            <p className="text-[10px] tracking-[0.4em] uppercase text-primary mb-6 font-semibold">Let's Create</p>
+            <h2 className="font-display text-5xl md:text-7xl lg:text-8xl tracking-[0.02em] mb-6">
+              READY TO BUILD
+              <br />
+              <span className="text-gradient-gold">SOMETHING EXTRAORDINARY?</span>
             </h2>
-            <p className="text-muted-foreground text-lg mb-10 max-w-2xl mx-auto">
-              Whether you're an artist seeking a label home, a brand needing production, or a creator ready 
-              for global distribution — we're here to make it happen.
+            <p className="text-muted-foreground text-base md:text-lg mb-12 max-w-xl mx-auto">
+              Whether you're an artist, a brand, or a creator — we're here to make it happen.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/contact"><Button className="btn-primary px-10 py-4">Start a Project</Button></Link>
-              <Link to="/contact"><Button variant="outline" className="btn-secondary px-10 py-4">Submit Your Music</Button></Link>
+              <Link to="/contact" className="btn-primary inline-flex items-center gap-3">
+                Start a Project <ArrowUpRight className="w-4 h-4" />
+              </Link>
+              <Link to="/contact" className="btn-secondary inline-flex items-center gap-3">
+                Submit Your Music
+              </Link>
             </div>
           </motion.div>
         </div>
       </section>
+
+      {/* ─── BOTTOM MARQUEE ─── */}
+      <div className="py-5 border-t border-border">
+        <Marquee
+          items={['Sound', 'Vision', 'Culture', 'Film', 'Music', 'Distribution', 'Publishing', 'Art']}
+          separator="—"
+          className="text-[10px] tracking-[0.4em] uppercase text-muted-foreground/40 font-medium"
+        />
+      </div>
     </>
   );
 };
