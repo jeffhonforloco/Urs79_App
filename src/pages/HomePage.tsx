@@ -47,18 +47,10 @@ const HomePage = () => {
         </motion.div>
 
         <motion.div style={{ opacity: heroOpacity }} className="relative z-10 max-w-[1400px] mx-auto px-6 md:px-10 w-full">
-          <div className="flex flex-col items-center text-center pt-24 md:pt-28 lg:pt-32">
-            <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={0}>
-              <img
-                src="/images/urs79-logo-color.png"
-                alt="URS79"
-                className="h-28 md:h-40 lg:h-52 mb-10 drop-shadow-[0_0_60px_hsla(43,96%,56%,0.2)]"
-              />
-            </motion.div>
-
+          <div className="flex flex-col items-center text-center">
             <motion.h1
               initial="hidden" animate="visible" variants={fadeUp} custom={1}
-              className="font-display text-6xl md:text-8xl lg:text-[10rem] leading-[0.85] tracking-[0.04em] mb-6"
+              className="font-display text-5xl md:text-7xl lg:text-[8rem] leading-[0.9] tracking-[0.04em] mb-6"
             >
               <span className="text-gradient-white">CREATING</span>
               <br />
