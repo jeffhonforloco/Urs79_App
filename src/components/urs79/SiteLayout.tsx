@@ -40,7 +40,7 @@ const SiteNavbar = () => {
           <img
             src="/images/urs79-logo-color.png"
             alt="URS79"
-            className={`transition-all duration-700 ${scrolled ? 'h-12' : 'h-16 md:h-20'}`}
+            className={`transition-all duration-700 ${scrolled ? 'h-14 md:h-16' : 'h-20 md:h-24 lg:h-28'}`}
           />
         </Link>
 
