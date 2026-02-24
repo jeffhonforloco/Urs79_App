@@ -47,7 +47,7 @@ const HomePage = () => {
         </motion.div>
 
         <motion.div style={{ opacity: heroOpacity }} className="relative z-10 max-w-[1400px] mx-auto px-6 md:px-10 w-full">
-          <div className="flex flex-col items-center text-center">
+          <div className="flex flex-col items-center text-center pt-24 md:pt-28 lg:pt-32">
             <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={0}>
               <img
                 src="/images/urs79-logo-color.png"
