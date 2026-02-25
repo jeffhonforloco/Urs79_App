@@ -4,6 +4,7 @@ import { Mail, MapPin, Send, ArrowUpRight } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
+import { supabase } from '@/integrations/supabase/client';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -12,11 +13,27 @@ const fadeUp = {
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', type: 'general', message: '' });
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success('Message sent! We\'ll be in touch soon.');
-    setFormData({ name: '', email: '', subject: '', type: 'general', message: '' });
+    setLoading(true);
+    try {
+      const { error } = await supabase.from('submissions').insert([{
+        type: formData.type === 'general' ? 'contact' : formData.type,
+        name: formData.name,
+        email: formData.email,
+        subject: formData.subject,
+        message: formData.message,
+      }]);
+      if (error) throw error;
+      toast.success('Message sent! We\'ll be in touch soon.');
+      setFormData({ name: '', email: '', subject: '', type: 'general', message: '' });
+    } catch (err: any) {
+      toast.error('Failed to send message. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -128,8 +145,8 @@ const ContactPage = () => {
                   placeholder="Tell us about your project..."
                 />
               </div>
-              <button type="submit" className="btn-primary inline-flex items-center gap-3">
-                Send Message <Send className="w-4 h-4" />
+              <button type="submit" disabled={loading} className="btn-primary inline-flex items-center gap-3">
+                {loading ? 'Sending...' : 'Send Message'} <Send className="w-4 h-4" />
               </button>
             </form>
           </motion.div>

@@ -14,16 +14,323 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      artists: {
+        Row: {
+          apple_music_url: string | null
+          bio: string | null
+          created_at: string
+          genre: string | null
+          id: string
+          instagram_url: string | null
+          is_featured: boolean | null
+          is_published: boolean | null
+          name: string
+          photo_url: string | null
+          slug: string
+          sort_order: number | null
+          spotify_url: string | null
+          updated_at: string
+        }
+        Insert: {
+          apple_music_url?: string | null
+          bio?: string | null
+          created_at?: string
+          genre?: string | null
+          id?: string
+          instagram_url?: string | null
+          is_featured?: boolean | null
+          is_published?: boolean | null
+          name: string
+          photo_url?: string | null
+          slug: string
+          sort_order?: number | null
+          spotify_url?: string | null
+          updated_at?: string
+        }
+        Update: {
+          apple_music_url?: string | null
+          bio?: string | null
+          created_at?: string
+          genre?: string | null
+          id?: string
+          instagram_url?: string | null
+          is_featured?: boolean | null
+          is_published?: boolean | null
+          name?: string
+          photo_url?: string | null
+          slug?: string
+          sort_order?: number | null
+          spotify_url?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      news: {
+        Row: {
+          category: string | null
+          content: string | null
+          cover_url: string | null
+          created_at: string
+          excerpt: string | null
+          id: string
+          is_featured: boolean | null
+          is_published: boolean | null
+          published_at: string | null
+          slug: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          category?: string | null
+          content?: string | null
+          cover_url?: string | null
+          created_at?: string
+          excerpt?: string | null
+          id?: string
+          is_featured?: boolean | null
+          is_published?: boolean | null
+          published_at?: string | null
+          slug: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string | null
+          content?: string | null
+          cover_url?: string | null
+          created_at?: string
+          excerpt?: string | null
+          id?: string
+          is_featured?: boolean | null
+          is_published?: boolean | null
+          published_at?: string | null
+          slug?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          display_name: string | null
+          id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      projects: {
+        Row: {
+          category: string
+          client_name: string | null
+          created_at: string
+          credits: string | null
+          description: string | null
+          id: string
+          is_featured: boolean | null
+          is_published: boolean | null
+          slug: string
+          sort_order: number | null
+          thumbnail_url: string | null
+          title: string
+          updated_at: string
+          video_url: string | null
+        }
+        Insert: {
+          category?: string
+          client_name?: string | null
+          created_at?: string
+          credits?: string | null
+          description?: string | null
+          id?: string
+          is_featured?: boolean | null
+          is_published?: boolean | null
+          slug: string
+          sort_order?: number | null
+          thumbnail_url?: string | null
+          title: string
+          updated_at?: string
+          video_url?: string | null
+        }
+        Update: {
+          category?: string
+          client_name?: string | null
+          created_at?: string
+          credits?: string | null
+          description?: string | null
+          id?: string
+          is_featured?: boolean | null
+          is_published?: boolean | null
+          slug?: string
+          sort_order?: number | null
+          thumbnail_url?: string | null
+          title?: string
+          updated_at?: string
+          video_url?: string | null
+        }
+        Relationships: []
+      }
+      releases: {
+        Row: {
+          apple_music_url: string | null
+          artist_id: string | null
+          artist_name: string | null
+          cover_url: string | null
+          created_at: string
+          description: string | null
+          id: string
+          is_featured: boolean | null
+          is_published: boolean | null
+          release_date: string | null
+          release_type: string | null
+          slug: string
+          spotify_url: string | null
+          title: string
+          updated_at: string
+          youtube_url: string | null
+        }
+        Insert: {
+          apple_music_url?: string | null
+          artist_id?: string | null
+          artist_name?: string | null
+          cover_url?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_featured?: boolean | null
+          is_published?: boolean | null
+          release_date?: string | null
+          release_type?: string | null
+          slug: string
+          spotify_url?: string | null
+          title: string
+          updated_at?: string
+          youtube_url?: string | null
+        }
+        Update: {
+          apple_music_url?: string | null
+          artist_id?: string | null
+          artist_name?: string | null
+          cover_url?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_featured?: boolean | null
+          is_published?: boolean | null
+          release_date?: string | null
+          release_type?: string | null
+          slug?: string
+          spotify_url?: string | null
+          title?: string
+          updated_at?: string
+          youtube_url?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "releases_artist_id_fkey"
+            columns: ["artist_id"]
+            isOneToOne: false
+            referencedRelation: "artists"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      submissions: {
+        Row: {
+          artist_name: string | null
+          created_at: string
+          email: string
+          genre: string | null
+          id: string
+          is_read: boolean | null
+          message: string | null
+          music_link: string | null
+          name: string
+          phone: string | null
+          subject: string | null
+          type: string
+        }
+        Insert: {
+          artist_name?: string | null
+          created_at?: string
+          email: string
+          genre?: string | null
+          id?: string
+          is_read?: boolean | null
+          message?: string | null
+          music_link?: string | null
+          name: string
+          phone?: string | null
+          subject?: string | null
+          type?: string
+        }
+        Update: {
+          artist_name?: string | null
+          created_at?: string
+          email?: string
+          genre?: string | null
+          id?: string
+          is_read?: boolean | null
+          message?: string | null
+          music_link?: string | null
+          name?: string
+          phone?: string | null
+          subject?: string | null
+          type?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "moderator" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +457,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "moderator", "user"],
+    },
   },
 } as const
