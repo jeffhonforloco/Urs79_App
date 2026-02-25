@@ -15,6 +15,13 @@ import ArtistsPage from "./pages/ArtistsPage";
 import NewsPage from "./pages/NewsPage";
 import ContactPage from "./pages/ContactPage";
 import NotFound from "./pages/NotFound";
+import AdminLoginPage from "./pages/AdminLoginPage";
+import AdminDashboard from "./pages/AdminDashboard";
+import AdminProjects from "./pages/admin/AdminProjects";
+import AdminArtists from "./pages/admin/AdminArtists";
+import AdminReleases from "./pages/admin/AdminReleases";
+import AdminNews from "./pages/admin/AdminNews";
+import AdminSubmissions from "./pages/admin/AdminSubmissions";
 
 const queryClient = new QueryClient();
 
@@ -35,6 +42,14 @@ const App = () => (
             <Route path="/artists" element={<ArtistsPage />} />
             <Route path="/news" element={<NewsPage />} />
             <Route path="/contact" element={<ContactPage />} />
+          </Route>
+          <Route path="/admin/login" element={<AdminLoginPage />} />
+          <Route path="/admin" element={<AdminDashboard />}>
+            <Route path="projects" element={<AdminProjects />} />
+            <Route path="artists" element={<AdminArtists />} />
+            <Route path="releases" element={<AdminReleases />} />
+            <Route path="news" element={<AdminNews />} />
+            <Route path="submissions" element={<AdminSubmissions />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
