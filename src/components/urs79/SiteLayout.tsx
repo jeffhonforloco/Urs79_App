@@ -12,6 +12,7 @@ const navLinks = [
   { path: '/distribution', label: 'Distribution' },
   { path: '/artists', label: 'Artists' },
   { path: '/news', label: 'News' },
+  { path: '/shop', label: 'Shop' },
   { path: '/contact', label: 'Contact' },
 ];
 
@@ -50,10 +51,10 @@ const SiteNavbar = () => {
             <Link
               key={l.path}
               to={l.path}
-              className={`text-[11px] tracking-[0.25em] uppercase transition-all duration-300 relative group ${
+              className={`text-[11px] tracking-[0.25em] uppercase transition-all duration-300 relative group font-bold ${
                 location.pathname === l.path
-                  ? 'text-primary font-semibold'
-                  : 'text-muted-foreground hover:text-foreground'
+                  ? 'text-primary'
+                  : 'text-foreground hover:text-primary'
               }`}
             >
               {l.label}
@@ -96,8 +97,8 @@ const SiteNavbar = () => {
                   >
                     <Link
                       to={l.path}
-                      className={`text-sm tracking-[0.2em] uppercase font-medium flex items-center justify-between ${
-                        location.pathname === l.path ? 'text-primary' : 'text-muted-foreground'
+                      className={`text-sm tracking-[0.2em] uppercase font-bold flex items-center justify-between ${
+                        location.pathname === l.path ? 'text-primary' : 'text-foreground'
                       }`}
                     >
                       {l.label}
