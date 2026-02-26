@@ -4,7 +4,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight, ArrowUpRight, Film, Music, Tv, Disc3, Users, Globe, BookOpen, Palette } from 'lucide-react';
 import Marquee from '@/components/urs79/Marquee';
 import SectionHeader from '@/components/urs79/SectionHeader';
-import heroBg from '@/assets/hero-bg.jpg';
+import heroVideo from '@/assets/hero-video.mp4';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 50 },
@@ -42,8 +42,15 @@ const HomePage = () => {
       {/* ─── HERO ─── */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden grain-overlay">
         <motion.div style={{ y: heroY }} className="absolute inset-0">
-          <img src={heroBg} alt="" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/70 to-background" />
+          <video
+            src={heroVideo}
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/60 to-background" />
         </motion.div>
 
         <motion.div style={{ opacity: heroOpacity }} className="relative z-10 max-w-[1400px] mx-auto px-6 md:px-10 w-full">
