@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { useAdmin } from '@/hooks/useAdmin';
 import { supabase } from '@/integrations/supabase/client';
-import { LayoutDashboard, Film, Users, Music, Newspaper, Mail, LogOut, ChevronRight } from 'lucide-react';
+import { LayoutDashboard, Film, Users, Music, Newspaper, Mail, LogOut, ChevronRight, ShoppingBag } from 'lucide-react';
 
 const sidebarLinks = [
   { path: '/admin', label: 'Dashboard', icon: LayoutDashboard, exact: true },
@@ -11,13 +11,14 @@ const sidebarLinks = [
   { path: '/admin/releases', label: 'Releases', icon: Music },
   { path: '/admin/news', label: 'News', icon: Newspaper },
   { path: '/admin/submissions', label: 'Submissions', icon: Mail },
+  { path: '/admin/products', label: 'Products', icon: ShoppingBag },
 ];
 
 const AdminDashboard = () => {
   const { user, isAdmin, loading, signOut } = useAdmin();
   const navigate = useNavigate();
   const location = useLocation();
-  const [stats, setStats] = useState({ projects: 0, artists: 0, releases: 0, news: 0, submissions: 0, unread: 0 });
+  const [stats, setStats] = useState({ projects: 0, artists: 0, releases: 0, news: 0, submissions: 0, unread: 0, products: 0 });
 
   useEffect(() => {
     if (!loading && (!user || !isAdmin)) {
@@ -34,7 +35,8 @@ const AdminDashboard = () => {
         supabase.from('news').select('id', { count: 'exact', head: true }),
         supabase.from('submissions').select('id', { count: 'exact', head: true }),
         supabase.from('submissions').select('id', { count: 'exact', head: true }).eq('is_read', false),
-      ]).then(([p, a, r, n, s, u]) => {
+        supabase.from('products').select('id', { count: 'exact', head: true }),
+      ]).then(([p, a, r, n, s, u, pr]) => {
         setStats({
           projects: p.count ?? 0,
           artists: a.count ?? 0,
@@ -42,6 +44,7 @@ const AdminDashboard = () => {
           news: n.count ?? 0,
           submissions: s.count ?? 0,
           unread: u.count ?? 0,
+          products: pr.count ?? 0,
         });
       });
     }
@@ -105,6 +108,7 @@ const AdminDashboard = () => {
                 { label: 'News Posts', count: stats.news, link: '/admin/news', icon: Newspaper },
                 { label: 'Total Submissions', count: stats.submissions, link: '/admin/submissions', icon: Mail },
                 { label: 'Unread Messages', count: stats.unread, link: '/admin/submissions', icon: Mail },
+                { label: 'Products', count: stats.products, link: '/admin/products', icon: ShoppingBag },
               ].map((s, i) => {
                 const Icon = s.icon;
                 return (

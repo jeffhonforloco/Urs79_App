@@ -22,6 +22,8 @@ import AdminArtists from "./pages/admin/AdminArtists";
 import AdminReleases from "./pages/admin/AdminReleases";
 import AdminNews from "./pages/admin/AdminNews";
 import AdminSubmissions from "./pages/admin/AdminSubmissions";
+import AdminProductsPage from "./pages/admin/AdminProducts";
+import ShopPage from "./pages/ShopPage";
 
 const queryClient = new QueryClient();
 
@@ -41,6 +43,7 @@ const App = () => (
             <Route path="/distribution" element={<DistributionPage />} />
             <Route path="/artists" element={<ArtistsPage />} />
             <Route path="/news" element={<NewsPage />} />
+            <Route path="/shop" element={<ShopPage />} />
             <Route path="/contact" element={<ContactPage />} />
           </Route>
           <Route path="/admin/login" element={<AdminLoginPage />} />
@@ -50,6 +53,7 @@ const App = () => (
             <Route path="releases" element={<AdminReleases />} />
             <Route path="news" element={<AdminNews />} />
             <Route path="submissions" element={<AdminSubmissions />} />
+            <Route path="products" element={<AdminProductsPage />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
