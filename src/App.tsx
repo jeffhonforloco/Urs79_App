@@ -24,6 +24,7 @@ import AdminNews from "./pages/admin/AdminNews";
 import AdminSubmissions from "./pages/admin/AdminSubmissions";
 import AdminProductsPage from "./pages/admin/AdminProducts";
 import ShopPage from "./pages/ShopPage";
+import SubmitMusicPage from "./pages/SubmitMusicPage";
 
 const queryClient = new QueryClient();
 
@@ -46,6 +47,7 @@ const App = () => (
             <Route path="/shop" element={<ShopPage />} />
             <Route path="/contact" element={<ContactPage />} />
           </Route>
+          <Route path="/submit" element={<SubmitMusicPage />} />
           <Route path="/admin/login" element={<AdminLoginPage />} />
           <Route path="/admin" element={<AdminDashboard />}>
             <Route path="projects" element={<AdminProjects />} />
