@@ -70,7 +70,7 @@ const DistributionPage = () => (
           ))}
         </div>
         <div className="mt-14 text-center">
-          <Link to="/contact" className="btn-primary inline-flex items-center gap-3">Submit Your Music <ArrowUpRight className="w-4 h-4" /></Link>
+          <Link to="/submit" className="btn-primary inline-flex items-center gap-3">Submit Your Music <ArrowUpRight className="w-4 h-4" /></Link>
         </div>
       </div>
     </section>

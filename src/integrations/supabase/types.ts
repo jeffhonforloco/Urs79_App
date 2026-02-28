@@ -65,6 +65,56 @@ export type Database = {
         }
         Relationships: []
       }
+      master_declarations: {
+        Row: {
+          created_at: string
+          has_samples: boolean | null
+          id: string
+          is_cover: boolean | null
+          master_owner: string
+          mechanical_license_url: string | null
+          ownership_percentage: number
+          release_id: string
+          rights_confirmed: boolean | null
+          sample_clearance_url: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          has_samples?: boolean | null
+          id?: string
+          is_cover?: boolean | null
+          master_owner?: string
+          mechanical_license_url?: string | null
+          ownership_percentage?: number
+          release_id: string
+          rights_confirmed?: boolean | null
+          sample_clearance_url?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          has_samples?: boolean | null
+          id?: string
+          is_cover?: boolean | null
+          master_owner?: string
+          mechanical_license_url?: string | null
+          ownership_percentage?: number
+          release_id?: string
+          rights_confirmed?: boolean | null
+          sample_clearance_url?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "master_declarations_release_id_fkey"
+            columns: ["release_id"]
+            isOneToOne: true
+            referencedRelation: "submission_releases"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       news: {
         Row: {
           category: string | null
@@ -239,6 +289,124 @@ export type Database = {
         }
         Relationships: []
       }
+      publishing_splits: {
+        Row: {
+          admin_rights_to_urs79: boolean | null
+          created_at: string
+          id: string
+          ipi_number: string | null
+          ownership_percentage: number
+          owns_mechanical_rights: boolean | null
+          pro_affiliation: string | null
+          publisher_name: string | null
+          songwriter_legal_name: string
+          track_id: string
+        }
+        Insert: {
+          admin_rights_to_urs79?: boolean | null
+          created_at?: string
+          id?: string
+          ipi_number?: string | null
+          ownership_percentage?: number
+          owns_mechanical_rights?: boolean | null
+          pro_affiliation?: string | null
+          publisher_name?: string | null
+          songwriter_legal_name: string
+          track_id: string
+        }
+        Update: {
+          admin_rights_to_urs79?: boolean | null
+          created_at?: string
+          id?: string
+          ipi_number?: string | null
+          ownership_percentage?: number
+          owns_mechanical_rights?: boolean | null
+          pro_affiliation?: string | null
+          publisher_name?: string | null
+          songwriter_legal_name?: string
+          track_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "publishing_splits_track_id_fkey"
+            columns: ["track_id"]
+            isOneToOne: false
+            referencedRelation: "release_tracks"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      release_tracks: {
+        Row: {
+          audio_url: string | null
+          bpm: number | null
+          created_at: string
+          duration_seconds: number | null
+          genre: string | null
+          id: string
+          is_explicit: boolean | null
+          isrc: string | null
+          language: string | null
+          lyrics: string | null
+          mood_tags: string[] | null
+          musical_key: string | null
+          preview_video_url: string | null
+          release_id: string
+          title: string
+          track_number: number
+          updated_at: string
+          version: Database["public"]["Enums"]["track_version"] | null
+        }
+        Insert: {
+          audio_url?: string | null
+          bpm?: number | null
+          created_at?: string
+          duration_seconds?: number | null
+          genre?: string | null
+          id?: string
+          is_explicit?: boolean | null
+          isrc?: string | null
+          language?: string | null
+          lyrics?: string | null
+          mood_tags?: string[] | null
+          musical_key?: string | null
+          preview_video_url?: string | null
+          release_id: string
+          title?: string
+          track_number?: number
+          updated_at?: string
+          version?: Database["public"]["Enums"]["track_version"] | null
+        }
+        Update: {
+          audio_url?: string | null
+          bpm?: number | null
+          created_at?: string
+          duration_seconds?: number | null
+          genre?: string | null
+          id?: string
+          is_explicit?: boolean | null
+          isrc?: string | null
+          language?: string | null
+          lyrics?: string | null
+          mood_tags?: string[] | null
+          musical_key?: string | null
+          preview_video_url?: string | null
+          release_id?: string
+          title?: string
+          track_number?: number
+          updated_at?: string
+          version?: Database["public"]["Enums"]["track_version"] | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "release_tracks_release_id_fkey"
+            columns: ["release_id"]
+            isOneToOne: false
+            referencedRelation: "submission_releases"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       releases: {
         Row: {
           apple_music_url: string | null
@@ -304,6 +472,209 @@ export type Database = {
           },
         ]
       }
+      submission_accounts: {
+        Row: {
+          account_type: Database["public"]["Enums"]["submission_account_type"]
+          business_name: string | null
+          country: string | null
+          created_at: string
+          full_legal_name: string
+          id: string
+          phone: string | null
+          stage_name: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          account_type?: Database["public"]["Enums"]["submission_account_type"]
+          business_name?: string | null
+          country?: string | null
+          created_at?: string
+          full_legal_name: string
+          id?: string
+          phone?: string | null
+          stage_name?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          account_type?: Database["public"]["Enums"]["submission_account_type"]
+          business_name?: string | null
+          country?: string | null
+          created_at?: string
+          full_legal_name?: string
+          id?: string
+          phone?: string | null
+          stage_name?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      submission_artist_profiles: {
+        Row: {
+          account_id: string
+          apple_music_url: string | null
+          bio: string | null
+          country: string | null
+          created_at: string
+          date_of_birth: string | null
+          has_existing_distributor: boolean | null
+          id: string
+          instagram_url: string | null
+          ipi_number: string | null
+          isni: string | null
+          legal_name: string
+          photo_url: string | null
+          primary_genre: string | null
+          pro_affiliation: string | null
+          secondary_genre: string | null
+          spotify_url: string | null
+          stage_name: string
+          tiktok_url: string | null
+          updated_at: string
+          youtube_url: string | null
+        }
+        Insert: {
+          account_id: string
+          apple_music_url?: string | null
+          bio?: string | null
+          country?: string | null
+          created_at?: string
+          date_of_birth?: string | null
+          has_existing_distributor?: boolean | null
+          id?: string
+          instagram_url?: string | null
+          ipi_number?: string | null
+          isni?: string | null
+          legal_name: string
+          photo_url?: string | null
+          primary_genre?: string | null
+          pro_affiliation?: string | null
+          secondary_genre?: string | null
+          spotify_url?: string | null
+          stage_name: string
+          tiktok_url?: string | null
+          updated_at?: string
+          youtube_url?: string | null
+        }
+        Update: {
+          account_id?: string
+          apple_music_url?: string | null
+          bio?: string | null
+          country?: string | null
+          created_at?: string
+          date_of_birth?: string | null
+          has_existing_distributor?: boolean | null
+          id?: string
+          instagram_url?: string | null
+          ipi_number?: string | null
+          isni?: string | null
+          legal_name?: string
+          photo_url?: string | null
+          primary_genre?: string | null
+          pro_affiliation?: string | null
+          secondary_genre?: string | null
+          spotify_url?: string | null
+          stage_name?: string
+          tiktok_url?: string | null
+          updated_at?: string
+          youtube_url?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "submission_artist_profiles_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "submission_accounts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      submission_releases: {
+        Row: {
+          account_id: string
+          admin_notes: string | null
+          artist_profile_id: string | null
+          cover_art_url: string | null
+          created_at: string
+          featured_artists: string | null
+          id: string
+          label_name: string | null
+          language: string | null
+          original_release_date: string | null
+          parental_advisory: boolean | null
+          primary_artist: string | null
+          release_date: string | null
+          release_type: Database["public"]["Enums"]["release_type"]
+          status: Database["public"]["Enums"]["submission_status"]
+          submission_id: string | null
+          submitted_at: string | null
+          title: string
+          upc: string | null
+          updated_at: string
+        }
+        Insert: {
+          account_id: string
+          admin_notes?: string | null
+          artist_profile_id?: string | null
+          cover_art_url?: string | null
+          created_at?: string
+          featured_artists?: string | null
+          id?: string
+          label_name?: string | null
+          language?: string | null
+          original_release_date?: string | null
+          parental_advisory?: boolean | null
+          primary_artist?: string | null
+          release_date?: string | null
+          release_type?: Database["public"]["Enums"]["release_type"]
+          status?: Database["public"]["Enums"]["submission_status"]
+          submission_id?: string | null
+          submitted_at?: string | null
+          title?: string
+          upc?: string | null
+          updated_at?: string
+        }
+        Update: {
+          account_id?: string
+          admin_notes?: string | null
+          artist_profile_id?: string | null
+          cover_art_url?: string | null
+          created_at?: string
+          featured_artists?: string | null
+          id?: string
+          label_name?: string | null
+          language?: string | null
+          original_release_date?: string | null
+          parental_advisory?: boolean | null
+          primary_artist?: string | null
+          release_date?: string | null
+          release_type?: Database["public"]["Enums"]["release_type"]
+          status?: Database["public"]["Enums"]["submission_status"]
+          submission_id?: string | null
+          submitted_at?: string | null
+          title?: string
+          upc?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "submission_releases_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "submission_accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "submission_releases_artist_profile_id_fkey"
+            columns: ["artist_profile_id"]
+            isOneToOne: false
+            referencedRelation: "submission_artist_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       submissions: {
         Row: {
           artist_name: string | null
@@ -349,6 +720,38 @@ export type Database = {
         }
         Relationships: []
       }
+      track_contributors: {
+        Row: {
+          created_at: string
+          full_legal_name: string
+          id: string
+          role: Database["public"]["Enums"]["contributor_role"]
+          track_id: string
+        }
+        Insert: {
+          created_at?: string
+          full_legal_name: string
+          id?: string
+          role: Database["public"]["Enums"]["contributor_role"]
+          track_id: string
+        }
+        Update: {
+          created_at?: string
+          full_legal_name?: string
+          id?: string
+          role?: Database["public"]["Enums"]["contributor_role"]
+          track_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "track_contributors_track_id_fkey"
+            columns: ["track_id"]
+            isOneToOne: false
+            referencedRelation: "release_tracks"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_roles: {
         Row: {
           id: string
@@ -382,6 +785,35 @@ export type Database = {
     }
     Enums: {
       app_role: "admin" | "moderator" | "user"
+      contributor_role:
+        | "songwriter"
+        | "producer"
+        | "composer"
+        | "lyricist"
+        | "performer"
+        | "featured_artist"
+      release_type: "single" | "ep" | "album"
+      submission_account_type:
+        | "independent_artist"
+        | "indie_label"
+        | "artist_representative"
+        | "distributor_partner"
+      submission_status:
+        | "draft"
+        | "submitted"
+        | "in_review"
+        | "revision_requested"
+        | "approved"
+        | "rejected"
+        | "distributed"
+      track_version:
+        | "original"
+        | "radio_edit"
+        | "remix"
+        | "instrumental"
+        | "acoustic"
+        | "live"
+        | "deluxe"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -510,6 +942,39 @@ export const Constants = {
   public: {
     Enums: {
       app_role: ["admin", "moderator", "user"],
+      contributor_role: [
+        "songwriter",
+        "producer",
+        "composer",
+        "lyricist",
+        "performer",
+        "featured_artist",
+      ],
+      release_type: ["single", "ep", "album"],
+      submission_account_type: [
+        "independent_artist",
+        "indie_label",
+        "artist_representative",
+        "distributor_partner",
+      ],
+      submission_status: [
+        "draft",
+        "submitted",
+        "in_review",
+        "revision_requested",
+        "approved",
+        "rejected",
+        "distributed",
+      ],
+      track_version: [
+        "original",
+        "radio_edit",
+        "remix",
+        "instrumental",
+        "acoustic",
+        "live",
+        "deluxe",
+      ],
     },
   },
 } as const
