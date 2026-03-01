@@ -43,7 +43,7 @@ const AdminLoginPage = () => {
     <div className="min-h-screen bg-background flex items-center justify-center px-6">
       <div className="w-full max-w-md">
         <div className="text-center mb-10">
-          <img src="/images/urs79-logo-color.png" alt="URS79" className="h-16 mx-auto mb-6" />
+          <img src="/images/urs79-logo-color.webp" alt="URS79" className="h-16 mx-auto mb-6" />
           <div className="w-12 h-12 rounded-full border border-border flex items-center justify-center mx-auto mb-4">
             <Lock className="w-5 h-5 text-primary" />
           </div>
