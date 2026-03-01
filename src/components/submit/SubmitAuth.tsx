@@ -79,7 +79,7 @@ const SubmitAuth = () => {
         className="w-full max-w-md"
       >
         <div className="text-center mb-10">
-          <Link to="/"><img src="/images/urs79-logo-color.webp" alt="URS79" className="h-16 mx-auto mb-6 cursor-pointer hover:opacity-80 transition-opacity" /></Link>
+          <Link to="/"><img src="/images/urs79-logo-color.png" alt="URS79" className="h-16 mx-auto mb-6 cursor-pointer hover:opacity-80 transition-opacity" /></Link>
           <div className="flex items-center justify-center gap-2 mb-3">
             <Music className="w-4 h-4 text-primary" />
             <p className="text-[10px] tracking-[0.4em] uppercase text-primary font-semibold">Music Submission Portal</p>

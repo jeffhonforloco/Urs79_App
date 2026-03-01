@@ -4,7 +4,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight, ArrowUpRight, Film, Music, Tv, Disc3, Users, Globe, BookOpen, Palette } from 'lucide-react';
 import Marquee from '@/components/urs79/Marquee';
 import SectionHeader from '@/components/urs79/SectionHeader';
-import heroVideo from '@/assets/hero-video-compressed.mp4';
+import heroVideo from '@/assets/hero-video.mp4';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 50 },

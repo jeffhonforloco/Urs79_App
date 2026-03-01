@@ -61,7 +61,7 @@ const AdminDashboard = () => {
       <aside className="w-64 border-r border-border bg-card flex flex-col">
         <div className="p-6 border-b border-border">
           <Link to="/">
-            <img src="/images/urs79-logo-color.webp" alt="URS79" className="h-10" />
+            <img src="/images/urs79-logo-color.png" alt="URS79" className="h-10" />
           </Link>
           <p className="text-[9px] tracking-[0.3em] uppercase text-primary mt-2 font-semibold">Admin Panel</p>
         </div>

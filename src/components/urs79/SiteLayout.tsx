@@ -39,7 +39,7 @@ const SiteNavbar = () => {
         {/* Logo - VERY pronounced */}
         <Link to="/" className="flex items-center gap-4 group">
           <img
-            src="/images/urs79-logo-color.webp"
+            src="/images/urs79-logo-color.png"
             alt="URS79"
             className={`transition-all duration-700 ${scrolled ? 'h-14 md:h-16' : 'h-20 md:h-24 lg:h-28'}`}
           />
@@ -124,13 +124,13 @@ const SiteFooter = () => (
   <footer className="border-t border-border bg-background relative">
     {/* Large logo watermark */}
     <div className="absolute top-0 right-0 w-[500px] h-[500px] opacity-[0.02] pointer-events-none overflow-hidden">
-      <img src="/images/urs79-logo-color.webp" alt="" className="w-full h-full object-contain" loading="lazy" decoding="async" />
+      <img src="/images/urs79-logo-color.png" alt="" className="w-full h-full object-contain" loading="lazy" decoding="async" />
     </div>
 
     <div className="max-w-[1400px] mx-auto px-6 md:px-10 py-20 md:py-28">
       <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 mb-20">
         <div className="md:col-span-5">
-          <img src="/images/urs79-logo-color.webp" alt="URS79" className="h-16 md:h-20 mb-8" loading="lazy" decoding="async" />
+          <img src="/images/urs79-logo-color.png" alt="URS79" className="h-16 md:h-20 mb-8" loading="lazy" decoding="async" />
           <p className="text-muted-foreground text-sm leading-relaxed max-w-sm mb-8">
             A premier multimedia production company, record label, distributor, and publishing house — 
             shaping the future of entertainment.
