@@ -3,7 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Bebas+Neue&display=swap&text=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789');
 
 @layer base {
   :root {
@@ -81,16 +81,16 @@
   }
 
   .glass-dark {
-    backdrop-filter: blur(40px) saturate(1.4);
-    background: hsla(0, 0%, 4%, 0.85);
+    backdrop-filter: blur(20px) saturate(1.2);
+    background: hsla(0, 0%, 4%, 0.9);
     border: 1px solid hsla(0, 0%, 100%, 0.05);
   }
 
   .glass-card {
-    backdrop-filter: blur(24px);
+    backdrop-filter: blur(12px);
     background: hsla(0, 0%, 100%, 0.02);
     border: 1px solid hsla(0, 0%, 100%, 0.05);
-    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: border-color 0.3s ease, background 0.3s ease;
   }
 
   .glass-card:hover {
@@ -141,6 +141,21 @@
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
     pointer-events: none;
     z-index: 1;
+  }
+
+  /* Disable expensive effects on mobile for performance */
+  @media (max-width: 768px) {
+    .glass-dark {
+      backdrop-filter: none;
+      background: hsla(0, 0%, 4%, 0.95);
+    }
+    .glass-card {
+      backdrop-filter: none;
+      background: hsla(0, 0%, 100%, 0.03);
+    }
+    .grain-overlay::after {
+      display: none;
+    }
   }
 
   /* Horizontal rule with gold */
