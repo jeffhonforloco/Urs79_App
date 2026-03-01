@@ -189,6 +189,11 @@ const SiteFooter = () => {
 
 const SiteLayout = () => {
   const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SiteNavbar />
