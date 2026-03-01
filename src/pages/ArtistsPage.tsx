@@ -59,7 +59,7 @@ const ArtistsPage = () => (
           JOIN THE <span className="text-gradient-gold">URS79 ROSTER</span>
         </h2>
         <p className="text-muted-foreground mb-10 max-w-lg mx-auto">We're seeking visionary artists ready to take their careers to the next level.</p>
-        <Link to="/contact" className="btn-primary inline-flex items-center gap-3">Submit Your Music <ArrowUpRight className="w-4 h-4" /></Link>
+        <Link to="/submit" className="btn-primary inline-flex items-center gap-3">Submit Your Music <ArrowUpRight className="w-4 h-4" /></Link>
       </motion.div>
     </section>
   </div>

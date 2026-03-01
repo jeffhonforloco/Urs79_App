@@ -274,7 +274,7 @@ const HomePage = () => {
               <Link to="/contact" className="btn-primary inline-flex items-center gap-3">
                 Start a Project <ArrowUpRight className="w-4 h-4" />
               </Link>
-              <Link to="/contact" className="btn-secondary inline-flex items-center gap-3">
+              <Link to="/submit" className="btn-secondary inline-flex items-center gap-3">
                 Submit Your Music
               </Link>
             </div>
