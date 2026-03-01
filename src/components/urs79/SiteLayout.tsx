@@ -89,29 +89,33 @@ const SiteNavbar = () => {
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
             className="xl:hidden overflow-hidden"
           >
-            <div className="glass-dark mx-4 mt-3 rounded p-8">
-              <nav className="flex flex-col gap-5">
+            <div className="glass-dark mx-4 mt-3 rounded p-6">
+              <nav className="flex flex-col gap-1">
                 {navLinks.map((l, i) => (
                   <motion.div
                     key={l.path}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.05 }}
+                    transition={{ delay: i * 0.04, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                   >
                     <Link
                       to={l.path}
-                      className={`text-sm tracking-[0.2em] uppercase font-bold flex items-center justify-between ${
-                        location.pathname === l.path ? 'text-primary' : 'text-foreground'
+                      className={`flex items-center justify-between px-4 py-3.5 rounded-md text-sm tracking-[0.2em] uppercase font-bold transition-colors duration-200 active:scale-[0.98] ${
+                        location.pathname === l.path
+                          ? 'text-primary bg-primary/10'
+                          : 'text-foreground hover:text-primary hover:bg-primary/5 active:bg-primary/10'
                       }`}
                     >
                       {l.label}
-                      <ArrowUpRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100" />
+                      <ArrowUpRight className={`w-4 h-4 transition-opacity ${
+                        location.pathname === l.path ? 'opacity-100 text-primary' : 'opacity-0'
+                      }`} />
                     </Link>
                   </motion.div>
                 ))}
               </nav>
-              <div className="mt-8 pt-6 border-t border-border">
-                <Link to="/contact" className="btn-primary text-[10px] text-center block">
+              <div className="mt-6 pt-5 border-t border-border">
+                <Link to="/contact?type=production#inquiry-form" className="btn-primary text-[10px] text-center block py-4">
                   Start a Project
                 </Link>
               </div>
