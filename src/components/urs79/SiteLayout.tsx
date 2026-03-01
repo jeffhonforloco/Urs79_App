@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ArrowUpRight, ChevronUp } from 'lucide-react';
+import { Menu, X, ArrowUpRight, ChevronUp, Instagram, Youtube, Facebook } from 'lucide-react';
 import { useSiteSettings } from '@/hooks/useSiteSettings';
 
 const navLinks = [
@@ -127,6 +127,27 @@ const SiteNavbar = () => {
   );
 };
 
+const TikTokIcon = ({ className }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className={className}><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V8.97a8.21 8.21 0 004.76 1.52V7.04a4.84 4.84 0 01-1-.35z"/></svg>
+);
+
+const XIcon = ({ className }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className={className}><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+);
+
+const ThreadsIcon = ({ className }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className={className}><path d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.472 12.01v-.017c.03-3.579.879-6.43 2.525-8.482C5.845 1.205 8.6.024 12.18 0h.014c2.746.02 5.043.725 6.826 2.098 1.677 1.29 2.858 3.13 3.509 5.467l-2.04.569c-1.104-3.96-3.898-5.984-8.304-6.015-2.91.022-5.11.936-6.54 2.717C4.307 6.504 3.616 8.914 3.589 12c.027 3.086.718 5.496 2.057 7.164 1.43 1.783 3.631 2.698 6.54 2.717 2.623-.02 4.358-.631 5.8-2.045 1.647-1.613 1.618-3.593 1.09-4.798-.31-.71-.873-1.3-1.634-1.75-.192 1.352-.622 2.446-1.284 3.272-.886 1.102-2.14 1.704-3.73 1.79-1.202.065-2.361-.218-3.259-.801-1.063-.689-1.685-1.74-1.752-2.96-.065-1.182.408-2.256 1.332-3.023.88-.732 2.062-1.142 3.425-1.19.993-.036 1.93.043 2.81.228-.074-.738-.272-1.333-.59-1.772-.447-.614-1.14-.934-2.06-.95h-.069c-.725.012-1.6.246-2.145.696l-1.37-1.544c.894-.793 2.126-1.246 3.472-1.272h.098c1.544.027 2.757.585 3.601 1.66.741.94 1.155 2.2 1.233 3.742.455.167.878.374 1.266.621 1.393.885 2.373 2.205 2.835 3.819.564 1.97.377 4.326-1.47 6.133C18.558 23.18 15.907 23.98 12.186 24zm-.09-8.426c-.095 0-.19.002-.287.006-1.433.053-2.283.723-2.244 1.428.039.676.793 1.185 1.896 1.126 1.235-.068 2.669-.706 2.882-4.01-.707-.14-1.467-.21-2.247-.21v.66z"/></svg>
+);
+
+const socialLinks = [
+  { icon: Instagram, href: 'https://instagram.com/urs79official', label: 'Instagram' },
+  { icon: Youtube, href: 'https://youtube.com/@urs79official', label: 'YouTube' },
+  { icon: TikTokIcon, href: 'https://tiktok.com/@urs79official', label: 'TikTok' },
+  { icon: XIcon, href: 'https://x.com/urs79official', label: 'X' },
+  { icon: Facebook, href: 'https://facebook.com/urs79official', label: 'Facebook' },
+  { icon: ThreadsIcon, href: 'https://threads.net/@urs79official', label: 'Threads' },
+];
+
 const SiteFooter = () => {
   const { settings } = useSiteSettings();
   const logoUrl = settings.logo_url || '/images/urs79-logo-color.webp';
@@ -170,9 +191,23 @@ const SiteFooter = () => {
 
         <div className="md:col-span-2">
           <h4 className="text-[10px] tracking-[0.3em] uppercase text-primary mb-6 font-semibold">Connect</h4>
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3 mb-6">
             <Link to="/contact" className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-300">Contact</Link>
             <a href="mailto:info@urs79.com" className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-300">Email</a>
+          </div>
+          <div className="flex items-center gap-3 flex-wrap">
+            {socialLinks.map(({ icon: SocialIcon, href, label }) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={label}
+                className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/40 transition-all duration-300"
+              >
+                <SocialIcon className="w-4 h-4" />
+              </a>
+            ))}
           </div>
         </div>
       </div>
@@ -182,9 +217,20 @@ const SiteFooter = () => {
         <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground">
           © {new Date().getFullYear()} URS79. All rights reserved.
         </p>
-        <p className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground">
-          Sound · Vision · Culture
-        </p>
+        <div className="flex items-center gap-4">
+          {socialLinks.map(({ icon: SocialIcon, href, label }) => (
+            <a
+              key={label}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={label}
+              className="text-muted-foreground/40 hover:text-primary transition-colors duration-300"
+            >
+              <SocialIcon className="w-3.5 h-3.5" />
+            </a>
+          ))}
+        </div>
       </div>
     </div>
   </footer>
