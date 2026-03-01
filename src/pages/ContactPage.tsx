@@ -13,9 +13,12 @@ const fadeUp = {
 };
 
 const ContactPage = () => {
-  const [formData, setFormData] = useState({ name: '', email: '', subject: '', type: 'general', message: '' });
-  const [loading, setLoading] = useState(false);
   const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const preselectedType = searchParams.get('type') || 'general';
+
+  const [formData, setFormData] = useState({ name: '', email: '', subject: '', type: preselectedType, message: '' });
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (location.hash) {

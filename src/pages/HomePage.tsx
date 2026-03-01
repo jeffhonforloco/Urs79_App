@@ -78,7 +78,7 @@ const HomePage = () => {
             </motion.p>
 
             <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={3} className="flex flex-col sm:flex-row gap-4">
-              <Link to="/contact#inquiry-form" className="btn-primary inline-flex items-center gap-3">
+              <Link to="/contact?type=production#inquiry-form" className="btn-primary inline-flex items-center gap-3">
                 Start a Project <ArrowUpRight className="w-4 h-4" />
               </Link>
               <Link to="/portfolio" className="btn-secondary inline-flex items-center gap-3">
@@ -275,7 +275,7 @@ const HomePage = () => {
               Whether you're an artist, a brand, or a creator — we're here to make it happen.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/contact#inquiry-form" className="btn-primary inline-flex items-center gap-3">
+              <Link to="/contact?type=production#inquiry-form" className="btn-primary inline-flex items-center gap-3">
                 Start a Project <ArrowUpRight className="w-4 h-4" />
               </Link>
               <Link to="/submit" className="btn-secondary inline-flex items-center gap-3">
