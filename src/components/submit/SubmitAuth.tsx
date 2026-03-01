@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { Music, ArrowRight, Eye, EyeOff } from 'lucide-react';
@@ -78,7 +79,7 @@ const SubmitAuth = () => {
         className="w-full max-w-md"
       >
         <div className="text-center mb-10">
-          <img src="/images/urs79-logo-color.png" alt="URS79" className="h-16 mx-auto mb-6" />
+          <Link to="/"><img src="/images/urs79-logo-color.png" alt="URS79" className="h-16 mx-auto mb-6 cursor-pointer hover:opacity-80 transition-opacity" /></Link>
           <div className="flex items-center justify-center gap-2 mb-3">
             <Music className="w-4 h-4 text-primary" />
             <p className="text-[10px] tracking-[0.4em] uppercase text-primary font-semibold">Music Submission Portal</p>
