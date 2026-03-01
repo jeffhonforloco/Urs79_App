@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Mail, MapPin, Send, ArrowUpRight } from 'lucide-react';
 import { Input } from '@/components/ui/input';
@@ -14,6 +15,16 @@ const fadeUp = {
 const ContactPage = () => {
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', type: 'general', message: '' });
   const [loading, setLoading] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash) {
+      setTimeout(() => {
+        const el = document.querySelector(location.hash);
+        el?.scrollIntoView({ behavior: 'smooth' });
+      }, 300);
+    }
+  }, [location.hash]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -84,7 +95,7 @@ const ContactPage = () => {
 
           {/* Form */}
           <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={2} className="lg:col-span-8">
-            <form onSubmit={handleSubmit} className="glass-card p-8 md:p-12 space-y-6">
+            <form id="inquiry-form" onSubmit={handleSubmit} className="glass-card p-8 md:p-12 space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground mb-2 block font-medium">Name</label>
