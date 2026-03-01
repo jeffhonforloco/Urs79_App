@@ -6,9 +6,10 @@
   "packageManager": "npm@10.9.2",
   "scripts": {
     "dev": "vite",
-    "build": "npm run cf:build",
+    "prebuild": "npm install --include=dev --no-audit --no-fund --legacy-peer-deps",
+    "build": "vite build",
     "build:dev": "vite build --mode development",
-    "cf:build": "npm install --include=dev && vite build",
+    "cf:build": "npm run build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
