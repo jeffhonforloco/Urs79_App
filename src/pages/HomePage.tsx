@@ -5,6 +5,7 @@ import { ArrowRight, ArrowUpRight, Film, Music, Tv, Disc3, Users, Globe, BookOpe
 import Marquee from '@/components/urs79/Marquee';
 import SectionHeader from '@/components/urs79/SectionHeader';
 import heroVideo from '@/assets/hero-video-compressed.mp4';
+import heroPoster from '@/assets/hero-poster.webp';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 50 },
@@ -44,6 +45,7 @@ const HomePage = () => {
         <motion.div style={{ y: heroY }} className="absolute inset-0">
           <video
             src={heroVideo}
+            poster={heroPoster}
             autoPlay
             muted
             loop
