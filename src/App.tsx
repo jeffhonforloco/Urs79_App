@@ -27,6 +27,8 @@ const AdminReleases = lazy(() => import("./pages/admin/AdminReleases"));
 const AdminNews = lazy(() => import("./pages/admin/AdminNews"));
 const AdminSubmissions = lazy(() => import("./pages/admin/AdminSubmissions"));
 const AdminProductsPage = lazy(() => import("./pages/admin/AdminProducts"));
+const AdminSettings = lazy(() => import("./pages/admin/AdminSettings"));
+const AdminRoles = lazy(() => import("./pages/admin/AdminRoles"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
@@ -66,6 +68,8 @@ const App = () => (
               <Route path="news" element={<AdminNews />} />
               <Route path="submissions" element={<AdminSubmissions />} />
               <Route path="products" element={<AdminProductsPage />} />
+              <Route path="settings" element={<AdminSettings />} />
+              <Route path="roles" element={<AdminRoles />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>

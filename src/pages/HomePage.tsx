@@ -4,7 +4,8 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight, ArrowUpRight, Film, Music, Tv, Disc3, Users, Globe, BookOpen, Palette } from 'lucide-react';
 import Marquee from '@/components/urs79/Marquee';
 import SectionHeader from '@/components/urs79/SectionHeader';
-import heroVideo from '@/assets/hero-video.mp4';
+import { useSiteSettings } from '@/hooks/useSiteSettings';
+import defaultHeroVideo from '@/assets/hero-video.mp4';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 50 },
@@ -36,6 +37,8 @@ const HomePage = () => {
   const { scrollYProgress } = useScroll();
   const heroY = useTransform(scrollYProgress, [0, 0.3], [0, 150]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.25], [1, 0]);
+  const { settings } = useSiteSettings();
+  const heroVideo = settings.hero_video_url || defaultHeroVideo;
 
   return (
     <>

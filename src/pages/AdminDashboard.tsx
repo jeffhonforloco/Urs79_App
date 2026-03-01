@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { useAdmin } from '@/hooks/useAdmin';
 import { supabase } from '@/integrations/supabase/client';
-import { LayoutDashboard, Film, Users, Music, Newspaper, Mail, LogOut, ChevronRight, ShoppingBag } from 'lucide-react';
+import { LayoutDashboard, Film, Users, Music, Newspaper, Mail, LogOut, ChevronRight, ShoppingBag, Settings, Shield } from 'lucide-react';
 
 const sidebarLinks = [
   { path: '/admin', label: 'Dashboard', icon: LayoutDashboard, exact: true },
@@ -12,6 +12,8 @@ const sidebarLinks = [
   { path: '/admin/news', label: 'News', icon: Newspaper },
   { path: '/admin/submissions', label: 'Submissions', icon: Mail },
   { path: '/admin/products', label: 'Products', icon: ShoppingBag },
+  { path: '/admin/roles', label: 'Staff Roles', icon: Shield },
+  { path: '/admin/settings', label: 'Settings', icon: Settings },
 ];
 
 const AdminDashboard = () => {
