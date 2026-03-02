@@ -208,51 +208,6 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* ─── PORTFOLIO TEASER ─── */}
-      <section className="section-padding">
-        <div className="max-w-[1400px] mx-auto">
-          <SectionHeader label="Portfolio" title="Featured" titleAccent="Productions" align="center" />
-
-          <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-4">
-            {['Films', 'Music Videos', 'Commercials'].map((cat, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.7 }}
-              >
-                <Link to="/portfolio" className="block glass-card overflow-hidden group">
-                  <div className="aspect-[4/3] bg-secondary relative flex items-center justify-center">
-                    <Film className="w-12 h-12 text-muted-foreground/10" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent" />
-                    <div className="absolute bottom-0 left-0 right-0 p-6">
-                      <span className="text-[10px] tracking-[0.3em] uppercase text-primary font-semibold">{cat}</span>
-                      <h3 className="text-xl font-bold mt-1 group-hover:text-primary transition-colors">Coming Soon</h3>
-                      <p className="text-xs text-muted-foreground mt-1">Projects in development</p>
-                    </div>
-                    <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <ArrowUpRight className="w-5 h-5 text-primary" />
-                    </div>
-                  </div>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-center mt-14"
-          >
-            <Link to="/portfolio" className="btn-primary inline-flex items-center gap-3">
-              View Full Portfolio <ArrowRight className="w-4 h-4" />
-            </Link>
-          </motion.div>
-        </div>
-      </section>
-
       {/* ─── CTA ─── */}
       <section className="relative overflow-hidden grain-overlay">
         <div className="absolute inset-0 bg-card" />

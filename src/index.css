@@ -46,8 +46,15 @@
   body {
     @apply bg-background text-foreground;
     font-family: 'Space Grotesk', sans-serif;
+    font-size: 15px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  @media (min-width: 768px) {
+    body {
+      font-size: 16px;
+    }
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -155,6 +162,17 @@
     }
     .grain-overlay::after {
       display: none;
+    }
+
+    /* Mobile font readability */
+    p, span, a {
+      font-weight: 500;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: 800;
+    }
+    .text-muted-foreground {
+      color: hsl(0 0% 60%);
     }
   }
 

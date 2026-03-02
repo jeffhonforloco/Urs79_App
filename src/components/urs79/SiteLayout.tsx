@@ -6,12 +6,8 @@ import { useSiteSettings } from '@/hooks/useSiteSettings';
 
 const navLinks = [
   { path: '/', label: 'Home' },
-  { path: '/about', label: 'About' },
   { path: '/services', label: 'Services' },
-  { path: '/portfolio', label: 'Portfolio' },
-  { path: '/music', label: 'Music' },
-  { path: '/distribution', label: 'Distribution' },
-  { path: '/artists', label: 'Artists' },
+  { path: '/artists', label: 'Artists & Music' },
   { path: '/news', label: 'News' },
   { path: '/shop', label: 'Shop' },
   { path: '/contact', label: 'Contact' },
