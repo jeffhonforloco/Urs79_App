@@ -1,8 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Film, Tv, Palette, Music, Users, Globe, BookOpen, Disc3, ArrowUpRight } from 'lucide-react';
+import { Film, Tv, Palette, Music, Users, Globe, BookOpen, Disc3, ArrowUpRight, Shield, BarChart3 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Marquee from '@/components/urs79/Marquee';
+import SectionHeader from '@/components/urs79/SectionHeader';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -15,9 +16,22 @@ const allServices = [
   { icon: Palette, title: 'Commercial Production', desc: 'High-impact commercial and branded content that captures attention.', deliverables: 'Concept, production, post, multi-platform delivery', forWho: 'Brands, agencies, corporate clients' },
   { icon: Music, title: 'Recording & Music Production', desc: 'World-class recording, mixing, and mastering.', deliverables: 'Recording sessions, mixing, mastering, production', forWho: 'Artists, songwriters, producers' },
   { icon: Users, title: 'Artist Development', desc: 'Programs that transform raw talent into global acts.', deliverables: 'Branding, image consulting, release strategy, career planning', forWho: 'Emerging artists, independent musicians' },
-  { icon: Globe, title: 'Distribution Services', desc: 'Global digital and physical distribution across 200+ platforms.', deliverables: 'Platform delivery, metadata, analytics, royalty tracking', forWho: 'Artists, labels, distributors' },
+  { icon: Globe, title: 'Global Distribution', desc: 'Digital and physical distribution across 200+ platforms worldwide.', deliverables: 'Platform delivery, metadata, analytics, royalty tracking', forWho: 'Artists, labels, distributors' },
   { icon: BookOpen, title: 'Publishing & Rights', desc: 'Full-service music publishing including sync licensing and royalty collection.', deliverables: 'Rights registration, royalty collection, sync placement', forWho: 'Songwriters, composers, publishers' },
   { icon: Disc3, title: 'Creative Multimedia', desc: 'Branding, design, and multimedia content creation.', deliverables: 'Visual identity, social content, websites, merch design', forWho: 'Artists, brands, creative agencies' },
+];
+
+const distroFeatures = [
+  { icon: Globe, title: '200+ Platforms', desc: 'Spotify, Apple Music, Amazon, YouTube Music, Tidal, Deezer, and every major platform worldwide.' },
+  { icon: Shield, title: 'Rights Protection', desc: 'Full publishing administration, sync licensing, and royalty collection from all global PROs.' },
+  { icon: BarChart3, title: 'Real-Time Analytics', desc: 'Comprehensive dashboards showing streams, revenue, audience demographics, and playlist placements.' },
+];
+
+const distroSteps = [
+  { step: '01', title: 'Submit Your Music', desc: 'Send us your tracks, album art, and metadata through our submission form.' },
+  { step: '02', title: 'Review & Approval', desc: 'Our team reviews your submission for quality and catalog fit.' },
+  { step: '03', title: 'Distribution Setup', desc: 'We prepare your release for all platforms with optimized metadata.' },
+  { step: '04', title: 'Global Release', desc: 'Your music goes live worldwide with full promotional support.' },
 ];
 
 const ServicesPage = () => (
@@ -35,7 +49,7 @@ const ServicesPage = () => (
           </h1>
           <div className="divider-gold mb-8" />
           <p className="text-muted-foreground text-lg max-w-2xl leading-relaxed">
-            From the first spark of an idea to global distribution — URS79 provides the complete creative 
+            From the first spark of an idea to global distribution — URS79 provides the complete creative
             infrastructure for artists, brands, and visionaries.
           </p>
         </motion.div>
@@ -46,7 +60,7 @@ const ServicesPage = () => (
       <Marquee items={allServices.map(s => s.title)} className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground/40 font-medium" />
     </div>
 
-    {/* Services */}
+    {/* All Services */}
     <section className="py-20 px-6 md:px-10">
       <div className="max-w-[1400px] mx-auto space-y-4">
         {allServices.map((s, i) => {
@@ -82,6 +96,49 @@ const ServicesPage = () => (
             </motion.div>
           );
         })}
+      </div>
+    </section>
+
+    {/* Distribution & Publishing Section */}
+    <section className="section-padding bg-card grain-overlay">
+      <div className="max-w-[1400px] mx-auto relative z-10">
+        <SectionHeader label="Distribution & Publishing" title="Global" titleAccent="Distribution" align="center" />
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-16">
+          {distroFeatures.map((f, i) => {
+            const Icon = f.icon;
+            return (
+              <motion.div key={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i} className="glass-card p-8 md:p-10">
+                <div className="w-12 h-12 rounded-full border border-border flex items-center justify-center mb-6">
+                  <Icon className="w-5 h-5 text-primary" />
+                </div>
+                <h3 className="text-xl font-bold mb-3">{f.title}</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">{f.desc}</p>
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+
+    {/* How to Get Started */}
+    <section className="section-padding">
+      <div className="max-w-[1000px] mx-auto">
+        <SectionHeader label="Process" title="How to" titleAccent="Get Started" />
+        <div className="space-y-4 mt-16">
+          {distroSteps.map((s, i) => (
+            <motion.div key={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i * 0.1} className="glass-card p-6 md:p-8 flex items-start gap-6 md:gap-10">
+              <span className="font-display text-4xl md:text-5xl text-gradient-gold leading-none">{s.step}</span>
+              <div>
+                <h3 className="text-lg font-semibold mb-1">{s.title}</h3>
+                <p className="text-sm text-muted-foreground">{s.desc}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+        <div className="mt-14 text-center">
+          <Link to="/submit" className="btn-primary inline-flex items-center gap-3">Submit Your Music <ArrowUpRight className="w-4 h-4" /></Link>
+        </div>
       </div>
     </section>
   </div>
