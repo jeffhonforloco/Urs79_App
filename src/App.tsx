@@ -9,7 +9,6 @@ import SiteLayout from "./components/urs79/SiteLayout";
 import HomePage from "./pages/HomePage";
 
 // Lazy-load all non-critical pages
-const AboutPage = lazy(() => import("./pages/AboutPage"));
 const ServicesPage = lazy(() => import("./pages/ServicesPage"));
 const PortfolioPage = lazy(() => import("./pages/PortfolioPage"));
 const MusicPage = lazy(() => import("./pages/MusicPage"));
@@ -49,7 +48,7 @@ const App = () => (
           <Routes>
             <Route element={<SiteLayout />}>
               <Route path="/" element={<HomePage />} />
-              <Route path="/about" element={<AboutPage />} />
+              <Route path="/about" element={<HomePage />} />
               <Route path="/services" element={<ServicesPage />} />
               <Route path="/portfolio" element={<PortfolioPage />} />
               <Route path="/artists" element={<ArtistsPage />} />
