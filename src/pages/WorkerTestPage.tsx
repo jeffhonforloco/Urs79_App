@@ -116,7 +116,7 @@ export default function WorkerTestPage() {
               {badge(r)}
             </div>
             {(r.payload || r.error) && (
-              <pre className={`text-xs rounded p-3 overflow-x-auto ${r.status === 'error' ? 'bg-red-950/30 text-red-300' : 'bg-secondary text-muted-foreground'}`}>
+              <pre className={`text-xs rounded p-3 overflow-x-auto ${r.status === 'error' ? 'bg-destructive/10 text-destructive' : 'bg-secondary text-muted-foreground'}`}>
                 {JSON.stringify(r.error ? { error: r.error } : r.payload, null, 2)}
               </pre>
             )}

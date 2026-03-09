@@ -28,6 +28,7 @@ const AdminSubmissions = lazy(() => import("./pages/admin/AdminSubmissions"));
 const AdminProductsPage = lazy(() => import("./pages/admin/AdminProducts"));
 const AdminSettings = lazy(() => import("./pages/admin/AdminSettings"));
 const AdminRoles = lazy(() => import("./pages/admin/AdminRoles"));
+const WorkerTestPage = lazy(() => import("./pages/WorkerTestPage"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
