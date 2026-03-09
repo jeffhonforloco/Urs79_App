@@ -3,7 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Bebas+Neue&display=swap&text=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789');
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Syne:wght@400;500;600;700;800&family=Bebas+Neue&display=swap');
 
 @layer base {
   :root {
@@ -45,10 +45,11 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Instrument Sans', system-ui, sans-serif;
     font-size: 15px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    letter-spacing: 0.01em;
   }
 
   @media (min-width: 768px) {
@@ -58,7 +59,8 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Outfit', sans-serif;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
   }
 
   html {
@@ -74,7 +76,23 @@
 @layer components {
   /* Display font for massive headings */
   .font-display {
-    font-family: 'Bebas Neue', 'Outfit', sans-serif;
+    font-family: 'Bebas Neue', 'Syne', sans-serif;
+    letter-spacing: 0.04em;
+  }
+
+  /* Heading utility classes */
+  .heading-xl {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+  }
+
+  .heading-lg {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.01em;
   }
 
   .text-gradient-gold {
@@ -89,34 +107,34 @@
 
   .glass-dark {
     backdrop-filter: blur(20px) saturate(1.2);
-    background: hsla(0, 0%, 4%, 0.9);
+    background: hsla(0, 0%, 4%, 0.92);
     border: 1px solid hsla(0, 0%, 100%, 0.05);
   }
 
   .glass-card {
     backdrop-filter: blur(12px);
     background: hsla(0, 0%, 100%, 0.02);
-    border: 1px solid hsla(0, 0%, 100%, 0.05);
-    transition: border-color 0.3s ease, background 0.3s ease;
+    border: 1px solid hsla(0, 0%, 100%, 0.06);
+    transition: border-color 0.4s ease, background 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
   }
 
   .glass-card:hover {
     background: hsla(0, 0%, 100%, 0.04);
     border-color: hsla(43, 96%, 56%, 0.15);
-    box-shadow: 0 20px 60px -20px hsla(43, 96%, 56%, 0.08);
+    box-shadow: 0 24px 80px -20px hsla(43, 96%, 56%, 0.08);
   }
 
   .btn-primary {
-    @apply bg-primary text-primary-foreground font-semibold py-3.5 px-10 transition-all duration-500 tracking-[0.2em] uppercase text-xs;
+    @apply bg-primary text-primary-foreground font-semibold py-4 px-12 transition-all duration-500 tracking-[0.2em] uppercase text-xs;
     clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
   }
   .btn-primary:hover {
     filter: brightness(1.15);
-    box-shadow: 0 0 40px hsla(43, 96%, 56%, 0.3);
+    box-shadow: 0 0 50px hsla(43, 96%, 56%, 0.3);
   }
 
   .btn-secondary {
-    @apply border border-foreground/15 text-foreground font-medium py-3.5 px-10 transition-all duration-500 tracking-[0.2em] uppercase text-xs;
+    @apply border border-foreground/15 text-foreground font-medium py-4 px-12 transition-all duration-500 tracking-[0.2em] uppercase text-xs;
     clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
   }
   .btn-secondary:hover {
@@ -124,11 +142,11 @@
   }
 
   .section-padding {
-    @apply py-28 md:py-36 px-6 md:px-12 lg:px-20;
+    @apply py-32 md:py-44 px-6 md:px-12 lg:px-20;
   }
 
   .divider-gold {
-    @apply w-20 h-px bg-primary;
+    @apply w-24 h-px bg-primary;
   }
 
   /* Marquee */
@@ -154,7 +172,7 @@
   @media (max-width: 768px) {
     .glass-dark {
       backdrop-filter: none;
-      background: hsla(0, 0%, 4%, 0.95);
+      background: hsla(0, 0%, 4%, 0.97);
     }
     .glass-card {
       backdrop-filter: none;
@@ -165,14 +183,14 @@
     }
 
     /* Mobile font readability */
-    p, span, a {
+    p, span, a, li {
       font-weight: 500;
     }
     h1, h2, h3, h4, h5, h6 {
       font-weight: 800;
     }
     .text-muted-foreground {
-      color: hsl(0 0% 60%);
+      color: hsl(0 0% 62%);
     }
   }
 
@@ -186,6 +204,20 @@
   .stagger-children > * {
     opacity: 0;
     transform: translateY(20px);
+  }
+
+  /* Section label */
+  .section-label {
+    @apply text-[10px] tracking-[0.4em] uppercase text-primary font-semibold;
+  }
+
+  /* Body text - larger, more readable */
+  .body-lg {
+    @apply text-base md:text-lg leading-relaxed text-muted-foreground;
+  }
+
+  .body-md {
+    @apply text-sm md:text-base leading-relaxed text-muted-foreground;
   }
 }
 

@@ -68,14 +68,14 @@ const ProductPage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen pt-28 md:pt-32 pb-20">
+      <div className="min-h-screen pt-32 md:pt-40 pb-24">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20">
             <div className="aspect-square bg-secondary/50 animate-pulse rounded-lg" />
-            <div className="space-y-6">
+            <div className="space-y-8">
               <div className="h-4 bg-secondary/50 rounded w-1/4 animate-pulse" />
-              <div className="h-10 bg-secondary/50 rounded w-3/4 animate-pulse" />
-              <div className="h-20 bg-secondary/50 rounded w-full animate-pulse" />
+              <div className="h-12 bg-secondary/50 rounded w-3/4 animate-pulse" />
+              <div className="h-24 bg-secondary/50 rounded w-full animate-pulse" />
             </div>
           </div>
         </div>
@@ -85,10 +85,10 @@ const ProductPage = () => {
 
   if (!product) {
     return (
-      <div className="min-h-screen pt-28 md:pt-32 pb-20 flex items-center justify-center">
+      <div className="min-h-screen pt-32 md:pt-40 pb-24 flex items-center justify-center">
         <div className="text-center">
-          <ShoppingBag className="w-16 h-16 text-muted-foreground/30 mx-auto mb-4" />
-          <h1 className="font-display text-2xl mb-4">Product Not Found</h1>
+          <ShoppingBag className="w-16 h-16 text-muted-foreground/30 mx-auto mb-6" />
+          <h1 className="font-display text-3xl mb-4">Product Not Found</h1>
           <Link to="/shop" className="text-primary hover:underline">
             ← Back to Shop
           </Link>
@@ -98,7 +98,7 @@ const ProductPage = () => {
   }
 
   return (
-    <div className="min-h-screen pt-28 md:pt-32 pb-20 relative">
+    <div className="min-h-screen pt-32 md:pt-40 pb-24 relative">
       {/* Floating Cart Button */}
       <button
         onClick={() => setIsCartOpen(true)}
@@ -117,7 +117,7 @@ const ProductPage = () => {
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-8"
+          className="mb-10"
         >
           <Link
             to="/shop"
@@ -128,15 +128,15 @@ const ProductPage = () => {
           </Link>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20">
           {/* Product Image */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
+            initial={{ opacity: 0, x: -40 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="relative"
           >
-            <div className="aspect-square bg-secondary rounded-lg overflow-hidden sticky top-32 relative">
+            <div className="aspect-square bg-secondary rounded-lg overflow-hidden sticky top-36 relative">
               {product.image_url ? (
                 <img
                   src={product.image_url}
@@ -148,10 +148,9 @@ const ProductPage = () => {
                   <ShoppingBag className="w-20 h-20 text-muted-foreground/20" />
                 </div>
               )}
-              {/* Wishlist heart button */}
               <button
                 onClick={() => toggleWishlist(product)}
-                className="absolute top-4 right-4 w-10 h-10 rounded-full bg-background/70 backdrop-blur-sm flex items-center justify-center hover:scale-110 active:scale-95 transition-all duration-200 shadow-lg z-10"
+                className="absolute top-4 right-4 w-11 h-11 rounded-full bg-background/70 backdrop-blur-sm flex items-center justify-center hover:scale-110 active:scale-95 transition-all duration-200 shadow-lg z-10"
               >
                 <Heart
                   className={`w-5 h-5 transition-colors duration-200 ${isWishlisted(product.id) ? 'fill-primary text-primary' : 'text-foreground'}`}
@@ -165,7 +164,7 @@ const ProductPage = () => {
                 </div>
               )}
               {product.compare_at_price && product.stock_quantity > 0 && (
-                <div className="absolute top-4 left-4 bg-destructive text-destructive-foreground px-3 py-1 text-xs font-semibold tracking-wider uppercase rounded">
+                <div className="absolute top-4 left-4 bg-destructive text-destructive-foreground px-3 py-1.5 text-xs font-semibold tracking-wider uppercase rounded">
                   Sale
                 </div>
               )}
@@ -174,23 +173,23 @@ const ProductPage = () => {
 
           {/* Product Info */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
+            initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
             className="flex flex-col"
           >
             {product.category && (
-              <p className="text-[10px] tracking-[0.3em] uppercase text-primary mb-3 font-semibold">
+              <p className="section-label mb-4">
                 {product.category}
               </p>
             )}
 
-            <h1 className="font-display text-3xl md:text-4xl lg:text-5xl tracking-wide mb-6">
+            <h1 className="font-display text-3xl md:text-4xl lg:text-6xl tracking-wide mb-8">
               {product.title}
             </h1>
 
-            <div className="flex items-baseline gap-4 mb-8">
-              <span className="font-display text-3xl md:text-4xl">
+            <div className="flex items-baseline gap-4 mb-10">
+              <span className="font-display text-3xl md:text-5xl">
                 ${Number(product.price).toFixed(2)}
               </span>
               {product.compare_at_price && (
@@ -201,23 +200,23 @@ const ProductPage = () => {
             </div>
 
             {product.description && (
-              <p className="text-muted-foreground leading-relaxed mb-8 text-sm md:text-base">
+              <p className="body-lg mb-10">
                 {product.description}
               </p>
             )}
 
             {/* Size Selector */}
             {product.stock_quantity > 0 && (
-              <div className="mb-6">
-                <div className="flex items-center justify-between mb-3">
-                  <label className="text-sm font-medium tracking-wider uppercase">
+              <div className="mb-8">
+                <div className="flex items-center justify-between mb-4">
+                  <label className="text-sm font-semibold tracking-wider uppercase">
                     Select Size
                   </label>
                   <button
                     onClick={() => setSizeGuideOpen(!sizeGuideOpen)}
-                    className="text-xs text-primary hover:underline inline-flex items-center gap-1"
+                    className="text-xs text-primary hover:underline inline-flex items-center gap-1.5"
                   >
-                    <Ruler className="w-3 h-3" />
+                    <Ruler className="w-3.5 h-3.5" />
                     Size Guide
                   </button>
                 </div>
@@ -232,7 +231,7 @@ const ProductPage = () => {
                       <button
                         key={size}
                         onClick={() => setSelectedSize(size)}
-                        className={`h-12 md:h-14 rounded-md text-sm md:text-base font-semibold tracking-wider uppercase border transition-all duration-200 ${
+                        className={`h-13 md:h-14 rounded-md text-sm md:text-base font-semibold tracking-wider uppercase border transition-all duration-200 ${
                           isSelected
                             ? 'bg-primary text-primary-foreground border-primary'
                             : 'border-border text-muted-foreground hover:border-primary/50 hover:text-foreground'
@@ -248,9 +247,9 @@ const ProductPage = () => {
 
             {/* Size Guide Collapsible */}
             <Collapsible open={sizeGuideOpen} onOpenChange={setSizeGuideOpen}>
-              <CollapsibleContent className="mb-6">
-                <div className="glass-card p-4 md:p-6 rounded-lg">
-                  <h3 className="text-sm font-semibold tracking-wider uppercase mb-4 flex items-center gap-2">
+              <CollapsibleContent className="mb-8">
+                <div className="glass-card p-5 md:p-8 rounded-lg">
+                  <h3 className="text-sm font-bold tracking-wider uppercase mb-5 flex items-center gap-2">
                     <Ruler className="w-4 h-4 text-primary" />
                     Size Guide
                   </h3>
@@ -258,25 +257,25 @@ const ProductPage = () => {
                     <table className="w-full text-sm">
                       <thead>
                         <tr className="border-b border-border">
-                          <th className="text-left py-2 pr-4 text-muted-foreground font-medium">Size</th>
-                          <th className="text-left py-2 pr-4 text-muted-foreground font-medium">Chest</th>
-                          <th className="text-left py-2 pr-4 text-muted-foreground font-medium">Waist</th>
-                          <th className="text-left py-2 text-muted-foreground font-medium">Hips</th>
+                          <th className="text-left py-3 pr-4 text-muted-foreground font-medium">Size</th>
+                          <th className="text-left py-3 pr-4 text-muted-foreground font-medium">Chest</th>
+                          <th className="text-left py-3 pr-4 text-muted-foreground font-medium">Waist</th>
+                          <th className="text-left py-3 text-muted-foreground font-medium">Hips</th>
                         </tr>
                       </thead>
                       <tbody>
                         {SIZE_GUIDE.map((row) => (
                           <tr key={row.size} className="border-b border-border/50">
-                            <td className="py-2.5 pr-4 font-semibold">{row.size}</td>
-                            <td className="py-2.5 pr-4 text-muted-foreground">{row.chest}</td>
-                            <td className="py-2.5 pr-4 text-muted-foreground">{row.waist}</td>
-                            <td className="py-2.5 text-muted-foreground">{row.hips}</td>
+                            <td className="py-3 pr-4 font-semibold">{row.size}</td>
+                            <td className="py-3 pr-4 text-muted-foreground">{row.chest}</td>
+                            <td className="py-3 pr-4 text-muted-foreground">{row.waist}</td>
+                            <td className="py-3 text-muted-foreground">{row.hips}</td>
                           </tr>
                         ))}
                       </tbody>
                     </table>
                   </div>
-                  <p className="text-xs text-muted-foreground mt-4">
+                  <p className="text-xs text-muted-foreground mt-5">
                     Measurements are approximate and may vary slightly.
                   </p>
                 </div>
@@ -301,16 +300,16 @@ const ProductPage = () => {
             </Button>
 
             {/* Product Details Accordion */}
-            <div className="mt-10 space-y-4">
+            <div className="mt-12 space-y-4">
               <Collapsible defaultOpen>
-                <CollapsibleTrigger className="flex items-center justify-between w-full py-4 border-t border-border text-left group">
-                  <span className="text-sm font-semibold tracking-wider uppercase">
+                <CollapsibleTrigger className="flex items-center justify-between w-full py-5 border-t border-border text-left group">
+                  <span className="text-sm font-bold tracking-wider uppercase">
                     Product Details
                   </span>
                   <ChevronDown className="w-4 h-4 text-muted-foreground group-data-[state=open]:rotate-180 transition-transform" />
                 </CollapsibleTrigger>
                 <CollapsibleContent>
-                  <ul className="text-sm text-muted-foreground space-y-2 pb-4">
+                  <ul className="body-md space-y-2.5 pb-5">
                     <li>• Premium quality materials</li>
                     <li>• URS79 branded design</li>
                     <li>• Comfortable fit</li>
@@ -320,14 +319,14 @@ const ProductPage = () => {
               </Collapsible>
 
               <Collapsible>
-                <CollapsibleTrigger className="flex items-center justify-between w-full py-4 border-t border-border text-left group">
-                  <span className="text-sm font-semibold tracking-wider uppercase">
+                <CollapsibleTrigger className="flex items-center justify-between w-full py-5 border-t border-border text-left group">
+                  <span className="text-sm font-bold tracking-wider uppercase">
                     Shipping & Returns
                   </span>
                   <ChevronDown className="w-4 h-4 text-muted-foreground group-data-[state=open]:rotate-180 transition-transform" />
                 </CollapsibleTrigger>
                 <CollapsibleContent>
-                  <div className="text-sm text-muted-foreground space-y-2 pb-4">
+                  <div className="body-md space-y-2.5 pb-5">
                     <p>Free shipping on orders over $100.</p>
                     <p>Standard delivery: 5-7 business days.</p>
                     <p>Returns accepted within 30 days of purchase.</p>

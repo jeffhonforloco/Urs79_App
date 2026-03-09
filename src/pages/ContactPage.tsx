@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Mail, MapPin, Send, ArrowUpRight } from 'lucide-react';
+import { Mail, MapPin, Send } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
 import { supabase } from '@/integrations/supabase/client';
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] as const } }),
+  hidden: { opacity: 0, y: 40 },
+  visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.12, duration: 0.9, ease: [0.16, 1, 0.3, 1] as const } }),
 };
 
 const ContactPage = () => {
@@ -53,12 +53,12 @@ const ContactPage = () => {
   return (
     <div>
       {/* Hero */}
-      <section className="relative pt-40 pb-20 px-6 md:px-10 grain-overlay">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[200px]" />
+      <section className="relative pt-44 md:pt-52 pb-24 md:pb-28 px-6 md:px-10 grain-overlay">
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[200px]" />
         <div className="max-w-[1400px] mx-auto relative z-10">
           <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={0}>
-            <p className="text-[10px] tracking-[0.4em] uppercase text-primary mb-4 font-semibold">Get In Touch</p>
-            <h1 className="font-display text-6xl md:text-8xl lg:text-9xl tracking-[0.02em] mb-6">
+            <p className="section-label mb-5">Get In Touch</p>
+            <h1 className="font-display text-6xl sm:text-7xl md:text-8xl lg:text-[10rem] tracking-[0.02em] leading-[0.85] mb-8">
               CONTACT <span className="text-gradient-gold">URS79</span>
             </h1>
             <div className="divider-gold" />
@@ -66,79 +66,79 @@ const ContactPage = () => {
         </div>
       </section>
 
-      <section className="pb-28 px-6 md:px-10">
-        <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <section className="pb-32 md:pb-44 px-6 md:px-10">
+        <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
           {/* Info */}
-          <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={1} className="lg:col-span-4 space-y-4">
-            <div className="glass-card p-8">
-              <div className="w-10 h-10 rounded-full border border-border flex items-center justify-center mb-4">
-                <Mail className="w-4 h-4 text-primary" />
+          <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={1} className="lg:col-span-4 space-y-5">
+            <div className="glass-card p-8 md:p-10 hover:-translate-y-1 transition-transform duration-400">
+              <div className="w-12 h-12 rounded-full border border-border flex items-center justify-center mb-5">
+                <Mail className="w-5 h-5 text-primary" />
               </div>
-              <h3 className="font-semibold mb-2 text-sm">Email</h3>
-              <a href="mailto:info@urs79.com" className="text-muted-foreground text-sm hover:text-primary transition-colors">info@urs79.com</a>
+              <h3 className="font-bold mb-3 text-base">Email</h3>
+              <a href="mailto:info@urs79.com" className="text-muted-foreground text-sm hover:text-primary transition-colors duration-300">info@urs79.com</a>
             </div>
-            <div className="glass-card p-8">
-              <div className="w-10 h-10 rounded-full border border-border flex items-center justify-center mb-4">
-                <MapPin className="w-4 h-4 text-primary" />
+            <div className="glass-card p-8 md:p-10 hover:-translate-y-1 transition-transform duration-400">
+              <div className="w-12 h-12 rounded-full border border-border flex items-center justify-center mb-5">
+                <MapPin className="w-5 h-5 text-primary" />
               </div>
-              <h3 className="font-semibold mb-2 text-sm">Location</h3>
+              <h3 className="font-bold mb-3 text-base">Location</h3>
               <p className="text-muted-foreground text-sm">Los Angeles, CA</p>
             </div>
-            <div className="glass-card p-8">
-              <h3 className="font-semibold mb-4 text-sm">Inquiry Types</h3>
-              <ul className="space-y-2 text-xs text-muted-foreground">
-                <li className="flex items-center gap-2"><span className="w-1 h-1 bg-primary rounded-full" /> Business Inquiries</li>
-                <li className="flex items-center gap-2"><span className="w-1 h-1 bg-primary rounded-full" /> Artist Submissions</li>
-                <li className="flex items-center gap-2"><span className="w-1 h-1 bg-primary rounded-full" /> Production Bookings</li>
-                <li className="flex items-center gap-2"><span className="w-1 h-1 bg-primary rounded-full" /> Distribution Partnerships</li>
-                <li className="flex items-center gap-2"><span className="w-1 h-1 bg-primary rounded-full" /> Press & Media</li>
+            <div className="glass-card p-8 md:p-10 hover:-translate-y-1 transition-transform duration-400">
+              <h3 className="font-bold mb-5 text-base">Inquiry Types</h3>
+              <ul className="space-y-3 text-sm text-muted-foreground">
+                <li className="flex items-center gap-3"><span className="w-1.5 h-1.5 bg-primary rounded-full shrink-0" /> Business Inquiries</li>
+                <li className="flex items-center gap-3"><span className="w-1.5 h-1.5 bg-primary rounded-full shrink-0" /> Artist Submissions</li>
+                <li className="flex items-center gap-3"><span className="w-1.5 h-1.5 bg-primary rounded-full shrink-0" /> Production Bookings</li>
+                <li className="flex items-center gap-3"><span className="w-1.5 h-1.5 bg-primary rounded-full shrink-0" /> Distribution Partnerships</li>
+                <li className="flex items-center gap-3"><span className="w-1.5 h-1.5 bg-primary rounded-full shrink-0" /> Press & Media</li>
               </ul>
             </div>
           </motion.div>
 
           {/* Form */}
           <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={2} className="lg:col-span-8">
-            <form id="inquiry-form" onSubmit={handleSubmit} className="glass-card p-8 md:p-12 space-y-6">
+            <form id="inquiry-form" onSubmit={handleSubmit} className="glass-card p-8 md:p-14 space-y-7">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground mb-2 block font-medium">Name</label>
+                  <label className="section-label mb-3 block">Name</label>
                   <Input
                     value={formData.name}
                     onChange={e => setFormData({ ...formData, name: e.target.value })}
                     required
-                    className="bg-secondary border-border text-foreground h-12"
+                    className="bg-secondary border-border text-foreground h-13"
                     placeholder="Your name"
                   />
                 </div>
                 <div>
-                  <label className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground mb-2 block font-medium">Email</label>
+                  <label className="section-label mb-3 block">Email</label>
                   <Input
                     type="email"
                     value={formData.email}
                     onChange={e => setFormData({ ...formData, email: e.target.value })}
                     required
-                    className="bg-secondary border-border text-foreground h-12"
+                    className="bg-secondary border-border text-foreground h-13"
                     placeholder="your@email.com"
                   />
                 </div>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground mb-2 block font-medium">Subject</label>
+                  <label className="section-label mb-3 block">Subject</label>
                   <Input
                     value={formData.subject}
                     onChange={e => setFormData({ ...formData, subject: e.target.value })}
                     required
-                    className="bg-secondary border-border text-foreground h-12"
+                    className="bg-secondary border-border text-foreground h-13"
                     placeholder="Subject"
                   />
                 </div>
                 <div>
-                  <label className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground mb-2 block font-medium">Inquiry Type</label>
+                  <label className="section-label mb-3 block">Inquiry Type</label>
                   <select
                     value={formData.type}
                     onChange={e => setFormData({ ...formData, type: e.target.value })}
-                    className="w-full h-12 px-3 bg-secondary border border-border text-foreground text-sm"
+                    className="w-full h-13 px-3 bg-secondary border border-border text-foreground text-sm rounded-md"
                   >
                     <option value="general">General Inquiry</option>
                     <option value="artist">Artist Submission</option>
@@ -149,12 +149,12 @@ const ContactPage = () => {
                 </div>
               </div>
               <div>
-                <label className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground mb-2 block font-medium">Message</label>
+                <label className="section-label mb-3 block">Message</label>
                 <Textarea
                   value={formData.message}
                   onChange={e => setFormData({ ...formData, message: e.target.value })}
                   required
-                  rows={6}
+                  rows={7}
                   className="bg-secondary border-border text-foreground"
                   placeholder="Tell us about your project..."
                 />
