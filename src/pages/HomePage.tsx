@@ -113,62 +113,78 @@ const HomePage = () => {
       </div>
 
       {/* ─── ABOUT ─── */}
-      <section className="section-padding">
-        <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-          <div>
-            <SectionHeader label="About URS79" title="Where Creativity" titleAccent="Meets Industry" />
-            <div className="divider-gold mt-8 mb-8" />
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2, duration: 0.7 }}
-              className="text-xl md:text-2xl text-foreground font-light leading-relaxed mb-6"
-            >
-              URS79 was founded on a singular vision: to bridge the gap between raw creative talent and global audiences.
-              We are more than a production company — we are a creative ecosystem.
-            </motion.p>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3, duration: 0.7 }}
-              className="text-muted-foreground leading-relaxed"
-            >
-              From film and music video production to recording, artist development, distribution, and publishing — 
-              we provide the complete infrastructure for creators to thrive. Our work spans continents, genres, and mediums, 
-              united by an unwavering commitment to excellence.
-            </motion.p>
-          </div>
-
-          <div className="space-y-4">
-            {[
-              { title: 'Our Vision', text: "To be the world's most artist-forward multimedia company — where creativity, technology, and commerce converge to redefine entertainment." },
-              { title: 'Our Mission', text: 'To discover, develop, and distribute exceptional creative content across film, music, and media — providing artists and brands with the tools, platform, and reach to make a lasting cultural impact.' },
-            ].map((item, i) => (
-              <motion.div key={i} initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1, duration: 0.7 }} className="glass-card p-6 md:p-8">
-                <h3 className="text-[10px] tracking-[0.3em] uppercase text-primary mb-3 font-semibold">{item.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{item.text}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-
-        {/* Divisions */}
-        <div className="max-w-[1400px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-16">
-          {divisions.map((d, i) => (
+      <section className="section-padding overflow-hidden">
+        <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center">
+          <div className="lg:col-span-5 relative">
             <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.08, duration: 0.7 }}
-              className="glass-card p-6 md:p-8 group"
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             >
-              <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">{d.label}</h3>
-              <p className="text-sm text-muted-foreground">{d.desc}</p>
+              <SectionHeader label="About URS79" title="Where Creativity" titleAccent="Meets Industry" />
+              <div className="divider-gold mt-8 mb-8" />
+              <p className="text-xl md:text-2xl text-foreground font-light leading-relaxed mb-6">
+                URS79 was founded on a singular vision: to bridge the gap between raw creative talent and global audiences.
+                We are more than a production company — we are a creative ecosystem.
+              </p>
+              <p className="text-muted-foreground leading-relaxed mb-10">
+                From film and music video production to recording, artist development, distribution, and publishing — 
+                we provide the complete infrastructure for creators to thrive. Our work spans continents, genres, and mediums, 
+                united by an unwavering commitment to excellence.
+              </p>
+              <Link to="/about" className="text-primary text-[11px] tracking-[0.25em] uppercase font-semibold inline-flex items-center gap-3 group">
+                Discover Our Story <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
             </motion.div>
-          ))}
+          </div>
+
+          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6 relative">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-primary/10 rounded-full blur-[100px] -z-10" />
+            
+            <div className="space-y-6 sm:mt-12">
+              <motion.div 
+                initial={{ opacity: 0, y: 40 }} 
+                whileInView={{ opacity: 1, y: 0 }} 
+                viewport={{ once: true }} 
+                transition={{ duration: 0.8, ease: "easeOut" }} 
+                className="glass-card p-8 hover:-translate-y-2 transition-transform duration-500"
+              >
+                <h3 className="text-[10px] tracking-[0.3em] uppercase text-primary mb-3 font-semibold">Our Vision</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  To be the world's most artist-forward multimedia company — where creativity, technology, and commerce converge to redefine entertainment.
+                </p>
+              </motion.div>
+              <motion.div 
+                initial={{ opacity: 0, y: 40 }} 
+                whileInView={{ opacity: 1, y: 0 }} 
+                viewport={{ once: true }} 
+                transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }} 
+                className="glass-card p-8 hover:-translate-y-2 transition-transform duration-500"
+              >
+                <h3 className="text-[10px] tracking-[0.3em] uppercase text-primary mb-3 font-semibold">Our Mission</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  To discover, develop, and distribute exceptional creative content across film, music, and media — providing artists and brands with the tools to make a lasting impact.
+                </p>
+              </motion.div>
+            </div>
+            
+            <div className="space-y-6">
+              {divisions.slice(0, 2).map((d, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: 0.2 + (i * 0.1), ease: "easeOut" }}
+                  className="glass-card p-8 hover:-translate-y-2 transition-transform duration-500 bg-secondary/30"
+                >
+                  <h3 className="text-lg font-display tracking-wide mb-2 text-foreground">{d.label}</h3>
+                  <p className="text-sm text-muted-foreground">{d.desc}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
