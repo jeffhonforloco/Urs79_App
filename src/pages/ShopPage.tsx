@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ShoppingBag, Plus, Check } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { ShoppingBag, Plus, Heart } from 'lucide-react';
 import { useCart } from '@/contexts/CartContext';
+import { useWishlist } from '@/contexts/WishlistContext';
 import { Button } from '@/components/ui/button';
 
 type Product = {
@@ -25,6 +26,7 @@ const ShopPage = () => {
   const [loading, setLoading] = useState(true);
   const [selectedSizes, setSelectedSizes] = useState<Record<string, string>>({});
   const { addToCart, setIsCartOpen, items } = useCart();
+  const { toggleWishlist, isWishlisted, setIsWishlistOpen } = useWishlist();
 
   useEffect(() => {
     supabase.from('products').select('*').eq('is_published', true).order('sort_order').then(({ data }) => {
@@ -60,6 +62,14 @@ const ShopPage = () => {
             {cartItemCount}
           </span>
         )}
+      </button>
+
+      {/* Floating Wishlist Button */}
+      <button
+        onClick={() => setIsWishlistOpen(true)}
+        className="fixed bottom-24 right-6 md:bottom-28 md:right-8 z-50 w-12 h-12 md:w-14 md:h-14 rounded-full bg-secondary border border-border text-foreground shadow-xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all duration-300 hover:border-primary/50"
+      >
+        <Heart className="w-5 h-5 md:w-6 md:h-6" />
       </button>
 
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-10">
@@ -100,8 +110,8 @@ const ShopPage = () => {
                 transition={{ delay: i * 0.05, duration: 0.4 }}
                 className="glass-card group flex flex-col overflow-hidden hover:border-primary/50 transition-colors duration-500"
               >
-                <Link to={`/shop/${p.slug}`} className="block">
-                  <div className="aspect-square bg-secondary overflow-hidden relative">
+                <div className="aspect-square bg-secondary overflow-hidden relative">
+                  <Link to={`/shop/${p.slug}`} className="block w-full h-full">
                     {p.image_url ? (
                       <img src={p.image_url} alt={p.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" />
                     ) : (
@@ -109,13 +119,22 @@ const ShopPage = () => {
                         <ShoppingBag className="w-10 h-10 text-muted-foreground/20" />
                       </div>
                     )}
-                    {p.stock_quantity <= 0 && (
-                      <div className="absolute inset-0 bg-background/60 backdrop-blur-sm flex items-center justify-center">
-                        <span className="font-display text-lg md:text-2xl tracking-widest rotate-[-15deg] border-y-2 border-foreground py-2 px-4 md:px-6">SOLD OUT</span>
-                      </div>
-                    )}
-                  </div>
-                </Link>
+                  </Link>
+                  {/* Wishlist heart */}
+                  <button
+                    onClick={() => toggleWishlist(p)}
+                    className="absolute top-2 right-2 w-8 h-8 rounded-full bg-background/70 backdrop-blur-sm flex items-center justify-center hover:scale-110 active:scale-95 transition-all duration-200 shadow-md z-10"
+                  >
+                    <Heart
+                      className={`w-4 h-4 transition-colors duration-200 ${isWishlisted(p.id) ? 'fill-primary text-primary' : 'text-foreground'}`}
+                    />
+                  </button>
+                  {p.stock_quantity <= 0 && (
+                    <div className="absolute inset-0 bg-background/60 backdrop-blur-sm flex items-center justify-center">
+                      <span className="font-display text-lg md:text-2xl tracking-widest rotate-[-15deg] border-y-2 border-foreground py-2 px-4 md:px-6">SOLD OUT</span>
+                    </div>
+                  )}
+                </div>
                 <div className="p-3 md:p-5 flex flex-col flex-1">
                   <Link to={`/shop/${p.slug}`} className="block mb-1 md:mb-2">
                     {p.category && <p className="text-[8px] md:text-[9px] tracking-[0.3em] uppercase text-primary mb-1 md:mb-2">{p.category}</p>}

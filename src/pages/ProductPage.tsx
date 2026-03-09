@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { motion } from 'framer-motion';
-import { ShoppingBag, Plus, ArrowLeft, Ruler, ChevronDown } from 'lucide-react';
+import { ShoppingBag, Plus, ArrowLeft, Ruler, ChevronDown, Heart } from 'lucide-react';
 import { useCart } from '@/contexts/CartContext';
+import { useWishlist } from '@/contexts/WishlistContext';
 import { Button } from '@/components/ui/button';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 
@@ -35,6 +36,7 @@ const ProductPage = () => {
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [sizeGuideOpen, setSizeGuideOpen] = useState(false);
   const { addToCart, setIsCartOpen, items } = useCart();
+  const { toggleWishlist, isWishlisted } = useWishlist();
 
   useEffect(() => {
     if (slug) {
@@ -134,7 +136,7 @@ const ProductPage = () => {
             transition={{ duration: 0.6 }}
             className="relative"
           >
-            <div className="aspect-square bg-secondary rounded-lg overflow-hidden sticky top-32">
+            <div className="aspect-square bg-secondary rounded-lg overflow-hidden sticky top-32 relative">
               {product.image_url ? (
                 <img
                   src={product.image_url}
@@ -146,6 +148,15 @@ const ProductPage = () => {
                   <ShoppingBag className="w-20 h-20 text-muted-foreground/20" />
                 </div>
               )}
+              {/* Wishlist heart button */}
+              <button
+                onClick={() => toggleWishlist(product)}
+                className="absolute top-4 right-4 w-10 h-10 rounded-full bg-background/70 backdrop-blur-sm flex items-center justify-center hover:scale-110 active:scale-95 transition-all duration-200 shadow-lg z-10"
+              >
+                <Heart
+                  className={`w-5 h-5 transition-colors duration-200 ${isWishlisted(product.id) ? 'fill-primary text-primary' : 'text-foreground'}`}
+                />
+              </button>
               {product.stock_quantity <= 0 && (
                 <div className="absolute inset-0 bg-background/60 backdrop-blur-sm flex items-center justify-center">
                   <span className="font-display text-3xl md:text-4xl tracking-widest rotate-[-15deg] border-y-2 border-foreground py-3 px-8">

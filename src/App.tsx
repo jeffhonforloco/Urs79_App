@@ -9,6 +9,8 @@ import SiteLayout from "./components/urs79/SiteLayout";
 import HomePage from "./pages/HomePage";
 import { CartProvider } from "./contexts/CartContext";
 import { CartDrawer } from "./components/shop/CartDrawer";
+import { WishlistProvider } from "./contexts/WishlistContext";
+import { WishlistDrawer } from "./components/shop/WishlistDrawer";
 
 // Lazy-load all non-critical pages
 const ServicesPage = lazy(() => import("./pages/ServicesPage"));
@@ -47,8 +49,10 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
+      <WishlistProvider>
       <CartProvider>
         <CartDrawer />
+        <WishlistDrawer />
         <BrowserRouter>
           <Suspense fallback={<PageLoader />}>
           <Routes>
@@ -83,6 +87,7 @@ const App = () => (
         </Suspense>
       </BrowserRouter>
       </CartProvider>
+      </WishlistProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );
