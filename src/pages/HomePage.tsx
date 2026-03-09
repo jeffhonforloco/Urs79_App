@@ -191,7 +191,14 @@ const HomePage = () => {
       {/* ─── SERVICES ─── */}
       <section className="section-padding bg-card relative grain-overlay">
         <div className="max-w-[1400px] mx-auto relative z-10">
-          <SectionHeader label="What We Do" title="Full-Spectrum" titleAccent="Creative Services" align="center" />
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <SectionHeader label="What We Do" title="Full-Spectrum" titleAccent="Creative Services" align="center" />
+          </motion.div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mt-16">
             {services.map((s, i) => {
@@ -199,19 +206,19 @@ const HomePage = () => {
               return (
                 <motion.div
                   key={i}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, y: 40, scale: 0.95 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
                   viewport={{ once: true }}
-                  transition={{ delay: i * 0.06, duration: 0.6 }}
+                  transition={{ delay: i * 0.08, duration: 0.6, ease: "easeOut" }}
                 >
                   <Link
                     to="/services"
-                    className="glass-card p-6 md:p-8 flex flex-col items-center text-center gap-4 group block h-full"
+                    className="glass-card p-6 md:p-8 flex flex-col items-center text-center gap-5 group block h-full hover:bg-secondary/40 hover:-translate-y-1 transition-all duration-300"
                   >
-                    <div className="w-14 h-14 rounded-full border border-border flex items-center justify-center group-hover:border-primary/40 group-hover:bg-primary/5 transition-all duration-500">
-                      <Icon className="w-6 h-6 text-primary" />
+                    <div className="w-16 h-16 rounded-full border border-border flex items-center justify-center group-hover:border-primary/60 group-hover:bg-primary/10 transition-all duration-500 group-hover:scale-110">
+                      <Icon className="w-6 h-6 text-primary group-hover:drop-shadow-[0_0_8px_rgba(201,160,80,0.5)]" />
                     </div>
-                    <h3 className="text-sm font-semibold tracking-wide">{s.title}</h3>
+                    <h3 className="text-sm font-display tracking-widest uppercase">{s.title}</h3>
                   </Link>
                 </motion.div>
               );
