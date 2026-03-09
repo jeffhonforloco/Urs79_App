@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight, ArrowUpRight, Film, Music, Tv, Disc3, Users, Globe, BookOpen, Palette } from 'lucide-react';
 import Marquee from '@/components/urs79/Marquee';
 import SectionHeader from '@/components/urs79/SectionHeader';
+import ScrollReveal, { ScrollRevealGroup, ScrollRevealItem } from '@/components/urs79/ScrollReveal';
 import { useSiteSettings } from '@/hooks/useSiteSettings';
 import defaultHeroVideo from '@/assets/hero-video.mp4';
 
@@ -123,12 +124,7 @@ const HomePage = () => {
       <section className="section-padding overflow-hidden">
         <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-20 lg:gap-28 items-start">
           <div className="lg:col-span-5 relative">
-            <motion.div
-              initial={{ opacity: 0, x: -60 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
-            >
+            <ScrollReveal direction="left" blur distance={60} duration={1.1}>
               <SectionHeader label="About URS79" title="Where Creativity" titleAccent="Meets Industry" />
               <div className="divider-gold mt-10 mb-10" />
               <p className="text-xl md:text-2xl lg:text-3xl text-foreground font-light leading-[1.4] mb-8">
@@ -142,54 +138,41 @@ const HomePage = () => {
               <Link to="/about" className="text-primary text-[11px] tracking-[0.25em] uppercase font-semibold inline-flex items-center gap-3 group">
                 Discover Our Story <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform duration-300" />
               </Link>
-            </motion.div>
+            </ScrollReveal>
           </div>
 
           <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6 relative">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-primary/8 rounded-full blur-[120px] -z-10" />
             
-            <div className="space-y-6 sm:mt-16">
-              <motion.div 
-                initial={{ opacity: 0, y: 50 }} 
-                whileInView={{ opacity: 1, y: 0 }} 
-                viewport={{ once: true }} 
-                transition={{ duration: 0.9, ease: "easeOut" }} 
-                className="glass-card p-8 md:p-10 hover:-translate-y-2 transition-transform duration-500"
-              >
-                <h3 className="section-label mb-4">Our Vision</h3>
-                <p className="body-md">
-                  To be the world's most artist-forward multimedia company — where creativity, technology, and commerce converge to redefine entertainment.
-                </p>
-              </motion.div>
-              <motion.div 
-                initial={{ opacity: 0, y: 50 }} 
-                whileInView={{ opacity: 1, y: 0 }} 
-                viewport={{ once: true }} 
-                transition={{ duration: 0.9, delay: 0.15, ease: "easeOut" }} 
-                className="glass-card p-8 md:p-10 hover:-translate-y-2 transition-transform duration-500"
-              >
-                <h3 className="section-label mb-4">Our Mission</h3>
-                <p className="body-md">
-                  To discover, develop, and distribute exceptional creative content across film, music, and media — providing artists and brands with the tools to make a lasting impact.
-                </p>
-              </motion.div>
-            </div>
+            <ScrollRevealGroup stagger={0.12} className="space-y-6 sm:mt-16">
+              <ScrollRevealItem direction="up" blur scale>
+                <div className="glass-card p-8 md:p-10 hover:-translate-y-2 transition-transform duration-500">
+                  <h3 className="section-label mb-4">Our Vision</h3>
+                  <p className="body-md">
+                    To be the world's most artist-forward multimedia company — where creativity, technology, and commerce converge to redefine entertainment.
+                  </p>
+                </div>
+              </ScrollRevealItem>
+              <ScrollRevealItem direction="up" blur scale>
+                <div className="glass-card p-8 md:p-10 hover:-translate-y-2 transition-transform duration-500">
+                  <h3 className="section-label mb-4">Our Mission</h3>
+                  <p className="body-md">
+                    To discover, develop, and distribute exceptional creative content across film, music, and media — providing artists and brands with the tools to make a lasting impact.
+                  </p>
+                </div>
+              </ScrollRevealItem>
+            </ScrollRevealGroup>
             
-            <div className="space-y-6">
+            <ScrollRevealGroup stagger={0.12} className="space-y-6">
               {divisions.slice(0, 2).map((d, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 50 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.9, delay: 0.25 + (i * 0.12), ease: "easeOut" }}
-                  className="glass-card p-8 md:p-10 hover:-translate-y-2 transition-transform duration-500 bg-secondary/30"
-                >
-                  <h3 className="text-xl md:text-2xl font-display tracking-wide mb-3 text-foreground">{d.label}</h3>
-                  <p className="body-md">{d.desc}</p>
-                </motion.div>
+                <ScrollRevealItem key={i} direction="up" blur scale>
+                  <div className="glass-card p-8 md:p-10 hover:-translate-y-2 transition-transform duration-500 bg-secondary/30">
+                    <h3 className="text-xl md:text-2xl font-display tracking-wide mb-3 text-foreground">{d.label}</h3>
+                    <p className="body-md">{d.desc}</p>
+                  </div>
+                </ScrollRevealItem>
               ))}
-            </div>
+            </ScrollRevealGroup>
           </div>
         </div>
       </section>
@@ -197,26 +180,15 @@ const HomePage = () => {
       {/* ─── SERVICES ─── */}
       <section className="section-padding bg-card relative grain-overlay">
         <div className="max-w-[1400px] mx-auto relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.9 }}
-          >
+          <ScrollReveal direction="up" blur>
             <SectionHeader label="What We Do" title="Full-Spectrum" titleAccent="Creative Services" align="center" />
-          </motion.div>
+          </ScrollReveal>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mt-20">
+          <ScrollRevealGroup stagger={0.06} className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mt-20">
             {services.map((s, i) => {
               const Icon = s.icon;
               return (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 50, scale: 0.95 }}
-                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.08, duration: 0.7, ease: "easeOut" }}
-                >
+                <ScrollRevealItem key={i} direction="up" scale blur>
                   <Link
                     to="/services"
                     className="glass-card p-6 md:p-10 flex flex-col items-center text-center gap-6 group block h-full hover:bg-secondary/40 hover:-translate-y-2 transition-all duration-400"
@@ -226,21 +198,16 @@ const HomePage = () => {
                     </div>
                     <h3 className="text-xs md:text-sm font-display tracking-widest uppercase">{s.title}</h3>
                   </Link>
-                </motion.div>
+                </ScrollRevealItem>
               );
             })}
-          </div>
+          </ScrollRevealGroup>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-center mt-16"
-          >
+          <ScrollReveal direction="up" delay={0.3} className="text-center mt-16">
             <Link to="/services" className="text-primary text-[11px] tracking-[0.25em] uppercase font-semibold inline-flex items-center gap-3 group">
               Explore All Services <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform duration-300" />
             </Link>
-          </motion.div>
+          </ScrollReveal>
         </div>
       </section>
 
@@ -254,12 +221,7 @@ const HomePage = () => {
         />
 
         <div className="relative z-10 max-w-5xl mx-auto text-center px-6 md:px-10">
-          <motion.div
-            initial={{ opacity: 0, y: 50, scale: 0.95 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.1, ease: "easeOut" }}
-          >
+          <ScrollReveal direction="up" scale blur distance={60} duration={1.1}>
             <p className="section-label mb-8 inline-flex items-center gap-3">
               <span className="w-10 h-px bg-primary/50" /> Let's Create <span className="w-10 h-px bg-primary/50" />
             </p>
@@ -279,7 +241,7 @@ const HomePage = () => {
                 Submit Your Music
               </Link>
             </div>
-          </motion.div>
+          </ScrollReveal>
         </div>
       </section>
 
