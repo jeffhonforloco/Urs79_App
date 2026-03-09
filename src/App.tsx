@@ -49,8 +49,10 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
+      <WishlistProvider>
       <CartProvider>
         <CartDrawer />
+        <WishlistDrawer />
         <BrowserRouter>
           <Suspense fallback={<PageLoader />}>
           <Routes>
@@ -85,6 +87,7 @@ const App = () => (
         </Suspense>
       </BrowserRouter>
       </CartProvider>
+      </WishlistProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );
