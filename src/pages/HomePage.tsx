@@ -239,31 +239,37 @@ const HomePage = () => {
       </section>
 
       {/* ─── CTA ─── */}
-      <section className="relative overflow-hidden grain-overlay">
+      <section className="relative overflow-hidden grain-overlay py-32 md:py-48">
         <div className="absolute inset-0 bg-card" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-primary/5 blur-[200px]" />
+        <motion.div 
+          animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-primary/5 blur-[150px] pointer-events-none" 
+        />
 
-        <div className="relative z-10 max-w-4xl mx-auto text-center section-padding">
+        <div className="relative z-10 max-w-4xl mx-auto text-center px-6 md:px-10">
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 40, scale: 0.95 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.9 }}
+            transition={{ duration: 1, ease: "easeOut" }}
           >
-            <p className="text-[10px] tracking-[0.4em] uppercase text-primary mb-6 font-semibold">Let's Create</p>
-            <h2 className="font-display text-5xl md:text-7xl lg:text-8xl tracking-[0.02em] mb-6">
+            <p className="text-[10px] tracking-[0.4em] uppercase text-primary mb-6 font-semibold inline-flex items-center gap-2">
+              <span className="w-8 h-px bg-primary/50" /> Let's Create <span className="w-8 h-px bg-primary/50" />
+            </p>
+            <h2 className="font-display text-5xl md:text-7xl lg:text-[7rem] leading-none tracking-[0.02em] mb-8">
               READY TO BUILD
               <br />
               <span className="text-gradient-gold">SOMETHING EXTRAORDINARY?</span>
             </h2>
-            <p className="text-muted-foreground text-base md:text-lg mb-12 max-w-xl mx-auto">
-              Whether you're an artist, a brand, or a creator — we're here to make it happen.
+            <p className="text-muted-foreground text-base md:text-lg mb-12 max-w-xl mx-auto font-light leading-relaxed">
+              Whether you're an artist, a brand, or a creator — we're here to make it happen. Join the ecosystem.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/contact?type=production#inquiry-form" className="btn-primary inline-flex items-center gap-3">
-                Start a Project <ArrowUpRight className="w-4 h-4" />
+            <div className="flex flex-col sm:flex-row gap-5 justify-center">
+              <Link to="/contact?type=production#inquiry-form" className="btn-primary inline-flex items-center gap-3 px-8 py-4 group">
+                Start a Project <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
               </Link>
-              <Link to="/submit" className="btn-secondary inline-flex items-center gap-3">
+              <Link to="/submit" className="btn-secondary inline-flex items-center gap-3 px-8 py-4">
                 Submit Your Music
               </Link>
             </div>
@@ -272,11 +278,11 @@ const HomePage = () => {
       </section>
 
       {/* ─── BOTTOM MARQUEE ─── */}
-      <div className="py-5 border-t border-border">
+      <div className="py-6 border-t border-border bg-background">
         <Marquee
           items={['Sound', 'Vision', 'Culture', 'Film', 'Music', 'Distribution', 'Publishing', 'Art']}
-          separator="—"
-          className="text-[10px] tracking-[0.4em] uppercase text-muted-foreground/40 font-medium"
+          separator="✧"
+          className="text-[11px] tracking-[0.4em] uppercase text-muted-foreground/30 font-display"
         />
       </div>
     </>
