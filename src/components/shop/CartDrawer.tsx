@@ -36,7 +36,7 @@ export const CartDrawer = () => {
             <ScrollArea className="h-full pr-4">
               <div className="space-y-6">
                 {items.map((item) => (
-                  <div key={item.id} className="flex gap-4 glass-card p-3">
+                  <div key={`${item.id}__${item.size}`} className="flex gap-4 glass-card p-3">
                     <div className="w-20 h-20 bg-secondary rounded-md overflow-hidden flex-shrink-0">
                       {item.image_url ? (
                         <img src={item.image_url} alt={item.title} className="w-full h-full object-cover" />
@@ -48,18 +48,21 @@ export const CartDrawer = () => {
                     </div>
                     <div className="flex-1 flex flex-col justify-between py-1">
                       <div className="flex justify-between items-start">
-                        <h4 className="font-medium line-clamp-1">{item.title}</h4>
-                        <button onClick={() => removeFromCart(item.id)} className="text-muted-foreground hover:text-destructive transition-colors">
+                        <div>
+                          <h4 className="font-medium line-clamp-1 text-sm">{item.title}</h4>
+                          <span className="text-[10px] tracking-[0.2em] uppercase text-primary font-semibold">Size: {item.size}</span>
+                        </div>
+                        <button onClick={() => removeFromCart(item.id, item.size)} className="text-muted-foreground hover:text-destructive transition-colors">
                           <Trash2 className="w-4 h-4" />
                         </button>
                       </div>
                       <div className="flex items-center justify-between mt-2">
                         <div className="flex items-center gap-3 border border-border rounded-md px-2 py-1">
-                          <button onClick={() => updateQuantity(item.id, item.quantity - 1)} className="hover:text-primary">
+                          <button onClick={() => updateQuantity(item.id, item.size, item.quantity - 1)} className="hover:text-primary">
                             <Minus className="w-3 h-3" />
                           </button>
                           <span className="text-sm w-4 text-center">{item.quantity}</span>
-                          <button onClick={() => updateQuantity(item.id, item.quantity + 1)} className="hover:text-primary">
+                          <button onClick={() => updateQuantity(item.id, item.size, item.quantity + 1)} className="hover:text-primary">
                             <Plus className="w-3 h-3" />
                           </button>
                         </div>
