@@ -84,8 +84,7 @@ export default {
 					to: {
 						height: '0'
 					}
-				}
-			},
+				},
 				'shake': {
 					'0%, 100%': { transform: 'translateX(0)' },
 					'25%': { transform: 'translateX(-4px)' },
