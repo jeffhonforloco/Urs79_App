@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { motion } from 'framer-motion';
-import { ShoppingBag, Plus, ArrowLeft, Ruler, ChevronDown } from 'lucide-react';
+import { ShoppingBag, Plus, ArrowLeft, Ruler, ChevronDown, Heart } from 'lucide-react';
 import { useCart } from '@/contexts/CartContext';
+import { useWishlist } from '@/contexts/WishlistContext';
 import { Button } from '@/components/ui/button';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 
@@ -35,6 +36,7 @@ const ProductPage = () => {
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [sizeGuideOpen, setSizeGuideOpen] = useState(false);
   const { addToCart, setIsCartOpen, items } = useCart();
+  const { toggleWishlist, isWishlisted } = useWishlist();
 
   useEffect(() => {
     if (slug) {
