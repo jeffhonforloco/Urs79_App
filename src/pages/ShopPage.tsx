@@ -26,6 +26,7 @@ const ShopPage = () => {
   const [loading, setLoading] = useState(true);
   const [selectedSizes, setSelectedSizes] = useState<Record<string, string>>({});
   const { addToCart, setIsCartOpen, items } = useCart();
+  const { toggleWishlist, isWishlisted, setIsWishlistOpen } = useWishlist();
 
   useEffect(() => {
     supabase.from('products').select('*').eq('is_published', true).order('sort_order').then(({ data }) => {
