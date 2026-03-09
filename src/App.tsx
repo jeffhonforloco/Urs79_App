@@ -19,6 +19,7 @@ const ArtistsPage = lazy(() => import("./pages/ArtistsPage"));
 const NewsPage = lazy(() => import("./pages/NewsPage"));
 const ContactPage = lazy(() => import("./pages/ContactPage"));
 const ShopPage = lazy(() => import("./pages/ShopPage"));
+const ProductPage = lazy(() => import("./pages/ProductPage"));
 const SubmitMusicPage = lazy(() => import("./pages/SubmitMusicPage"));
 const AdminLoginPage = lazy(() => import("./pages/AdminLoginPage"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
@@ -61,6 +62,7 @@ const App = () => (
               <Route path="/distribution" element={<ServicesPage />} />
               <Route path="/news" element={<NewsPage />} />
               <Route path="/shop" element={<ShopPage />} />
+              <Route path="/shop/:slug" element={<ProductPage />} />
               <Route path="/contact" element={<ContactPage />} />
             </Route>
             <Route path="/submit" element={<SubmitMusicPage />} />
