@@ -66,8 +66,10 @@ const SiteNavbar = () => {
                   : 'text-foreground hover:text-primary'
               }`}
             >
-              {l.label}
-              <span className={`absolute -bottom-1 left-0 h-px bg-primary transition-all duration-500 ${
+              <span className="relative inline-block transition-transform duration-300 group-hover:-translate-y-px">
+                {l.label}
+              </span>
+              <span className={`absolute -bottom-1.5 left-0 h-[2px] bg-primary transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] origin-left ${
                 location.pathname === l.path ? 'w-full' : 'w-0 group-hover:w-full'
               }`} />
             </Link>
