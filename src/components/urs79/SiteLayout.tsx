@@ -22,25 +22,35 @@ const SiteNavbar = () => {
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
-    window.addEventListener('scroll', onScroll);
+    window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   useEffect(() => setMobileOpen(false), [location]);
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [mobileOpen]);
+
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
-        scrolled ? 'glass-dark py-3' : 'py-6'
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        scrolled || mobileOpen ? 'glass-dark py-2 md:py-3' : 'py-4 md:py-6'
       }`}
     >
-      <div className="max-w-[1400px] mx-auto px-6 md:px-10 flex items-center justify-between">
-        {/* Logo - VERY pronounced */}
-        <Link to="/" className="flex items-center gap-4 group">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-10 flex items-center justify-between">
+        {/* Logo */}
+        <Link to="/" className="flex items-center gap-4 group relative z-50">
           <img
             src={logoUrl}
             alt="URS79"
-            className={`transition-all duration-700 ${scrolled ? 'h-14 md:h-16' : 'h-20 md:h-24 lg:h-28'}`}
+            className={`transition-all duration-500 ${scrolled ? 'h-10 sm:h-12 md:h-16' : 'h-14 sm:h-16 md:h-24 lg:h-28'}`}
           />
         </Link>
 
@@ -70,51 +80,94 @@ const SiteNavbar = () => {
           </Link>
         </div>
 
-        <button onClick={() => setMobileOpen(!mobileOpen)} className="xl:hidden text-foreground p-2">
-          {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+        {/* Mobile menu toggle — 44px+ touch target */}
+        <button
+          onClick={() => setMobileOpen(!mobileOpen)}
+          className="xl:hidden relative z-50 w-11 h-11 flex items-center justify-center rounded-md active:bg-primary/10 transition-colors"
+          aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+        >
+          <AnimatePresence mode="wait">
+            {mobileOpen ? (
+              <motion.div key="close" initial={{ opacity: 0, rotate: -90 }} animate={{ opacity: 1, rotate: 0 }} exit={{ opacity: 0, rotate: 90 }} transition={{ duration: 0.2 }}>
+                <X className="w-6 h-6 text-foreground" />
+              </motion.div>
+            ) : (
+              <motion.div key="menu" initial={{ opacity: 0, rotate: 90 }} animate={{ opacity: 1, rotate: 0 }} exit={{ opacity: 0, rotate: -90 }} transition={{ duration: 0.2 }}>
+                <Menu className="w-6 h-6 text-foreground" />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </button>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile fullscreen menu */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="xl:hidden overflow-hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="xl:hidden fixed inset-0 top-0 bg-background/98 backdrop-blur-xl z-40"
           >
-            <div className="glass-dark mx-4 mt-3 rounded p-6">
-              <nav className="flex flex-col gap-1">
+            <div className="flex flex-col justify-center items-center h-full px-8">
+              <nav className="flex flex-col items-center gap-2 w-full max-w-sm">
                 {navLinks.map((l, i) => (
                   <motion.div
                     key={l.path}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.04, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ delay: i * 0.06, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                    className="w-full"
                   >
                     <Link
                       to={l.path}
-                      className={`flex items-center justify-between px-4 py-3.5 rounded-md text-sm tracking-[0.2em] uppercase font-bold transition-colors duration-200 active:scale-[0.98] ${
+                      className={`flex items-center justify-center py-4 text-lg tracking-[0.2em] uppercase font-display transition-colors duration-200 active:scale-[0.98] ${
                         location.pathname === l.path
-                          ? 'text-primary bg-primary/10'
-                          : 'text-foreground hover:text-primary hover:bg-primary/5 active:bg-primary/10'
+                          ? 'text-primary'
+                          : 'text-foreground hover:text-primary'
                       }`}
                     >
                       {l.label}
-                      <ArrowUpRight className={`w-4 h-4 transition-opacity ${
-                        location.pathname === l.path ? 'opacity-100 text-primary' : 'opacity-0'
-                      }`} />
                     </Link>
                   </motion.div>
                 ))}
               </nav>
-              <div className="mt-6 pt-5 border-t border-border">
-                <Link to="/contact?type=production#inquiry-form" className="btn-primary text-[10px] text-center block py-4">
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4, duration: 0.4 }}
+                className="mt-10 w-full max-w-sm"
+              >
+                <Link
+                  to="/contact?type=production#inquiry-form"
+                  className="btn-primary text-xs text-center block py-4 tracking-[0.2em] uppercase w-full"
+                >
                   Start a Project
                 </Link>
-              </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5, duration: 0.4 }}
+                className="mt-10 flex items-center gap-4"
+              >
+                {socialLinks.map(({ icon: SocialIcon, href, label }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={label}
+                    className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/40 transition-all duration-300"
+                  >
+                    <SocialIcon className="w-4 h-4" />
+                  </a>
+                ))}
+              </motion.div>
             </div>
           </motion.div>
         )}
@@ -148,50 +201,55 @@ const SiteFooter = () => {
   const { settings } = useSiteSettings();
   const logoUrl = settings.logo_url || '/images/urs79-logo-color.webp';
   return (
-  <footer className="border-t border-border bg-background relative">
+  <footer className="border-t border-border bg-background relative overflow-hidden">
     {/* Large logo watermark */}
-    <div className="absolute top-0 right-0 w-[500px] h-[500px] opacity-[0.02] pointer-events-none overflow-hidden">
+    <div className="absolute top-0 right-0 w-[300px] md:w-[500px] h-[300px] md:h-[500px] opacity-[0.02] pointer-events-none overflow-hidden">
       <img src={logoUrl} alt="" className="w-full h-full object-contain" loading="lazy" decoding="async" />
     </div>
 
-    <div className="max-w-[1400px] mx-auto px-6 md:px-10 py-20 md:py-28">
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 mb-20">
-        <div className="md:col-span-5">
-          <img src={logoUrl} alt="URS79" className="h-16 md:h-20 mb-8" loading="lazy" decoding="async" />
-          <p className="text-muted-foreground text-sm leading-relaxed max-w-sm mb-8">
+    <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-10 py-14 md:py-28">
+      {/* Top section */}
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-12 gap-8 md:gap-8 mb-14 md:mb-20">
+        {/* Brand — full width on mobile */}
+        <div className="col-span-2 sm:col-span-2 md:col-span-5 mb-4 md:mb-0">
+          <img src={logoUrl} alt="URS79" className="h-12 sm:h-14 md:h-20 mb-6 md:mb-8" loading="lazy" decoding="async" />
+          <p className="text-muted-foreground text-sm leading-relaxed max-w-sm mb-6 md:mb-8">
             A premier multimedia production company, record label, distributor, and publishing house — 
             shaping the future of entertainment.
           </p>
-          <a href="mailto:info@urs79.com" className="text-primary text-sm tracking-[0.15em] uppercase font-medium">
+          <a href="mailto:info@urs79.com" className="text-primary text-sm tracking-[0.15em] uppercase font-medium hover:underline transition-all">
             info@urs79.com
           </a>
         </div>
 
-        <div className="md:col-span-2 md:col-start-7">
-          <h4 className="text-[10px] tracking-[0.3em] uppercase text-primary mb-6 font-semibold">Navigate</h4>
-          <div className="flex flex-col gap-3">
+        {/* Navigate */}
+        <div className="col-span-1 md:col-span-2 md:col-start-7">
+          <h4 className="text-[10px] tracking-[0.3em] uppercase text-primary mb-4 md:mb-6 font-semibold">Navigate</h4>
+          <div className="flex flex-col gap-2.5 md:gap-3">
             {navLinks.slice(1, 5).map(l => (
-              <Link key={l.path} to={l.path} className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-300">{l.label}</Link>
+              <Link key={l.path} to={l.path} className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-300 py-0.5">{l.label}</Link>
             ))}
           </div>
         </div>
 
-        <div className="md:col-span-2">
-          <h4 className="text-[10px] tracking-[0.3em] uppercase text-primary mb-6 font-semibold">Company</h4>
-          <div className="flex flex-col gap-3">
+        {/* Company */}
+        <div className="col-span-1 md:col-span-2">
+          <h4 className="text-[10px] tracking-[0.3em] uppercase text-primary mb-4 md:mb-6 font-semibold">Company</h4>
+          <div className="flex flex-col gap-2.5 md:gap-3">
             {navLinks.slice(5).map(l => (
-              <Link key={l.path} to={l.path} className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-300">{l.label}</Link>
+              <Link key={l.path} to={l.path} className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-300 py-0.5">{l.label}</Link>
             ))}
           </div>
         </div>
 
-        <div className="md:col-span-2">
-          <h4 className="text-[10px] tracking-[0.3em] uppercase text-primary mb-6 font-semibold">Connect</h4>
-          <div className="flex flex-col gap-3 mb-6">
-            <Link to="/contact" className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-300">Contact</Link>
-            <a href="mailto:info@urs79.com" className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-300">Email</a>
+        {/* Connect — full width on mobile */}
+        <div className="col-span-2 sm:col-span-2 md:col-span-2">
+          <h4 className="text-[10px] tracking-[0.3em] uppercase text-primary mb-4 md:mb-6 font-semibold">Connect</h4>
+          <div className="flex flex-col gap-2.5 md:gap-3 mb-6">
+            <Link to="/contact" className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-300 py-0.5">Contact</Link>
+            <a href="mailto:info@urs79.com" className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-300 py-0.5">Email</a>
           </div>
-          <div className="flex items-center gap-3 flex-wrap">
+          <div className="flex items-center gap-2.5 flex-wrap">
             {socialLinks.map(({ icon: SocialIcon, href, label }) => (
               <a
                 key={label}
@@ -199,7 +257,7 @@ const SiteFooter = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={label}
-                className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/40 transition-all duration-300"
+                className="w-10 h-10 md:w-9 md:h-9 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/40 transition-all duration-300"
               >
                 <SocialIcon className="w-4 h-4" />
               </a>
@@ -208,12 +266,13 @@ const SiteFooter = () => {
         </div>
       </div>
 
-      <div className="hr-gold mb-8" />
-      <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-        <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground">
+      {/* Bottom bar */}
+      <div className="hr-gold mb-6 md:mb-8" />
+      <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+        <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground text-center sm:text-left">
           © {new Date().getFullYear()} URS79. All rights reserved.
         </p>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           {socialLinks.map(({ icon: SocialIcon, href, label }) => (
             <a
               key={label}
@@ -263,7 +322,7 @@ const SiteLayout = () => {
       </AnimatePresence>
       <SiteFooter />
 
-      {/* Back to top - mobile only */}
+      {/* Back to top */}
       <AnimatePresence>
         {showBackToTop && (
           <motion.button
@@ -272,7 +331,7 @@ const SiteLayout = () => {
             exit={{ opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.2 }}
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="md:hidden fixed bottom-6 right-6 z-50 w-11 h-11 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-lg active:scale-95 transition-transform"
+            className="fixed bottom-6 left-6 z-50 w-11 h-11 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-lg active:scale-95 transition-transform"
             aria-label="Back to top"
           >
             <ChevronUp className="w-5 h-5" />
