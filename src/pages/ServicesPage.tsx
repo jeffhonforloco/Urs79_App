@@ -6,8 +6,8 @@ import Marquee from '@/components/urs79/Marquee';
 import SectionHeader from '@/components/urs79/SectionHeader';
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.08, duration: 0.8, ease: [0.16, 1, 0.3, 1] as const } }),
+  hidden: { opacity: 0, y: 40 },
+  visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.08, duration: 0.9, ease: [0.16, 1, 0.3, 1] as const } }),
 };
 
 const allServices = [
@@ -37,18 +37,18 @@ const distroSteps = [
 const ServicesPage = () => (
   <div>
     {/* Hero */}
-    <section className="relative pt-40 pb-20 px-6 md:px-10 overflow-hidden grain-overlay">
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[200px]" />
+    <section className="relative pt-44 md:pt-52 pb-24 md:pb-28 px-6 md:px-10 overflow-hidden grain-overlay">
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[200px]" />
       <div className="max-w-[1400px] mx-auto relative z-10">
         <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={0}>
-          <p className="text-[10px] tracking-[0.4em] uppercase text-primary mb-4 font-semibold">Our Services</p>
-          <h1 className="font-display text-6xl md:text-8xl lg:text-9xl tracking-[0.02em] mb-6">
+          <p className="section-label mb-5">Our Services</p>
+          <h1 className="font-display text-6xl sm:text-7xl md:text-8xl lg:text-[10rem] tracking-[0.02em] leading-[0.85] mb-8">
             FULL-SPECTRUM
             <br />
             <span className="text-gradient-gold">CREATIVE POWER</span>
           </h1>
-          <div className="divider-gold mb-8" />
-          <p className="text-muted-foreground text-lg max-w-2xl leading-relaxed">
+          <div className="divider-gold mb-10" />
+          <p className="body-lg max-w-2xl">
             From the first spark of an idea to global distribution — URS79 provides the complete creative
             infrastructure for artists, brands, and visionaries.
           </p>
@@ -56,12 +56,12 @@ const ServicesPage = () => (
       </div>
     </section>
 
-    <div className="py-5 border-y border-border">
+    <div className="py-6 border-y border-border">
       <Marquee items={allServices.map(s => s.title)} className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground/40 font-medium" />
     </div>
 
     {/* All Services */}
-    <section className="py-20 px-6 md:px-10">
+    <section className="section-padding">
       <div className="max-w-[1400px] mx-auto space-y-4">
         {allServices.map((s, i) => {
           const Icon = s.icon;
@@ -69,27 +69,27 @@ const ServicesPage = () => (
             <motion.div
               key={i}
               initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
-              className="glass-card p-6 md:p-10 grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-center group"
+              className="glass-card p-6 md:p-10 grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-center group hover:-translate-y-1 transition-transform duration-400"
             >
               <div className="md:col-span-1 flex items-center">
-                <div className="w-12 h-12 rounded-full border border-border flex items-center justify-center group-hover:border-primary/40 group-hover:bg-primary/5 transition-all">
-                  <Icon className="w-5 h-5 text-primary" />
+                <div className="w-14 h-14 rounded-full border border-border flex items-center justify-center group-hover:border-primary/40 group-hover:bg-primary/5 transition-all duration-400">
+                  <Icon className="w-6 h-6 text-primary" />
                 </div>
               </div>
               <div className="md:col-span-4">
-                <h3 className="text-xl md:text-2xl font-bold group-hover:text-primary transition-colors">{s.title}</h3>
-                <p className="text-sm text-muted-foreground mt-2">{s.desc}</p>
+                <h3 className="text-xl md:text-2xl font-bold group-hover:text-primary transition-colors duration-300">{s.title}</h3>
+                <p className="body-md mt-2">{s.desc}</p>
               </div>
               <div className="md:col-span-3">
-                <p className="text-[10px] tracking-[0.2em] uppercase text-primary mb-2 font-semibold">Deliverables</p>
-                <p className="text-xs text-muted-foreground">{s.deliverables}</p>
+                <p className="section-label mb-2">Deliverables</p>
+                <p className="text-xs md:text-sm text-muted-foreground">{s.deliverables}</p>
               </div>
               <div className="md:col-span-3">
-                <p className="text-[10px] tracking-[0.2em] uppercase text-primary mb-2 font-semibold">For</p>
-                <p className="text-xs text-muted-foreground">{s.forWho}</p>
+                <p className="section-label mb-2">For</p>
+                <p className="text-xs md:text-sm text-muted-foreground">{s.forWho}</p>
               </div>
               <div className="md:col-span-1 flex justify-end">
-                <Link to="/contact" className="text-muted-foreground/20 group-hover:text-primary transition-all">
+                <Link to="/contact" className="text-muted-foreground/20 group-hover:text-primary transition-all duration-300">
                   <ArrowUpRight className="w-5 h-5" />
                 </Link>
               </div>
@@ -104,16 +104,16 @@ const ServicesPage = () => (
       <div className="max-w-[1400px] mx-auto relative z-10">
         <SectionHeader label="Distribution & Publishing" title="Global" titleAccent="Distribution" align="center" />
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-20">
           {distroFeatures.map((f, i) => {
             const Icon = f.icon;
             return (
-              <motion.div key={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i} className="glass-card p-8 md:p-10">
-                <div className="w-12 h-12 rounded-full border border-border flex items-center justify-center mb-6">
-                  <Icon className="w-5 h-5 text-primary" />
+              <motion.div key={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i} className="glass-card p-8 md:p-12 hover:-translate-y-2 transition-transform duration-400">
+                <div className="w-14 h-14 rounded-full border border-border flex items-center justify-center mb-8">
+                  <Icon className="w-6 h-6 text-primary" />
                 </div>
-                <h3 className="text-xl font-bold mb-3">{f.title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">{f.desc}</p>
+                <h3 className="text-xl md:text-2xl font-bold mb-4">{f.title}</h3>
+                <p className="body-md">{f.desc}</p>
               </motion.div>
             );
           })}
@@ -125,18 +125,18 @@ const ServicesPage = () => (
     <section className="section-padding">
       <div className="max-w-[1000px] mx-auto">
         <SectionHeader label="Process" title="How to" titleAccent="Get Started" />
-        <div className="space-y-4 mt-16">
+        <div className="space-y-5 mt-20">
           {distroSteps.map((s, i) => (
-            <motion.div key={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i * 0.1} className="glass-card p-6 md:p-8 flex items-start gap-6 md:gap-10">
-              <span className="font-display text-4xl md:text-5xl text-gradient-gold leading-none">{s.step}</span>
+            <motion.div key={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i * 0.1} className="glass-card p-7 md:p-10 flex items-start gap-8 md:gap-12 hover:-translate-y-1 transition-transform duration-400">
+              <span className="font-display text-5xl md:text-6xl text-gradient-gold leading-none shrink-0">{s.step}</span>
               <div>
-                <h3 className="text-lg font-semibold mb-1">{s.title}</h3>
-                <p className="text-sm text-muted-foreground">{s.desc}</p>
+                <h3 className="text-lg md:text-xl font-bold mb-2">{s.title}</h3>
+                <p className="body-md">{s.desc}</p>
               </div>
             </motion.div>
           ))}
         </div>
-        <div className="mt-14 text-center">
+        <div className="mt-16 text-center">
           <Link to="/submit" className="btn-primary inline-flex items-center gap-3">Submit Your Music <ArrowUpRight className="w-4 h-4" /></Link>
         </div>
       </div>
