@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SiteLayout from "./components/urs79/SiteLayout";
 import HomePage from "./pages/HomePage";
 import { CartProvider } from "./contexts/CartContext";
+import { CartDrawer } from "./components/shop/CartDrawer";
 
 // Lazy-load all non-critical pages
 const ServicesPage = lazy(() => import("./pages/ServicesPage"));
@@ -46,6 +47,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <CartProvider>
+        <CartDrawer />
         <BrowserRouter>
           <Suspense fallback={<PageLoader />}>
           <Routes>
