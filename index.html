@@ -56,6 +56,17 @@
   </head>
 
   <body>
+    <!-- Branded loading screen -->
+    <div id="loading-screen" style="position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:#050505;transition:opacity .5s ease,visibility .5s ease;">
+      <div style="text-align:center;animation:lsPulse 1.8s ease-in-out infinite;">
+        <img src="/images/urs79-logo-color.webp" alt="URS79" width="120" height="120" style="display:block;margin:0 auto 1.5rem;" />
+        <div style="width:48px;height:2px;background:linear-gradient(90deg,transparent,hsl(43,96%,56%),transparent);margin:0 auto;animation:lsShimmer 1.4s ease-in-out infinite;"></div>
+      </div>
+      <style>
+        @keyframes lsPulse{0%,100%{opacity:.6;transform:scale(.97)}50%{opacity:1;transform:scale(1)}}
+        @keyframes lsShimmer{0%,100%{opacity:.3;transform:scaleX(.6)}50%{opacity:1;transform:scaleX(1)}}
+      </style>
+    </div>
     <div id="root"></div>
     <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
