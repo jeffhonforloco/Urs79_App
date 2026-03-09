@@ -64,6 +64,14 @@ const ShopPage = () => {
         )}
       </button>
 
+      {/* Floating Wishlist Button */}
+      <button
+        onClick={() => setIsWishlistOpen(true)}
+        className="fixed bottom-24 right-6 md:bottom-28 md:right-8 z-50 w-12 h-12 md:w-14 md:h-14 rounded-full bg-secondary border border-border text-foreground shadow-xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all duration-300 hover:border-primary/50"
+      >
+        <Heart className="w-5 h-5 md:w-6 md:h-6" />
+      </button>
+
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-10">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
           <p className="text-[10px] tracking-[0.4em] uppercase text-primary mb-4 font-semibold">Merchandise</p>
