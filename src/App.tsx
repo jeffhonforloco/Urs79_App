@@ -7,6 +7,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SiteLayout from "./components/urs79/SiteLayout";
 import HomePage from "./pages/HomePage";
+import { CartProvider } from "./contexts/CartContext";
 
 // Lazy-load all non-critical pages
 const ServicesPage = lazy(() => import("./pages/ServicesPage"));
@@ -44,8 +45,9 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
-        <Suspense fallback={<PageLoader />}>
+      <CartProvider>
+        <BrowserRouter>
+          <Suspense fallback={<PageLoader />}>
           <Routes>
             <Route element={<SiteLayout />}>
               <Route path="/" element={<HomePage />} />
@@ -76,6 +78,7 @@ const App = () => (
           </Routes>
         </Suspense>
       </BrowserRouter>
+      </CartProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );
