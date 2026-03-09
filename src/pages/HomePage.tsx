@@ -113,69 +113,92 @@ const HomePage = () => {
       </div>
 
       {/* ─── ABOUT ─── */}
-      <section className="section-padding">
-        <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-          <div>
-            <SectionHeader label="About URS79" title="Where Creativity" titleAccent="Meets Industry" />
-            <div className="divider-gold mt-8 mb-8" />
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2, duration: 0.7 }}
-              className="text-xl md:text-2xl text-foreground font-light leading-relaxed mb-6"
-            >
-              URS79 was founded on a singular vision: to bridge the gap between raw creative talent and global audiences.
-              We are more than a production company — we are a creative ecosystem.
-            </motion.p>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3, duration: 0.7 }}
-              className="text-muted-foreground leading-relaxed"
-            >
-              From film and music video production to recording, artist development, distribution, and publishing — 
-              we provide the complete infrastructure for creators to thrive. Our work spans continents, genres, and mediums, 
-              united by an unwavering commitment to excellence.
-            </motion.p>
-          </div>
-
-          <div className="space-y-4">
-            {[
-              { title: 'Our Vision', text: "To be the world's most artist-forward multimedia company — where creativity, technology, and commerce converge to redefine entertainment." },
-              { title: 'Our Mission', text: 'To discover, develop, and distribute exceptional creative content across film, music, and media — providing artists and brands with the tools, platform, and reach to make a lasting cultural impact.' },
-            ].map((item, i) => (
-              <motion.div key={i} initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1, duration: 0.7 }} className="glass-card p-6 md:p-8">
-                <h3 className="text-[10px] tracking-[0.3em] uppercase text-primary mb-3 font-semibold">{item.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{item.text}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-
-        {/* Divisions */}
-        <div className="max-w-[1400px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-16">
-          {divisions.map((d, i) => (
+      <section className="section-padding overflow-hidden">
+        <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center">
+          <div className="lg:col-span-5 relative">
             <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.08, duration: 0.7 }}
-              className="glass-card p-6 md:p-8 group"
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             >
-              <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">{d.label}</h3>
-              <p className="text-sm text-muted-foreground">{d.desc}</p>
+              <SectionHeader label="About URS79" title="Where Creativity" titleAccent="Meets Industry" />
+              <div className="divider-gold mt-8 mb-8" />
+              <p className="text-xl md:text-2xl text-foreground font-light leading-relaxed mb-6">
+                URS79 was founded on a singular vision: to bridge the gap between raw creative talent and global audiences.
+                We are more than a production company — we are a creative ecosystem.
+              </p>
+              <p className="text-muted-foreground leading-relaxed mb-10">
+                From film and music video production to recording, artist development, distribution, and publishing — 
+                we provide the complete infrastructure for creators to thrive. Our work spans continents, genres, and mediums, 
+                united by an unwavering commitment to excellence.
+              </p>
+              <Link to="/about" className="text-primary text-[11px] tracking-[0.25em] uppercase font-semibold inline-flex items-center gap-3 group">
+                Discover Our Story <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
             </motion.div>
-          ))}
+          </div>
+
+          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6 relative">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-primary/10 rounded-full blur-[100px] -z-10" />
+            
+            <div className="space-y-6 sm:mt-12">
+              <motion.div 
+                initial={{ opacity: 0, y: 40 }} 
+                whileInView={{ opacity: 1, y: 0 }} 
+                viewport={{ once: true }} 
+                transition={{ duration: 0.8, ease: "easeOut" }} 
+                className="glass-card p-8 hover:-translate-y-2 transition-transform duration-500"
+              >
+                <h3 className="text-[10px] tracking-[0.3em] uppercase text-primary mb-3 font-semibold">Our Vision</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  To be the world's most artist-forward multimedia company — where creativity, technology, and commerce converge to redefine entertainment.
+                </p>
+              </motion.div>
+              <motion.div 
+                initial={{ opacity: 0, y: 40 }} 
+                whileInView={{ opacity: 1, y: 0 }} 
+                viewport={{ once: true }} 
+                transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }} 
+                className="glass-card p-8 hover:-translate-y-2 transition-transform duration-500"
+              >
+                <h3 className="text-[10px] tracking-[0.3em] uppercase text-primary mb-3 font-semibold">Our Mission</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  To discover, develop, and distribute exceptional creative content across film, music, and media — providing artists and brands with the tools to make a lasting impact.
+                </p>
+              </motion.div>
+            </div>
+            
+            <div className="space-y-6">
+              {divisions.slice(0, 2).map((d, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: 0.2 + (i * 0.1), ease: "easeOut" }}
+                  className="glass-card p-8 hover:-translate-y-2 transition-transform duration-500 bg-secondary/30"
+                >
+                  <h3 className="text-lg font-display tracking-wide mb-2 text-foreground">{d.label}</h3>
+                  <p className="text-sm text-muted-foreground">{d.desc}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
       {/* ─── SERVICES ─── */}
       <section className="section-padding bg-card relative grain-overlay">
         <div className="max-w-[1400px] mx-auto relative z-10">
-          <SectionHeader label="What We Do" title="Full-Spectrum" titleAccent="Creative Services" align="center" />
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <SectionHeader label="What We Do" title="Full-Spectrum" titleAccent="Creative Services" align="center" />
+          </motion.div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mt-16">
             {services.map((s, i) => {
@@ -183,19 +206,19 @@ const HomePage = () => {
               return (
                 <motion.div
                   key={i}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, y: 40, scale: 0.95 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
                   viewport={{ once: true }}
-                  transition={{ delay: i * 0.06, duration: 0.6 }}
+                  transition={{ delay: i * 0.08, duration: 0.6, ease: "easeOut" }}
                 >
                   <Link
                     to="/services"
-                    className="glass-card p-6 md:p-8 flex flex-col items-center text-center gap-4 group block h-full"
+                    className="glass-card p-6 md:p-8 flex flex-col items-center text-center gap-5 group block h-full hover:bg-secondary/40 hover:-translate-y-1 transition-all duration-300"
                   >
-                    <div className="w-14 h-14 rounded-full border border-border flex items-center justify-center group-hover:border-primary/40 group-hover:bg-primary/5 transition-all duration-500">
-                      <Icon className="w-6 h-6 text-primary" />
+                    <div className="w-16 h-16 rounded-full border border-border flex items-center justify-center group-hover:border-primary/60 group-hover:bg-primary/10 transition-all duration-500 group-hover:scale-110">
+                      <Icon className="w-6 h-6 text-primary group-hover:drop-shadow-[0_0_8px_rgba(201,160,80,0.5)]" />
                     </div>
-                    <h3 className="text-sm font-semibold tracking-wide">{s.title}</h3>
+                    <h3 className="text-sm font-display tracking-widest uppercase">{s.title}</h3>
                   </Link>
                 </motion.div>
               );
@@ -216,31 +239,37 @@ const HomePage = () => {
       </section>
 
       {/* ─── CTA ─── */}
-      <section className="relative overflow-hidden grain-overlay">
+      <section className="relative overflow-hidden grain-overlay py-32 md:py-48">
         <div className="absolute inset-0 bg-card" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-primary/5 blur-[200px]" />
+        <motion.div 
+          animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-primary/5 blur-[150px] pointer-events-none" 
+        />
 
-        <div className="relative z-10 max-w-4xl mx-auto text-center section-padding">
+        <div className="relative z-10 max-w-4xl mx-auto text-center px-6 md:px-10">
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 40, scale: 0.95 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.9 }}
+            transition={{ duration: 1, ease: "easeOut" }}
           >
-            <p className="text-[10px] tracking-[0.4em] uppercase text-primary mb-6 font-semibold">Let's Create</p>
-            <h2 className="font-display text-5xl md:text-7xl lg:text-8xl tracking-[0.02em] mb-6">
+            <p className="text-[10px] tracking-[0.4em] uppercase text-primary mb-6 font-semibold inline-flex items-center gap-2">
+              <span className="w-8 h-px bg-primary/50" /> Let's Create <span className="w-8 h-px bg-primary/50" />
+            </p>
+            <h2 className="font-display text-5xl md:text-7xl lg:text-[7rem] leading-none tracking-[0.02em] mb-8">
               READY TO BUILD
               <br />
               <span className="text-gradient-gold">SOMETHING EXTRAORDINARY?</span>
             </h2>
-            <p className="text-muted-foreground text-base md:text-lg mb-12 max-w-xl mx-auto">
-              Whether you're an artist, a brand, or a creator — we're here to make it happen.
+            <p className="text-muted-foreground text-base md:text-lg mb-12 max-w-xl mx-auto font-light leading-relaxed">
+              Whether you're an artist, a brand, or a creator — we're here to make it happen. Join the ecosystem.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/contact?type=production#inquiry-form" className="btn-primary inline-flex items-center gap-3">
-                Start a Project <ArrowUpRight className="w-4 h-4" />
+            <div className="flex flex-col sm:flex-row gap-5 justify-center">
+              <Link to="/contact?type=production#inquiry-form" className="btn-primary inline-flex items-center gap-3 px-8 py-4 group">
+                Start a Project <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
               </Link>
-              <Link to="/submit" className="btn-secondary inline-flex items-center gap-3">
+              <Link to="/submit" className="btn-secondary inline-flex items-center gap-3 px-8 py-4">
                 Submit Your Music
               </Link>
             </div>
@@ -249,11 +278,11 @@ const HomePage = () => {
       </section>
 
       {/* ─── BOTTOM MARQUEE ─── */}
-      <div className="py-5 border-t border-border">
+      <div className="py-6 border-t border-border bg-background">
         <Marquee
           items={['Sound', 'Vision', 'Culture', 'Film', 'Music', 'Distribution', 'Publishing', 'Art']}
-          separator="—"
-          className="text-[10px] tracking-[0.4em] uppercase text-muted-foreground/40 font-medium"
+          separator="✧"
+          className="text-[11px] tracking-[0.4em] uppercase text-muted-foreground/30 font-display"
         />
       </div>
     </>
