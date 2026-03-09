@@ -100,23 +100,27 @@ const ShopPage = () => {
                 transition={{ delay: i * 0.05, duration: 0.4 }}
                 className="glass-card group flex flex-col overflow-hidden hover:border-primary/50 transition-colors duration-500"
               >
-                <div className="aspect-square bg-secondary overflow-hidden relative">
-                  {p.image_url ? (
-                    <img src={p.image_url} alt={p.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center">
-                      <ShoppingBag className="w-10 h-10 text-muted-foreground/20" />
-                    </div>
-                  )}
-                  {p.stock_quantity <= 0 && (
-                    <div className="absolute inset-0 bg-background/60 backdrop-blur-sm flex items-center justify-center">
-                      <span className="font-display text-lg md:text-2xl tracking-widest rotate-[-15deg] border-y-2 border-foreground py-2 px-4 md:px-6">SOLD OUT</span>
-                    </div>
-                  )}
-                </div>
+                <Link to={`/shop/${p.slug}`} className="block">
+                  <div className="aspect-square bg-secondary overflow-hidden relative">
+                    {p.image_url ? (
+                      <img src={p.image_url} alt={p.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center">
+                        <ShoppingBag className="w-10 h-10 text-muted-foreground/20" />
+                      </div>
+                    )}
+                    {p.stock_quantity <= 0 && (
+                      <div className="absolute inset-0 bg-background/60 backdrop-blur-sm flex items-center justify-center">
+                        <span className="font-display text-lg md:text-2xl tracking-widest rotate-[-15deg] border-y-2 border-foreground py-2 px-4 md:px-6">SOLD OUT</span>
+                      </div>
+                    )}
+                  </div>
+                </Link>
                 <div className="p-3 md:p-5 flex flex-col flex-1">
-                  {p.category && <p className="text-[8px] md:text-[9px] tracking-[0.3em] uppercase text-primary mb-1 md:mb-2">{p.category}</p>}
-                  <h3 className="font-display text-sm md:text-lg tracking-wide mb-1 md:mb-2 line-clamp-1">{p.title}</h3>
+                  <Link to={`/shop/${p.slug}`} className="block mb-1 md:mb-2">
+                    {p.category && <p className="text-[8px] md:text-[9px] tracking-[0.3em] uppercase text-primary mb-1 md:mb-2">{p.category}</p>}
+                    <h3 className="font-display text-sm md:text-lg tracking-wide line-clamp-1 hover:text-primary transition-colors">{p.title}</h3>
+                  </Link>
                   {p.description && <p className="text-[10px] md:text-xs text-muted-foreground mb-3 md:mb-4 line-clamp-2 hidden sm:block">{p.description}</p>}
                   
                   <div className="mt-auto">
