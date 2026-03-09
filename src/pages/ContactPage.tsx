@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
 import { supabase } from '@/integrations/supabase/client';
+import ScrollReveal, { ScrollRevealGroup, ScrollRevealItem } from '@/components/urs79/ScrollReveal';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -56,48 +57,54 @@ const ContactPage = () => {
       <section className="relative pt-44 md:pt-52 pb-24 md:pb-28 px-6 md:px-10 grain-overlay">
         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[200px]" />
         <div className="max-w-[1400px] mx-auto relative z-10">
-          <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={0}>
+          <ScrollReveal direction="up" blur>
             <p className="section-label mb-5">Get In Touch</p>
             <h1 className="font-display text-6xl sm:text-7xl md:text-8xl lg:text-[10rem] tracking-[0.02em] leading-[0.85] mb-8">
               CONTACT <span className="text-gradient-gold">URS79</span>
             </h1>
             <div className="divider-gold" />
-          </motion.div>
+          </ScrollReveal>
         </div>
       </section>
 
       <section className="pb-32 md:pb-44 px-6 md:px-10">
         <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
           {/* Info */}
-          <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={1} className="lg:col-span-4 space-y-5">
-            <div className="glass-card p-8 md:p-10 hover:-translate-y-1 transition-transform duration-400">
-              <div className="w-12 h-12 rounded-full border border-border flex items-center justify-center mb-5">
-                <Mail className="w-5 h-5 text-primary" />
+          <ScrollRevealGroup stagger={0.12} className="lg:col-span-4 space-y-5">
+            <ScrollRevealItem direction="left" blur>
+              <div className="glass-card p-8 md:p-10 hover:-translate-y-1 transition-transform duration-400">
+                <div className="w-12 h-12 rounded-full border border-border flex items-center justify-center mb-5">
+                  <Mail className="w-5 h-5 text-primary" />
+                </div>
+                <h3 className="font-bold mb-3 text-base">Email</h3>
+                <a href="mailto:info@urs79.com" className="text-muted-foreground text-sm hover:text-primary transition-colors duration-300">info@urs79.com</a>
               </div>
-              <h3 className="font-bold mb-3 text-base">Email</h3>
-              <a href="mailto:info@urs79.com" className="text-muted-foreground text-sm hover:text-primary transition-colors duration-300">info@urs79.com</a>
-            </div>
-            <div className="glass-card p-8 md:p-10 hover:-translate-y-1 transition-transform duration-400">
-              <div className="w-12 h-12 rounded-full border border-border flex items-center justify-center mb-5">
-                <MapPin className="w-5 h-5 text-primary" />
+            </ScrollRevealItem>
+            <ScrollRevealItem direction="left" blur>
+              <div className="glass-card p-8 md:p-10 hover:-translate-y-1 transition-transform duration-400">
+                <div className="w-12 h-12 rounded-full border border-border flex items-center justify-center mb-5">
+                  <MapPin className="w-5 h-5 text-primary" />
+                </div>
+                <h3 className="font-bold mb-3 text-base">Location</h3>
+                <p className="text-muted-foreground text-sm">Los Angeles, CA</p>
               </div>
-              <h3 className="font-bold mb-3 text-base">Location</h3>
-              <p className="text-muted-foreground text-sm">Los Angeles, CA</p>
-            </div>
-            <div className="glass-card p-8 md:p-10 hover:-translate-y-1 transition-transform duration-400">
-              <h3 className="font-bold mb-5 text-base">Inquiry Types</h3>
-              <ul className="space-y-3 text-sm text-muted-foreground">
-                <li className="flex items-center gap-3"><span className="w-1.5 h-1.5 bg-primary rounded-full shrink-0" /> Business Inquiries</li>
-                <li className="flex items-center gap-3"><span className="w-1.5 h-1.5 bg-primary rounded-full shrink-0" /> Artist Submissions</li>
-                <li className="flex items-center gap-3"><span className="w-1.5 h-1.5 bg-primary rounded-full shrink-0" /> Production Bookings</li>
-                <li className="flex items-center gap-3"><span className="w-1.5 h-1.5 bg-primary rounded-full shrink-0" /> Distribution Partnerships</li>
-                <li className="flex items-center gap-3"><span className="w-1.5 h-1.5 bg-primary rounded-full shrink-0" /> Press & Media</li>
-              </ul>
-            </div>
-          </motion.div>
+            </ScrollRevealItem>
+            <ScrollRevealItem direction="left" blur>
+              <div className="glass-card p-8 md:p-10 hover:-translate-y-1 transition-transform duration-400">
+                <h3 className="font-bold mb-5 text-base">Inquiry Types</h3>
+                <ul className="space-y-3 text-sm text-muted-foreground">
+                  <li className="flex items-center gap-3"><span className="w-1.5 h-1.5 bg-primary rounded-full shrink-0" /> Business Inquiries</li>
+                  <li className="flex items-center gap-3"><span className="w-1.5 h-1.5 bg-primary rounded-full shrink-0" /> Artist Submissions</li>
+                  <li className="flex items-center gap-3"><span className="w-1.5 h-1.5 bg-primary rounded-full shrink-0" /> Production Bookings</li>
+                  <li className="flex items-center gap-3"><span className="w-1.5 h-1.5 bg-primary rounded-full shrink-0" /> Distribution Partnerships</li>
+                  <li className="flex items-center gap-3"><span className="w-1.5 h-1.5 bg-primary rounded-full shrink-0" /> Press & Media</li>
+                </ul>
+              </div>
+            </ScrollRevealItem>
+          </ScrollRevealGroup>
 
           {/* Form */}
-          <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={2} className="lg:col-span-8">
+          <ScrollReveal direction="right" delay={0.2} blur className="lg:col-span-8">
             <form id="inquiry-form" onSubmit={handleSubmit} className="glass-card p-8 md:p-14 space-y-7">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
@@ -163,7 +170,7 @@ const ContactPage = () => {
                 {loading ? 'Sending...' : 'Send Message'} <Send className="w-4 h-4" />
               </button>
             </form>
-          </motion.div>
+          </ScrollReveal>
         </div>
       </section>
     </div>
