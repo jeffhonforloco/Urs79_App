@@ -11,8 +11,9 @@ export const CartDrawer = () => {
 
   const handleCheckout = async () => {
     if (items.length === 0) return;
-    toast.info('Checkout integration pending Stripe setup');
-    // We will trigger stripe checkout here once it's set up
+    toast.info('Checkout is currently paused while we finalize our payment gateway.', {
+      duration: 4000,
+    });
   };
 
   return (

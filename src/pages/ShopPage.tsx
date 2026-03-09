@@ -36,11 +36,11 @@ const ShopPage = () => {
       {/* Floating Cart Button */}
       <button 
         onClick={() => setIsCartOpen(true)}
-        className="fixed bottom-8 right-8 z-50 w-16 h-16 rounded-full bg-primary text-primary-foreground shadow-2xl flex items-center justify-center hover:scale-105 transition-transform duration-300"
+        className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-50 w-14 h-14 md:w-16 md:h-16 rounded-full bg-primary text-primary-foreground shadow-2xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all duration-300"
       >
-        <ShoppingBag className="w-6 h-6" />
+        <ShoppingBag className="w-5 h-5 md:w-6 md:h-6" />
         {cartItemCount > 0 && (
-          <span className="absolute -top-2 -right-2 w-6 h-6 bg-destructive text-destructive-foreground rounded-full text-xs flex items-center justify-center font-bold">
+          <span className="absolute -top-1 -right-1 md:-top-2 md:-right-2 w-5 h-5 md:w-6 md:h-6 bg-destructive text-destructive-foreground rounded-full text-[10px] md:text-xs flex items-center justify-center font-bold">
             {cartItemCount}
           </span>
         )}
