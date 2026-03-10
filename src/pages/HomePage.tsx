@@ -69,7 +69,7 @@ const HomePage = () => {
 
             <motion.h1
               initial="hidden" animate="visible" variants={fadeUp} custom={1}
-              className="font-display text-6xl sm:text-7xl md:text-8xl lg:text-[10rem] xl:text-[12rem] leading-[0.85] tracking-[0.04em] mb-8 md:mb-10"
+              className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl leading-[0.9] tracking-[0.04em] mb-8 md:mb-10"
             >
               <span className="text-gradient-white">CREATING</span>
               <br />
