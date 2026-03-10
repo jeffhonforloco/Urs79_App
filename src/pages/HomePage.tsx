@@ -80,7 +80,7 @@ const HomePage = () => {
 
             <motion.p
               initial="hidden" animate="visible" variants={fadeUp} custom={2}
-              className="text-muted-foreground text-xs sm:text-sm md:text-base tracking-[0.2em] uppercase max-w-xl mb-14"
+              className="text-muted-foreground text-xs sm:text-sm md:text-base tracking-[0.2em] uppercase max-w-xl mb-14 font-bold"
             >
               Production · Record Label · Distribution · Publishing
             </motion.p>
