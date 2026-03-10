@@ -225,7 +225,7 @@ const HomePage = () => {
             <p className="section-label mb-8 inline-flex items-center gap-3">
               <span className="w-10 h-px bg-primary/50" /> Let's Create <span className="w-10 h-px bg-primary/50" />
             </p>
-            <h2 className="font-display text-5xl sm:text-6xl md:text-8xl lg:text-[8rem] leading-none tracking-[0.02em] mb-10">
+            <h2 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[0.95] tracking-[0.02em] mb-10">
               READY TO BUILD
               <br />
               <span className="text-gradient-gold">SOMETHING EXTRAORDINARY?</span>
