@@ -60,7 +60,7 @@ const SiteNavbar = () => {
             <Link
               key={l.path}
               to={l.path}
-              className={`text-[11px] tracking-[0.25em] uppercase transition-all duration-300 relative group font-bold ${
+              className={`text-[12px] tracking-[0.22em] uppercase transition-all duration-300 relative group font-extrabold ${
                 location.pathname === l.path
                   ? 'text-primary'
                   : 'text-foreground hover:text-primary'
