@@ -4,7 +4,7 @@
 # NOTE: The React SPA continues to use Supabase SDK directly.
 # This Worker is for proxying OTHER external APIs, not Supabase.
 
-name = "urs79-edge"
+name = "api-urs79-app"
 main = "worker/index.ts"
 compatibility_date = "2024-01-01"
 
