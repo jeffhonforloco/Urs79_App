@@ -69,7 +69,7 @@ const HomePage = () => {
 
             <motion.h1
               initial="hidden" animate="visible" variants={fadeUp} custom={1}
-              className="font-display text-6xl sm:text-7xl md:text-8xl lg:text-[10rem] xl:text-[12rem] leading-[0.85] tracking-[0.04em] mb-8 md:mb-10"
+              className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl leading-[0.9] tracking-[0.04em] mb-8 md:mb-10"
             >
               <span className="text-gradient-white">CREATING</span>
               <br />
@@ -225,7 +225,7 @@ const HomePage = () => {
             <p className="section-label mb-8 inline-flex items-center gap-3">
               <span className="w-10 h-px bg-primary/50" /> Let's Create <span className="w-10 h-px bg-primary/50" />
             </p>
-            <h2 className="font-display text-5xl sm:text-6xl md:text-8xl lg:text-[8rem] leading-none tracking-[0.02em] mb-10">
+            <h2 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[0.95] tracking-[0.02em] mb-10">
               READY TO BUILD
               <br />
               <span className="text-gradient-gold">SOMETHING EXTRAORDINARY?</span>
