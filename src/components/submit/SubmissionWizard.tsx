@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-import { Check, ChevronLeft, ChevronRight, Send } from 'lucide-react';
+import { Check, ChevronLeft, ChevronRight, Send, HelpCircle, Info } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import ArtistProfileStep from './steps/ArtistProfileStep';
 import ReleaseInfoStep from './steps/ReleaseInfoStep';
@@ -11,12 +11,12 @@ import PublishingSplitsStep from './steps/PublishingSplitsStep';
 import MasterOwnershipStep from './steps/MasterOwnershipStep';
 
 const STEPS = [
-  { num: 1, label: 'Artist Profile' },
-  { num: 2, label: 'Release Info' },
-  { num: 3, label: 'Track Metadata' },
-  { num: 4, label: 'File Upload' },
-  { num: 5, label: 'Publishing & Splits' },
-  { num: 6, label: 'Rights & Ownership' },
+  { num: 1, label: 'Artist Profile', desc: 'Your artist identity & social presence' },
+  { num: 2, label: 'Release Info', desc: 'Release type, title, date & metadata' },
+  { num: 3, label: 'Track Metadata', desc: 'Song details, credits & contributors' },
+  { num: 4, label: 'File Upload', desc: 'Audio files & cover artwork' },
+  { num: 5, label: 'Publishing & Splits', desc: 'Songwriting ownership & royalties' },
+  { num: 6, label: 'Rights & Ownership', desc: 'Master rights & legal declarations' },
 ];
 
 type Props = {
@@ -30,7 +30,6 @@ const SubmissionWizard = ({ accountId, userId }: Props) => {
   const [releaseId, setReleaseId] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
-  // Load existing artist profile
   useEffect(() => {
     supabase
       .from('submission_artist_profiles')
@@ -58,7 +57,6 @@ const SubmissionWizard = ({ accountId, userId }: Props) => {
         .eq('id', releaseId);
       if (error) throw error;
       toast.success(`Submission ${submissionCode} received! We'll review it shortly.`);
-      // Reset for new submission
       setStep(0);
       setReleaseId(null);
     } catch (err: any) {
@@ -76,42 +74,60 @@ const SubmissionWizard = ({ accountId, userId }: Props) => {
 
   return (
     <div>
-      {/* Progress bar */}
-      <div className="mb-10">
-        <div className="flex items-center justify-between mb-4">
+      {/* Progress stepper */}
+      <div className="mb-8 sm:mb-10">
+        {/* Desktop stepper */}
+        <div className="hidden md:flex items-center justify-between mb-4">
           {STEPS.map((s, i) => (
             <button
               key={i}
               onClick={() => { if (i <= step) setStep(i); }}
               className={`flex items-center gap-2 group ${i <= step ? 'cursor-pointer' : 'cursor-default'}`}
+              title={s.desc}
             >
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
+              <div className={`w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
                 i < step
                   ? 'bg-primary text-primary-foreground'
                   : i === step
-                    ? 'border-2 border-primary text-primary'
+                    ? 'border-2 border-primary text-primary bg-primary/5'
                     : 'border border-border text-muted-foreground'
               }`}>
                 {i < step ? <Check className="w-4 h-4" /> : s.num}
               </div>
-              <span className={`hidden lg:block text-[10px] tracking-[0.15em] uppercase transition-colors ${
-                i <= step ? 'text-foreground' : 'text-muted-foreground'
+              <span className={`hidden lg:block text-[10px] tracking-[0.12em] uppercase transition-colors ${
+                i <= step ? 'text-foreground font-semibold' : 'text-muted-foreground'
               }`}>
                 {s.label}
               </span>
             </button>
           ))}
         </div>
-        <div className="w-full h-1 bg-secondary rounded-full overflow-hidden">
+
+        {/* Mobile stepper - compact */}
+        <div className="md:hidden mb-4">
+          <div className="flex items-center justify-between mb-2">
+            <p className="text-xs text-muted-foreground">Step {step + 1} of {STEPS.length}</p>
+            <p className="text-xs font-semibold text-primary tracking-wider uppercase">{STEPS[step].label}</p>
+          </div>
+        </div>
+
+        {/* Progress bar */}
+        <div className="w-full h-1.5 bg-secondary rounded-full overflow-hidden">
           <div
-            className="h-full bg-primary transition-all duration-500"
+            className="h-full bg-primary transition-all duration-500 rounded-full"
             style={{ width: `${((step + 1) / STEPS.length) * 100}%` }}
           />
+        </div>
+
+        {/* Step description */}
+        <div className="mt-3 flex items-center gap-2">
+          <Info className="w-3.5 h-3.5 text-muted-foreground/60 shrink-0" />
+          <p className="text-xs text-muted-foreground/80">{STEPS[step].desc}</p>
         </div>
       </div>
 
       {/* Step content */}
-      <div className="glass-card p-6 md:p-10">
+      <div className="glass-card p-5 sm:p-6 md:p-10">
         {step === 0 && (
           <ArtistProfileStep
             accountId={accountId}
@@ -139,6 +155,20 @@ const SubmissionWizard = ({ accountId, userId }: Props) => {
         {step === 5 && releaseId && (
           <MasterOwnershipStep releaseId={releaseId} userId={userId} />
         )}
+
+        {/* Missing data warnings */}
+        {step === 0 && !artistProfileId && (
+          <div className="mt-4 flex items-start gap-2 p-3 rounded-lg bg-primary/5 border border-primary/10">
+            <HelpCircle className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+            <p className="text-xs text-muted-foreground">Save your artist profile to proceed to the next step.</p>
+          </div>
+        )}
+        {step === 1 && !releaseId && (
+          <div className="mt-4 flex items-start gap-2 p-3 rounded-lg bg-primary/5 border border-primary/10">
+            <HelpCircle className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+            <p className="text-xs text-muted-foreground">Save your release information to continue with tracks and uploads.</p>
+          </div>
+        )}
       </div>
 
       {/* Navigation */}
@@ -147,7 +177,7 @@ const SubmissionWizard = ({ accountId, userId }: Props) => {
           variant="outline"
           onClick={() => setStep(Math.max(0, step - 1))}
           disabled={step === 0}
-          className="gap-2"
+          className="gap-2 h-11"
         >
           <ChevronLeft className="w-4 h-4" /> Back
         </Button>
@@ -156,15 +186,15 @@ const SubmissionWizard = ({ accountId, userId }: Props) => {
           <Button
             onClick={() => setStep(step + 1)}
             disabled={!canGoNext()}
-            className="btn-primary gap-2"
+            className="btn-primary gap-2 h-11"
           >
-            Next <ChevronRight className="w-4 h-4" />
+            Next Step <ChevronRight className="w-4 h-4" />
           </Button>
         ) : (
           <Button
             onClick={handleFinalSubmit}
             disabled={submitting}
-            className="btn-primary gap-2"
+            className="btn-primary gap-2 h-11"
           >
             {submitting ? (
               <div className="w-4 h-4 border-2 border-primary-foreground border-t-transparent rounded-full animate-spin" />
