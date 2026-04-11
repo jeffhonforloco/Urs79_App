@@ -99,7 +99,7 @@ export const template = {
     name: 'Alex Johnson',
     email: 'alex@example.com',
     subject: 'Distribution partnership',
-    message: 'Hey, I'd love to discuss a distribution deal for my upcoming EP.',
+    message: "Hey, I'd love to discuss a distribution deal for my upcoming EP.",
   },
 } satisfies TemplateEntry
 
