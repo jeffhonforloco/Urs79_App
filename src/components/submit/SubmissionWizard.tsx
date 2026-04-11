@@ -90,6 +90,24 @@ const SubmissionWizard = ({ accountId, userId }: Props) => {
         }).catch(() => {});
       }
 
+      // Notify admins (fire-and-forget)
+      const adminData = {
+        type: 'submission',
+        artistName: release?.primary_artist || '',
+        releaseTitle: release?.title || '',
+        submissionId: code,
+      };
+      ['info@urs79.com', 'urs7980@gmail.com'].forEach(adminEmail => {
+        supabase.functions.invoke('send-transactional-email', {
+          body: {
+            templateName: 'admin-notification',
+            recipientEmail: adminEmail,
+            idempotencyKey: `admin-submission-${releaseId}-${adminEmail}`,
+            templateData: adminData,
+          },
+        }).catch(() => {});
+      });
+
       setSubmissionCode(code);
       setSubmitted(true);
       toast.success('Submission received!');
