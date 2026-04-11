@@ -4,10 +4,10 @@ import * as React from 'npm:react@18.3.1'
 
 import {
   Body,
-  Button,
   Container,
   Head,
   Heading,
+  Hr,
   Html,
   Link,
   Preview,
@@ -32,27 +32,21 @@ export const EmailChangeEmail = ({
     <Preview>Confirm your email change for {siteName}</Preview>
     <Body style={main}>
       <Container style={container}>
+        <Text style={logo}>URS79</Text>
+        <Hr style={divider} />
         <Heading style={h1}>Confirm your email change</Heading>
         <Text style={text}>
-          You requested to change your email address for {siteName} from{' '}
-          <Link href={`mailto:${email}`} style={link}>
-            {email}
-          </Link>{' '}
+          You requested to change your email from{' '}
+          <Link href={`mailto:${email}`} style={link}>{email}</Link>{' '}
           to{' '}
-          <Link href={`mailto:${newEmail}`} style={link}>
-            {newEmail}
-          </Link>
-          .
+          <Link href={`mailto:${newEmail}`} style={link}>{newEmail}</Link>.
         </Text>
         <Text style={text}>
-          Click the button below to confirm this change:
+          <Link href={confirmationUrl} style={link}>Click here to confirm this change</Link>
         </Text>
-        <Button style={button} href={confirmationUrl}>
-          Confirm Email Change
-        </Button>
+        <Hr style={divider} />
         <Text style={footer}>
-          If you didn't request this change, please secure your account
-          immediately.
+          If you didn't request this change, please secure your account immediately.
         </Text>
       </Container>
     </Body>
@@ -61,27 +55,11 @@ export const EmailChangeEmail = ({
 
 export default EmailChangeEmail
 
-const main = { backgroundColor: '#ffffff', fontFamily: 'Arial, sans-serif' }
-const container = { padding: '20px 25px' }
-const h1 = {
-  fontSize: '22px',
-  fontWeight: 'bold' as const,
-  color: '#000000',
-  margin: '0 0 20px',
-}
-const text = {
-  fontSize: '14px',
-  color: '#55575d',
-  lineHeight: '1.5',
-  margin: '0 0 25px',
-}
-const link = { color: 'inherit', textDecoration: 'underline' }
-const button = {
-  backgroundColor: '#000000',
-  color: '#ffffff',
-  fontSize: '14px',
-  borderRadius: '8px',
-  padding: '12px 20px',
-  textDecoration: 'none',
-}
-const footer = { fontSize: '12px', color: '#999999', margin: '30px 0 0' }
+const main = { backgroundColor: '#ffffff', fontFamily: "'Instrument Sans', Arial, sans-serif" }
+const container = { padding: '40px 24px', maxWidth: '520px', margin: '0 auto' }
+const logo = { fontSize: '20px', fontWeight: '800' as const, color: '#d4a017', letterSpacing: '2px', margin: '0 0 24px' }
+const divider = { borderColor: '#e5e5e5', margin: '24px 0' }
+const h1 = { fontSize: '22px', fontWeight: '700' as const, color: '#111111', margin: '0 0 16px', lineHeight: '1.3' }
+const text = { fontSize: '15px', color: '#333333', lineHeight: '1.6', margin: '0 0 20px' }
+const link = { color: '#d4a017', textDecoration: 'underline' }
+const footer = { fontSize: '12px', color: '#999999', margin: '0' }
