@@ -62,7 +62,7 @@ const ContactPage = () => {
       }]);
       if (error) throw error;
 
-      // Send confirmation email (fire-and-forget)
+      // Send confirmation email to user (fire-and-forget)
       supabase.functions.invoke('send-transactional-email', {
         body: {
           templateName: 'contact-confirmation',
@@ -71,6 +71,25 @@ const ContactPage = () => {
           templateData: { name: formData.name.trim(), subject: formData.subject.trim() },
         },
       }).catch(() => {});
+
+      // Notify admins (fire-and-forget)
+      const adminData = {
+        type: 'contact',
+        name: formData.name.trim(),
+        email: formData.email.trim(),
+        subject: formData.subject.trim(),
+        message: formData.message.trim(),
+      };
+      ['info@urs79.com', 'urs7980@gmail.com'].forEach(adminEmail => {
+        supabase.functions.invoke('send-transactional-email', {
+          body: {
+            templateName: 'admin-notification',
+            recipientEmail: adminEmail,
+            idempotencyKey: `admin-contact-${submissionId}-${adminEmail}`,
+            templateData: adminData,
+          },
+        }).catch(() => {});
+      });
 
       setSubmitted(true);
       toast.success("Message sent! We'll be in touch soon.");
