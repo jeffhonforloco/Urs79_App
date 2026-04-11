@@ -1,18 +1,8 @@
-# Cloudflare Pages + Worker Configuration
-# The SPA is deployed via Cloudflare Pages; the Worker handles edge API proxy.
+# Cloudflare Pages Configuration
+# The SPA is deployed via Cloudflare Pages.
 
-name = "urs79-edge"
-main = "worker/index.ts"
-compatibility_date = "2024-01-01"
-
-# Tell Cloudflare Pages where the build output lives
 pages_build_output_dir = "dist"
 
 # Environment variables
 [vars]
 CACHE_TTL = "60"
-
-# Development settings
-[dev]
-port = 8787
-local_protocol = "http"
