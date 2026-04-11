@@ -1,8 +1,5 @@
 # Cloudflare Pages Configuration
-# The SPA is deployed via Cloudflare Pages.
+# This file configures the static SPA deployment on Cloudflare Pages.
+# The Worker edge middleware has its own config at worker/wrangler.toml.
 
 pages_build_output_dir = "dist"
-
-# Environment variables
-[vars]
-CACHE_TTL = "60"
