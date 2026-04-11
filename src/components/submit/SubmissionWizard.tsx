@@ -65,6 +65,31 @@ const SubmissionWizard = ({ accountId, userId }: Props) => {
         })
         .eq('id', releaseId);
       if (error) throw error;
+
+      // Fetch release details for the confirmation email
+      const { data: release } = await supabase
+        .from('submission_releases')
+        .select('title, primary_artist')
+        .eq('id', releaseId)
+        .maybeSingle();
+
+      // Get user email for confirmation
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user?.email) {
+        supabase.functions.invoke('send-transactional-email', {
+          body: {
+            templateName: 'submission-received',
+            recipientEmail: user.email,
+            idempotencyKey: `submission-confirm-${releaseId}`,
+            templateData: {
+              artistName: release?.primary_artist || '',
+              releaseTitle: release?.title || '',
+              submissionId: code,
+            },
+          },
+        }).catch(() => {});
+      }
+
       setSubmissionCode(code);
       setSubmitted(true);
       toast.success('Submission received!');
