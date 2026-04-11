@@ -10,6 +10,9 @@
     "build": "vite build",
     "build:dev": "vite build --mode development",
     "cf:build": "npm run build",
+    "cf:pages:deploy": "npx wrangler pages deploy dist",
+    "cf:worker:deploy": "npx wrangler deploy --config worker/wrangler.toml",
+    "cf:worker:dev": "npx wrangler dev --config worker/wrangler.toml",
     "lint": "eslint .",
     "preview": "vite preview"
   },

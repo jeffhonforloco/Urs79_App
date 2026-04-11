@@ -1,0 +1,9 @@
+{
+  "name": "urs79-edge-worker",
+  "private": true,
+  "packageManager": "npm@10.9.2",
+  "scripts": {
+    "deploy": "npx wrangler deploy",
+    "dev": "npx wrangler dev"
+  }
+}
