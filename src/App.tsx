@@ -35,6 +35,7 @@ const AdminSettings = lazy(() => import("./pages/admin/AdminSettings"));
 const AdminRoles = lazy(() => import("./pages/admin/AdminRoles"));
 const WorkerTestPage = lazy(() => import("./pages/WorkerTestPage"));
 const NotFound = lazy(() => import("./pages/NotFound"));
+const UnsubscribePage = lazy(() => import("./pages/UnsubscribePage"));
 
 const queryClient = new QueryClient();
 
@@ -82,6 +83,7 @@ const App = () => (
               <Route path="settings" element={<AdminSettings />} />
               <Route path="roles" element={<AdminRoles />} />
             </Route>
+            <Route path="/unsubscribe" element={<UnsubscribePage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
