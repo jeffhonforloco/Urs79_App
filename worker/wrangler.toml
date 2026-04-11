@@ -1,0 +1,34 @@
+# Cloudflare Worker Configuration — Edge Middleware
+# Deploy separately: cd worker && npx wrangler deploy
+#
+# This Worker provides API proxying, caching, rate limiting,
+# and JWT validation for external API calls.
+# It does NOT handle Supabase SDK communication.
+
+name = "urs79-edge"
+main = "index.ts"
+compatibility_date = "2024-01-01"
+
+# Account ID (set via environment or CLI)
+# account_id = "your-account-id"
+
+# Environment variables
+[vars]
+CACHE_TTL = "60"
+# BACKEND_API_URL = "https://api.example.com"  # Set in dashboard for production
+
+# KV Namespace for rate limiting (optional)
+# Create via: wrangler kv:namespace create "RATE_LIMIT"
+# [[kv_namespaces]]
+# binding = "RATE_LIMIT_KV"
+# id = "your-kv-namespace-id"
+
+# Routes (uncomment and configure for production)
+# [[routes]]
+# pattern = "api.urs79.com/*"
+# zone_name = "urs79.com"
+
+# Development settings
+[dev]
+port = 8787
+local_protocol = "http"
